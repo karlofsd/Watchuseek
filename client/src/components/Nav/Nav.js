@@ -1,6 +1,7 @@
 import React from "react";
 import SearchBar from "../searchBar/searchBar.js";
 import "./Nav.css";
+import {Link} from "react-router-dom"
 
 const Nav = () => {
 
@@ -17,6 +18,7 @@ const Nav = () => {
                 <a href = "#" >Iniciar sesión</a>
                 <div>
                 <a href = "#" ><img className = "user" alt = "user" src ="https://f1.pngfuel.com/png/169/1023/715/login-logo-user-users-group-customer-education-button-typeface-credential-png-clip-art.png"/></a>
+                <Link to='/crud'> Crud</Link>
             </div>
             </div>
             <div >
