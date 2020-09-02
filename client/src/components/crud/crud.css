@@ -1,0 +1,6 @@
+.content1{
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

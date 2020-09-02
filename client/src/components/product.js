@@ -16,6 +16,7 @@ const Product = ({ name, price, description, stock }) => {
       <div className="card-footer text-muted">
         {stock} stock.
       </div>
+
     </div>
   );
 }

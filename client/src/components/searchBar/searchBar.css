@@ -1,0 +1,17 @@
+.searchBar{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    margin-top: 10px;
+
+}
+
+.search{
+    border-radius: 8px;
+    margin-right: 10px ;
+}
+
+.btn{
+    border-radius: 8px;
+    border: solid black 1px;
+}

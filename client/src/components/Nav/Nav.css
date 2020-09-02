@@ -1,0 +1,32 @@
+.content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.logocontainer{
+    width: 300px;
+    height: 200;
+}
+
+.logo{
+    display: block;
+    width:  100px;
+    height: 70px;
+    border-radius: 300px;
+}
+.login{
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.user {
+    width: 80px;
+    height: 40px;
+    border-radius: 50%;
+
+}
