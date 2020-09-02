@@ -1,16 +1,24 @@
 import React from 'react';
 import ProductCard from "../ProductCard/ProductCard.js";
 import './Catalogo.css'
+import {Link} from "react-router-dom"
+
+
 const Catalogo = ({productos}) => {
     return (
+
+        
          <div className='general'>
+        
              <aside>
-                 <p className='todos'>TODOS</p>
-                 <p>RELOJES PARA MUJER</p>
-                 <p>RELOJES DE ACERO</p>
-                 <p>ACERO Y ORO</p>
-                 <p>ORO</p>
-                 <p>RELOJES ENGASTADOS</p>
+                 <Link to='/catalogo' ><p className='todos'>TODOS</p></Link>
+                 <Link to='/catalogo/mujer'><p>RELOJES PARA MUJER</p></Link>
+                 <Link to='/catalogo/hombre' ><p>RELOJES PARA HOMBRE</p></Link>
+                 <Link to='/catalogo/acero' ><p>RELOJES DE ACERO</p></Link>
+                 <Link to='/catalogo/acero-oro'><p>ACERO Y ORO</p></Link>
+                 <Link to='/catalogo/oro' ><p>ORO</p></Link>
+                 <Link to='/catalogo/engastados' ><p>RELOJES ENGASTADOS</p></Link>
+               
              </aside>
              <section className='cont-productos'> 
               {productos.map(p=>(
@@ -19,6 +27,7 @@ const Catalogo = ({productos}) => {
                   name={p.name}
                   precio={p.precio}
                   src={p.src}
+                  categoria={p.categoria}
                  />
              ))}  
              </section>
