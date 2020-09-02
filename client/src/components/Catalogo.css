@@ -1,0 +1,27 @@
+.general{
+    display: flex;
+    width: 95%;
+    margin: auto;
+}
+.general aside{
+    width: 20%;
+    background-color: rgba(0, 0, 0, .9);
+    color: white;
+    padding-top: 50px;
+}
+.cont-productos{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+aside p{
+    margin: 0;
+    padding: 10px 30px ;
+    cursor: pointer;
+}
+aside p:hover{
+  background:#263b8f;
+}
+.todos{
+    background:#263b8f;
+}
