@@ -1,10 +1,9 @@
 import React from 'react';
-// import logo from './logo.svg';
-import Product from './components/product';
-import Catalogo from './components/Catalogo'
-
-
-
+import SearchBar from "./components/searchBar/searchBar";
+import Product from "./components/product.jsx";
+import Nav from "./components/Nav/Nav.js";
+import Crud from "./components/crud/crud.js";
+import Catalogo from "./components/Catalogo/Catalogo.js";
 
 function App() {
 
@@ -22,7 +21,7 @@ function App() {
     <div className="App">
         <Catalogo productos={productos} />
         <div className='container mt-5'>
-        <Product name={'Rollex'} price={200} description={'Reloj muy caro'} stock={207} />
+         <Crud />
         </div>
     </div>
   );
