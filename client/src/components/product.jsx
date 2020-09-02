@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Product = ({ name, price, description }) => {
+const Product = ({ name, price, description, stock }) => {
   return (
     <div className="card text-center shadow col-7 p-0 mx-auto">
       <div className="card-header">
@@ -14,7 +14,7 @@ const Product = ({ name, price, description }) => {
         <a href="#" className="btn btn-primary rounded-pill">Buy Now</a>
       </div>
       <div className="card-footer text-muted">
-        2 days ago
+        {stock} stock.
       </div>
     </div>
   );
