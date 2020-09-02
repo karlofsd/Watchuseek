@@ -22,6 +22,7 @@ const Nav = () => {
             </div>
             </div>
             <div >
+            <Link to='/catalogo' >Categoria</Link>
                 <a href = "#"><img className = "user" src = "https://w7.pngwing.com/pngs/1022/32/png-transparent-shopping-cart-icon-shopping-cart-logo-icon-shopping-cart-label-coffee-shop-shopping-mall.png"/></a>
             </div>
         </div>
