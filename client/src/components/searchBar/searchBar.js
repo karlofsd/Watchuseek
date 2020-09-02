@@ -10,6 +10,9 @@ const Search = () => {
 
     function handleSubmit(e){
         e.preventDefault();
+        if(!e.target.value){
+            return alert("Ingresa una busqueda valida");
+        }
         alert(search);
 
     };
