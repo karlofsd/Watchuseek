@@ -4,6 +4,7 @@ import Catalogo from './components/Catalogo/Catalogo'
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 import Nav from './components/Nav/Nav'
 import Crud from './components/crud/crud'
+import Product from './components/product'
 
 
 function App() {
@@ -21,8 +22,6 @@ function App() {
   return (
     <Router>
       <div> 
-  
-  
         <Route
          path='/'
          component={Nav}
@@ -65,6 +64,10 @@ function App() {
         <Route
          exact path='/catalogo/engastados'
         render={()=> <Catalogo productos={productos.filter((e)=> e.categoria === 6)} />}
+        />
+        <Route
+          exact path='/product/:id'
+          render={({match}) => <Product data={productos.filter(p => p.id === Number(match.params.id))}/>}
         />
       </div> 
     </Router>

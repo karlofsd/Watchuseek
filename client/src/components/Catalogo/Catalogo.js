@@ -24,6 +24,7 @@ const Catalogo = ({productos}) => {
               {productos.map(p=>(
                  <ProductCard
                   key={p.id}
+                  id={p.id}
                   name={p.name}
                   precio={p.precio}
                   src={p.src}
