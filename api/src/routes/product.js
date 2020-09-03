@@ -18,7 +18,7 @@ server.get('/', (req, res, next) => {
 
 server.get('/category/:category',(req,res) => {
 	Product.findAll({
-		where:{categoriesId:Number(req.params.category)} //El atributo category(foreing Key) depende del asignado a los modelos de BD o si esta asociado(belongsto)
+		where:{categoryId:Number(req.params.category)} //El atributo category(foreing Key) depende del asignado a los modelos de BD o si esta asociado(belongsto)
 	}).then(products => {
 		res.json(products)
 	}).catch(error => {
@@ -79,5 +79,31 @@ server.put('/:id',(req,res)=>{
 	.catch(error=>res.status(400).send(error))
 })
 
+
+server.delete('/:idProducto/category/:idCategoria', (req, res) => {
+	  var idProducto = req.params.idProducto;
+	  var idCategoria = req.params.idCategoria;
+	  if(!idProducto){
+		  return res.status(404).send("No fue enviado el producto");
+		}
+		if(!idCategoria){
+		  return res.status(400).send("No fue enviada la categoria");
+		}
+	  Product.update (
+		  {categoryId: null},
+		  {where: {id:idProducto}}
+		  )
+		  res.status(201).send('La categoria fue eliminada');
+	  });
+
+server.post('/:idProducto/category/:idCategoria', (req, res) => {
+	var idProducto = req.params.idProducto;
+	var idCategoria = req.params.idCategoria;
+	Product.update (
+		{categoryId: idCategoria},
+		{where: {id:idProducto}}
+	)
+	res.status(201).send('La categoria fue modificada');
+});
 
 module.exports = server;
