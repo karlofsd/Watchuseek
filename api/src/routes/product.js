@@ -26,22 +26,6 @@ server.get('/category/:category',(req,res) => {
 	})
 })
 
-server.post('/create',(req,res) => {
-	Product.findOrCreate({
-		where:{
-			name:req.body.name,
-			description:req.body.description,
-			stock:req.body.stock,
-			price:req.body.price,
-			image:req.body.image
-		}
-	}).then(product => {
-		res.status(201).json(product)
-	}).catch(error => {
-		res.status(400).send(error)
-	})
-})
-
 server.get('/search',(req,res) => {
 	Product.findAll({
 		where: {
@@ -63,9 +47,20 @@ server.get('/search',(req,res) => {
 
 server.post('/',(req,res)=>{
 	const {name,description,price,stock,image} = req.body;
-	Product.findOrCreate({where:{name,description,price,stock,image}})
+	Product.findOrCreate({
+		where:{name,description,price,stock,image}
+	})
 	.then(product=>res.status(201).json(product))
 	.catch(error=>res.status(400).json(error))
+})
+
+server.get('/:id',(req,res) => {
+	Product.findByPk(req.params.id)
+	.then(product => {
+		res.json(product)
+	}).catch(error => {
+		res.status(404).send(error)
+	})
 })
 
 server.delete('/:id',(req,res)=>{
