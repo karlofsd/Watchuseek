@@ -96,7 +96,7 @@ server.delete('/:idProducto/category/:idCategoria', (req, res) => {
 		  res.status(201).send('La categoria fue eliminada');
 	  });
 
-server.put('/:idProducto/category/:idCategoria', (req, res) => {
+server.post('/:idProducto/category/:idCategoria', (req, res) => {
 	var idProducto = req.params.idProducto;
 	var idCategoria = req.params.idCategoria;
 	Product.update (

@@ -45,7 +45,7 @@ server.delete('/category/:id', async (request, response) => {
 server.put('/category/:id', (req, res) => {
   let id = req.params.id;
   Categories.update ({
-    name: req.body.name
+    name: req.body.name, description: req.body.description
     },{ 
       where: {id:id}
       }
