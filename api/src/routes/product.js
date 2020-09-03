@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const { Product, Categories } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
 
 
@@ -25,6 +25,14 @@ server.get('/category/:category',(req,res) => {
 		res.status(404).send(error)
 	})
 })
+
+server.put("/category/:id", (req,res) => {
+	const categoriaId = req.params.id;
+	const nombre = req.body.nombre;
+	const descripcion = req.body.descripcion;
+	Categories.update({name: nombre, description: descripcion}, {where: {id:categoriaId}});
+	res.status(201).send("La categoria se modificò");
+});
 
 server.post('/create',(req,res) => {
 	Product.findOrCreate({
@@ -83,6 +91,7 @@ server.put('/:id',(req,res)=>{
 	.then(product=>res.status(200).send(product))
 	.catch(error=>res.status(400).send(error))
 })
+
 
 
 module.exports = server;
