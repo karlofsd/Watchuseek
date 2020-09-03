@@ -1,20 +1,20 @@
 import React from 'react'
 
-const Product = ({ name, price, description, stock }) => {
+const Product = ({ data }) => {
   return (
     <div className="card text-center shadow col-7 p-0 mx-auto">
       <div className="card-header">
-        {name}
+        {data[0].name}
       </div>
       <div className="card-body">
-        <img className='card-img w-25' src='https://i.pinimg.com/originals/45/7b/e2/457be2ce48176066fa700e18ae544852.jpg' />
+        <img className='card-img w-25' src={data[0].src}/>
         <hr />
-        <h5 className="card-title">Price: $ {price}</h5>
-        <p className="card-text">Description: {description}</p>
+        <h5 className="card-title">Price: $ {data[0].precio}</h5>
+        <p className="card-text">Description: {data[0].description}</p>
         <a href="#" className="btn btn-primary rounded-pill">Buy Now</a>
       </div>
       <div className="card-footer text-muted">
-        {stock} stock.
+        {data[0].stock} stock.
       </div>
 
     </div>
