@@ -1,10 +1,14 @@
 import React from 'react'
+import './product.css'
 
 const Product = ({ data }) => {
   return (
-    <div className="card text-center shadow col-7 p-0 mx-auto">
+    <div className="card text-center shadow col-7 p-0 mx-auto" >
       <div className="card-header">
-        {data[0].name}
+        <h2 className='title'>{data[0].name}</h2>
+        <div className='btn1' >
+        <button type="button" class="btn btn-danger">X</button>
+      </div>
       </div>
       <div className="card-body">
         <img className='card-img w-25' src={data[0].src}/>

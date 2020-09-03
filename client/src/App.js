@@ -4,8 +4,8 @@ import Catalogo from './components/Catalogo/Catalogo'
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 import Nav from './components/Nav/Nav'
 import Crud from './components/crud/crud'
-import Product from './components/product'
-
+import Product from './components/Products/product.js'
+import './app.css'
 
 function App() {
 
@@ -67,7 +67,10 @@ function App() {
         />
         <Route
           exact path='/product/:id'
-          render={({match}) => <Product data={productos.filter(p => p.id === Number(match.params.id))}/>}
+          render={({match}) => 
+          <div className='product'>
+            <Product data={productos.filter(p => p.id === Number(match.params.id))}/>
+          </div>}
         />
       </div> 
     </Router>

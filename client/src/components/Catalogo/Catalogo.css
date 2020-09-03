@@ -25,3 +25,11 @@ aside p:hover{
 .todos{
     background:#263b8f;
 }
+
+.product{
+    position: absolute;
+    width: 100%;
+    
+    background-color: rgba(0, 0, 0, .3)
+
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import ProductCard from "../ProductCard/ProductCard.js";
 import './Catalogo.css'
 import {Link} from "react-router-dom"
-
+import Product from '../Products/product'
 
 const Catalogo = ({productos}) => {
     return (
@@ -32,6 +32,9 @@ const Catalogo = ({productos}) => {
                  />
              ))}  
              </section>
+             <div className='product'>
+                <Product data={productos}/>
+            </div>
        </div>
     );
 }
