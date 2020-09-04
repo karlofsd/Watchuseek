@@ -1,7 +1,7 @@
 const server = require('express').Router();
 const { Categories } = require('../db.js');
 
-server.post('/category', async (request, response) => {
+server.post('/', async (request, response) => {
   const { name, description } = request.body;
   // Crear y guardar nueva categoria
   const newCategory = await Categories.findOrCreate({
@@ -17,7 +17,7 @@ server.post('/category', async (request, response) => {
 
 });
 
-server.delete('/category/:id', async (request, response) => {
+server.delete('/:id', async (request, response) => {
   const { id } = request.params;
   // Eliminar categoria por ID
   await Categories.destroy({
@@ -31,18 +31,16 @@ server.delete('/category/:id', async (request, response) => {
   });
 });
 
-// server.get('/category/:name', (req, res, next) => {
-//   Categories.findAll({
-//     where: {name: req.params.name}
-//     })
-//       .then(products => {
-//           res.send(products);
-//           console.log(products);
-//       })
-//       .catch(next);
-// });
+server.get('/', (req, res, next) => {
+  Categories.findAll()
+      .then(products => {
+          res.send(products);
+          console.log(products);
+      })
+      .catch(next);
+});
 
-server.put('/category/:id', (req, res) => {
+server.put('/:id', (req, res) => {
   let id = req.params.id;
   Categories.update ({
     name: req.body.name, description: req.body.description
