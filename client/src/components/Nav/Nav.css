@@ -1,21 +1,43 @@
 .content{
     display: flex;
-    flex-direction: row;
+    padding: 0px 15px 0px 15px;
     align-items: center;
     justify-content: space-between;
-
+    background-color: #020300;
+    height: 70px;
 }
 
-.logocontainer{
-    width: 300px;
-    height: 200;
+.categorias{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
 }
+
+
+.itemList:hover{
+    color:black;
+    text-decoration: none;
+}
+
+a{  display: inline-block;
+    color: #FFA62B;
+    
+    
+}
+a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+/* .logo-container{
+    margin-left: 20px;
+} */
 
 .logo{
-    display: block;
-    width:  100px;
-    height: 70px;
+    width: 55%;
     border-radius: 300px;
+    margin-left: 20% 
 }
 .login{
     width: 300px;
@@ -25,8 +47,24 @@
 }
 
 .user {
-    width: 80px;
-    height: 40px;
+    padding: 0 15px 0 15px;
+    width: 70px;
+    height: 35px; 
     border-radius: 50%;
 
 }
+.cart{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;text-decoration: none;
+    border-radius: 50%;
+    align-items: center;
+    background-color: #FFA62B;
+}
+/* MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded */
+.cart:hover{
+    background-color: white;
+}
+
+

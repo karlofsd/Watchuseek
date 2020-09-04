@@ -1,17 +1,33 @@
 .searchBar{
     display: flex;
-    justify-content: flex-end;
-    margin-right: 10px;
-    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
 
 }
 
 .search{
+    
+    padding-left: 10px;
     border-radius: 8px;
-    margin-right: 10px ;
+    margin-right: 5px;
+    height: 30px;
+    width: 300px;
+    margin-top: 10px
 }
 
-.btn{
-    border-radius: 8px;
+.btn2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: #FFA62B;
+    background-color: rgb(39, 39, 39);
     border: solid black 1px;
+}
+
+.btn2:hover{
+    color: white;
+    border: solid white 0.5px;
 }

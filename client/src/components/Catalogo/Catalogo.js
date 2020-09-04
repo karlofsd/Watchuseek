@@ -5,21 +5,20 @@ import {Link} from "react-router-dom"
 
 
 const Catalogo = ({productos}) => {
+    const categoria = [{name: "Mujer",id:1}, 
+    {name:"Hombre",id:2}, {name: "Acero",id:3}, 
+    {name: "Acero y Oro",id:4}, 
+    {name: "Oro",id:5}, {name: "Relojes engastados",id:6}];
     return (
-
-        
          <div className='general'>
         
-             <aside>
-                 <Link to='/catalogo' ><p className='todos'>TODOS</p></Link>
-                 <Link to='/catalogo/mujer'><p>RELOJES PARA MUJER</p></Link>
-                 <Link to='/catalogo/hombre' ><p>RELOJES PARA HOMBRE</p></Link>
-                 <Link to='/catalogo/acero' ><p>RELOJES DE ACERO</p></Link>
-                 <Link to='/catalogo/acero-oro'><p>ACERO Y ORO</p></Link>
-                 <Link to='/catalogo/oro' ><p>ORO</p></Link>
-                 <Link to='/catalogo/engastados' ><p>RELOJES ENGASTADOS</p></Link>
-               
+             {/* <aside className='links'>
+                 <Link className='link' to='/catalogo'> Todo</Link>
+                 {categoria.map(function(e){
+                     return <Link className='link' to={`/catalogo/${e.id}`}>{e.name}</Link>
+                 })}           
              </aside>
+      */}
              <section className='cont-productos'> 
               {productos.map(p=>(
                  <ProductCard
