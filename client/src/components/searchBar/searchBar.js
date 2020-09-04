@@ -23,7 +23,7 @@ const Search = () => {
         <div>
           <div className = "searchBar">
               <input className = "search" type = "text" name = "search" onChange = {(e) => handleChange(e)} placeholder='Buscar productos...' />
-              <button className = "btn" type = "submit"><SearchIcon/></button>
+              <button className = "btn2" type = "submit"><SearchIcon/></button>
           </div>
         </div>
        </form> 

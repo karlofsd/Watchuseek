@@ -1,6 +1,6 @@
 import React from 'react'
 import './product.css'
-import {Link} from 'react-router-dom'
+
 const Product = ({ data }) => {
   return (
     <div className="card text-center shadow col-7 p-0 mx-auto" >

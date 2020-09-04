@@ -8,7 +8,7 @@ const Card = ({name,precio,src,id}) => {
         <div className="container">
           <div className="top">
             <Link to={`/catalogo/product/${id}`}>
-              <img src={src} alt="reloj"/>
+              <img className='reloj-img' src={src} alt="reloj"/>
             </Link>
           </div>
           <div className="bottom">

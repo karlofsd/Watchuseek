@@ -5,8 +5,7 @@
 }
 .general aside{
     width: 15%;
-    background-color: gray;
-    color: white;
+    background-color: #FFA62B;
     padding-top: 50px;
     border-radius: 15px;
 }
@@ -14,17 +13,10 @@
     width: 80%;
     display: flex;
     flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto
 }
-.link{
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 10px 30px ;
-    cursor: pointer;
-}
-.link:hover{
-  background:white;
-}
+
 .todos{
     background: #999999;
 }
@@ -38,7 +30,9 @@
     align-items: center;
     
 }
-
+.link{
+    color:black
+}
 /* .product{
     position: absolute;
     width: 100%;

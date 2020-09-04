@@ -2,7 +2,7 @@ import React from 'react';
 import ProductCard from "../ProductCard/ProductCard.js";
 import './Catalogo.css'
 import {Link} from "react-router-dom"
-import Product from '../Products/product'
+
 
 const Catalogo = ({productos}) => {
     const categoria = [{name: "Mujer",id:1}, 
@@ -12,13 +12,13 @@ const Catalogo = ({productos}) => {
     return (
          <div className='general'>
         
-             <aside className='links'>
-                 <Link to='/catalogo'> Todo</Link>
+             {/* <aside className='links'>
+                 <Link className='link' to='/catalogo'> Todo</Link>
                  {categoria.map(function(e){
-                     return <Link to={`/catalogo/${e.id}`}>{e.name}</Link>
-                 })}               
+                     return <Link className='link' to={`/catalogo/${e.id}`}>{e.name}</Link>
+                 })}           
              </aside>
-     
+      */}
              <section className='cont-productos'> 
               {productos.map(p=>(
                  <ProductCard

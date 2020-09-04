@@ -52,7 +52,7 @@ const Crud = () => {
         </div>
         <div className='Precio' >
             <label>Precio:</label><br/>
-            <input type = "number" name = "price" onChange={(e) =>handleInputChange(e)} value = {input["price"]} />
+            <input type = "number" name = "price" onChange={(e) =>handleInputChange(e)} value = { input["price"]} />
         </div>
         <div className='stock' >
             <label>Stock:</label><br/>
@@ -62,17 +62,19 @@ const Crud = () => {
             <label>Url-Imagen:</label><br/>
             <input type = "text" name = "image" onChange={(e) =>handleInputChange(e)} value = {input["image"]} />
         </div>
-        <div className='' style={{width: '200px'}} >
-        <label>Categorias</label>
-        <Select
-          name="category"
-          placeholder="Seleccionar"
-          value={input.category}
-          options={productos.map(p => p.categoria)}
-          onChange={(e) => handleSelectChange(e)}
-          multi
-        />
+
+        <div>
+        {productos.map( (p) =>{
+        return(
+            <>
+            <label>{p.categoria}
+            <input style={{marginLeft: '3px' , marginRight: '10px'}} type='checkbox'/>
+            </label>
+            </>
+          )
+        })}
         </div>
+
         <button type = "submit" className='button' >Enviar</button>
        
         </div>

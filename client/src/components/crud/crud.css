@@ -13,7 +13,8 @@
 }
 
 input{
-    border: 0px
+    border: 0px;
+    margin-bottom: 10px;
 }
 
 .category{
@@ -30,3 +31,7 @@ input{
    margin-bottom: 10px;
 }
 
+.select{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
