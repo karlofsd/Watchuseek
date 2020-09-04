@@ -1,5 +1,6 @@
 import React from "react";
 import "./searchBar.css";
+import SearchIcon from '@material-ui/icons/Search';
 
 const Search = () => {
     const [search, setSearch] = React.useState();
@@ -21,8 +22,8 @@ const Search = () => {
         <form onSubmit = {(e) => handleSubmit(e)}>
         <div>
           <div className = "searchBar">
-              <input className = "search" type = "text" name = "search" onChange = {(e) => handleChange(e)} />
-              <button className = "btn" type = "submit" >Buscar</button>
+              <input className = "search" type = "text" name = "search" onChange = {(e) => handleChange(e)} placeholder='Buscar productos...' />
+              <button className = "btn" type = "submit"><SearchIcon/></button>
           </div>
         </div>
        </form> 

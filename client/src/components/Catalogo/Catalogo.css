@@ -4,32 +4,45 @@
     margin: auto;
 }
 .general aside{
-    width: 20%;
-    background-color: rgba(0, 0, 0, .9);
+    width: 15%;
+    background-color: gray;
     color: white;
     padding-top: 50px;
+    border-radius: 15px;
 }
 .cont-productos{
     width: 80%;
     display: flex;
     flex-wrap: wrap;
 }
-aside p{
+.link{
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 10px 30px ;
     cursor: pointer;
 }
-aside p:hover{
-  background:#263b8f;
+.link:hover{
+  background:white;
 }
 .todos{
-    background:#263b8f;
+    background: #999999;
 }
 
-.product{
+.links{
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    
+}
+
+/* .product{
     position: absolute;
     width: 100%;
     
     background-color: rgba(0, 0, 0, .3)
 
-}
+} */

@@ -7,7 +7,7 @@ const Card = ({name,precio,src,id}) => {
         <div className="wrapper">
         <div className="container">
           <div className="top">
-            <Link to={`/product/${id}`}>
+            <Link to={`/catalogo/product/${id}`}>
               <img src={src} alt="reloj"/>
             </Link>
           </div>
@@ -15,7 +15,7 @@ const Card = ({name,precio,src,id}) => {
             <div className="left">
               <div className="details">
                 <h1>{name}</h1>
-                <p>${precio}</p>
+                <p>$USD {precio}</p>
               </div>
               <div className="buy"><i className="fas fa-shopping-cart"></i></div>
             </div>
