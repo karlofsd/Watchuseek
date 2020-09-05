@@ -1,4 +1,4 @@
-.content1{
+.Form{
     background-color:black;
     display: flex;
     flex-direction: column;
@@ -17,23 +17,12 @@ input{
     margin-bottom: 10px;
 }
 
-.category{
-    margin-top: 20px
-}
-
 .button{
-   margin-top:20px;
-   width: 100px;
-   color:black;
-   background-color: gray;
-   border: 0px;
-   margin-left: auto;
-   margin-right: auto;
-   border-radius: 10px;
-   margin-bottom: 10px;
-}
-
-.select{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
+    margin-top:20px;
+    width: 100px;
+    color:black;
+    background-color: gray;
+    border: 0px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+ }

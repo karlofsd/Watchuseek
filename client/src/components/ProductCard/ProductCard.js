@@ -2,7 +2,7 @@ import React from 'react';
 import './ProductCard.css';
 import {Link} from 'react-router-dom'
 
-const Card = ({name,precio,src,id}) => {
+const Card = ({name,precio,i,id}) => {
     return ( 
         <div className="wrapper">
         <div className="container">

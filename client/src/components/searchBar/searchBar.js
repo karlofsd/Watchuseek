@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import "./searchBar.css";
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -9,12 +10,11 @@ const Search = () => {
         setSearch(e.target.value);
     };
 
-    function handleSubmit(e){
-        e.preventDefault();
-        if(!e.target.value){
-            return alert("Ingresa una busqueda valida");
-        }
-        alert(search);
+    async function handleSubmit(e){
+        e.preventDefault();        console.log(search)
+        let data = await axios.get(`localhost:3000/search?name=${search}`)
+    
+        console.log(data);
 
     };
 

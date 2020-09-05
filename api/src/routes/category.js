@@ -1,15 +1,22 @@
 const server = require('express').Router();
 const { Categories } = require('../db.js');
 
-server.post('/', async (request, response) => {
+server.post('/create', async (request, response) => {
   const { name, description } = request.body;
+  let newCategory;
   // Crear y guardar nueva categoria
-  const newCategory = await Categories.findOrCreate({
+try {  
+   newCategory = await Categories.findOrCreate({
     where: {
       name,
       description
     }
   });
+} catch( error) {
+  response.status(400).json({
+    error
+  });
+}
   // Objeto creado
   response.status(201).json({
     newCategory
@@ -33,9 +40,9 @@ server.delete('/:id', async (request, response) => {
 
 server.get('/', (req, res, next) => {
   Categories.findAll()
-      .then(products => {
-          res.send(products);
-          console.log(products);
+      .then(categories => {
+          res.send(categories);
+          console.log(categories);
       })
       .catch(next);
 });

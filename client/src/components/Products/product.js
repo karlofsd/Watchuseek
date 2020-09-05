@@ -12,9 +12,9 @@ const Product = ({ data }) => {
       </div></a>
       </div>
       <div className="card-body">
-        <img className='card-img w-25' src={data[0].src}/>
+        <img className='card-img w-25' src={data[0].image}/>
         <hr />
-        <h5 className="card-title">Price: $USD {data[0].precio}</h5>
+        <h5 className="card-title">Price: $USD {data[0].price}</h5>
         <p className="card-text">Description: {data[0].description}</p>
         <a href="#" className="btn btn-primary rounded-pill">Buy Now</a>
       </div>

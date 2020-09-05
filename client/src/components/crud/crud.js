@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Select from 'react-select';
+import axios from 'axios';
 // import 'node_modules/react-select/dist/react-select.css';
 import "./crud.css";
 import Producto from '../../App'
@@ -8,8 +9,8 @@ const Crud = () => {
     const [input, setInput] = useState({
         title: "",
         description: "",
-        price: "",
-        stock: "" ,
+        price: null,
+        stock: null,
         image: "",
         category: []
     });
@@ -22,15 +23,20 @@ const Crud = () => {
         });
       }
 
-      const handleSubmit = function (e){
+      const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("Agregado exitosamente");
-      }
 
-      const handleSelectChange = (e)=> {
-        setInput({
-          category: [ ...input.category, e]
-        });
+        const urlApi = 'http://localhost:3001/products/';
+        const dataPost = {
+          name: input.title,
+          description: input.description,
+          price: input.price,
+          stock: input.stock,
+          image: input.image
+        };
+
+        const {data} = await axios.post(urlApi , dataPost);
+        
       }
 
       const productos = [ { categoria:'Mujer', id:1,name:'Rolex',precio:2000, src:'https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550, https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550 2x'},
