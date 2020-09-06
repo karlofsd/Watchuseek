@@ -5,14 +5,12 @@ import {Link} from "react-router-dom"
 
 
 const Catalogo = ({products}) => {
- 
+
     return (
          <div className='general'>
         
-        
              <section className='cont-productos'>
-                 {console.l} 
-              {products.map(p=>(
+                {products.map(p=>(
                  <ProductCard
                   key={p.id}
                   id={p.id}

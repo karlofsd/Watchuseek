@@ -16,7 +16,7 @@ const Categories = () => {
       }
 
       const handleSubmit = async  (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         // console.log(input);
         const urlApi = 'http://localhost:3001/category/create';
         const dataPost = {
@@ -31,8 +31,8 @@ const Categories = () => {
         };
       }
 
-
     return (
+      <div>
     <form onSubmit = {(e) => handleSubmit(e)} className='Form' >
         <div >
         <div>
@@ -45,7 +45,9 @@ const Categories = () => {
         </div>
         <button type = "submit" className='button' >Boton</button>
         </div>
+
     </form>
+    </div>
     );
 };
 

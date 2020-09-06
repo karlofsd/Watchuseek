@@ -27,7 +27,7 @@ try {
 server.delete('/:id', async (request, response) => {
   const { id } = request.params;
   // Eliminar categoria por ID
-  await Categories.destroy({
+  await Categories.remove({
     where: {
       id
     }
@@ -41,7 +41,7 @@ server.delete('/:id', async (request, response) => {
 server.get('/', (req, res, next) => {
   Categories.findAll()
       .then(categories => {
-          res.send(categories);
+          res.json(categories);
           console.log(categories);
       })
       .catch(next);

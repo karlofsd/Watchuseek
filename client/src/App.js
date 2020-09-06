@@ -1,12 +1,14 @@
 import React,{useState, useEffect} from 'react';
-// import logo from './logo.svg';
-import Catalogo from './components/Catalogo/Catalogo'
-import {Route, BrowserRouter as Router} from 'react-router-dom'
-import Nav from './components/Nav/Nav'
-import Crud from './components/crud/crud'
-import Product from './components/Products/product.js'
-import './app.css'
-import Categories from './components/Categories/Categories'
+import Catalogo from './components/Catalogo/Catalogo';
+import {Route, BrowserRouter as Router} from 'react-router-dom';
+import Nav from './components/Nav/Nav';
+import Crud from './components/crud/crud';
+import Product from './components/Products/product.js';
+import './app.css';
+import Categories from './components/Categories/Categories';
+import Admin from './components/Admin/Admin'
+
+import Axios from 'axios';
 function App() {
 
   // const productos = [ { categoria:1, id:1,name:'Rolex',precio:2000, src:'https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550, https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550 2x'},
@@ -19,6 +21,11 @@ function App() {
   // { categoria:5,id:9,name:'Rolex',precio:2000 , src:'https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0004_m126711chnr-0002-gmt-master-ii.jpg?imwidth=550'}];
 
   const [products,setProducts] = useState([]);
+  const [search,setSearchApp] = useState({
+    array: [],
+    word: "",
+  });
+  
 
   useEffect(async ()=>{
     let cate = await fetch("http://localhost:3001/products");
@@ -26,19 +33,25 @@ function App() {
     setProducts(data);
    },[]);
 
-   console.log(products);
+   
 
   return (
     <Router>
-      <div> 
         <Route
          path='/'
-         component={Nav}
+         render={()=><Nav setSearchApp = {setSearchApp}/>}
         />
         
         <Route
-         path='/crud'
-        component={Crud}
+        exact path="/products/search"
+        render={()=> <Catalogo products = {
+          search.array
+        }/>}
+        />
+        
+        <Route
+        exact path='/admin'
+        render={() => <Admin/>}
         />
 
         <Route 
@@ -51,10 +64,6 @@ function App() {
          render={({match})=> <Catalogo products={products.filter(p => p.categoria === Number(match.params.id))} />}
         />
           
-         <Route
-         exact path='/CrudForm'
-         component={Categories}
-         />
 
         <Route
            path='/catalogo/product/:id'
@@ -63,7 +72,6 @@ function App() {
             <Product data={products.filter(p => p.id === Number(match.params.id))}/>
           </div>}
         />
-      </div> 
     </Router>
   );
 }

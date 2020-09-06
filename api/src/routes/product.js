@@ -10,7 +10,6 @@ server.get('/', (req, res, next) => {
 	Product.findAll()
 		.then(products => {
 			res.send(products);
-			console.log(products);
 		})
 		.catch(next);
 		
