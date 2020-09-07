@@ -5,27 +5,52 @@ import Delete from "../Delete/Delete.js";
 import CrudDelete from '../CrudDelete/crudDelete.js'
 import CrudUpdate from "../CrudUpdate/CrudUpdate.js";
 import "./Admin.css";
+import CrudCategoryUpdate from '../CrudCategoryUpdate/CrudCategoryUpdate.js'
+import { Link, BrowserRouter as Router, Route} from "react-router-dom";
+
 
 const Admin = () => {
     
  return(
-     <div className='contentMayor'>
-         <div className ="content5">
-             <Crud />
-         </div>
-         <div className ="content6">
-             <Categories /> 
-         </div>
-         <div className='content7'>
-         <Delete />
-         </div>
-         <div className='content8'>
-         <CrudDelete/>
-         </div>
-         <div className='content9' >
-             <CrudUpdate/>
-         </div>
-     </div>
+	 <Router>
+		<div className='mayor_content'>
+         <div className='panel'>
+				<h3>Panel de Administrador</h3>
+				<Link to='/admin/'>Agregar Producto</Link>
+				<Link to='/admin/addCategory'>Agregar Categoria</Link>
+				<Link to='/admin/delCategory'>Eliminar Categoria</Link>
+				<Link to='/admin/delProduct'>Eliminar Producto</Link>
+				<Link to='/admin/updateProduct'>Modificar Producto</Link>
+				<Link to='/admin/modCategory'>Modificar una categoria</Link>
+			</div>
+			<div className='content_admin'>
+				<Route
+					exact path='/admin'
+					component={Crud}
+				/>
+				<Route
+					exact path='/admin/addCategory'
+					component={Categories}
+				/>
+				<Route
+					exact path='/admin/delCategory'
+					component={CrudDelete}
+				/>
+				<Route
+					exact path='/admin/delProduct'
+					component={Delete}
+				/>
+				<Route
+					exact path='/admin/updateProduct'
+					component={CrudUpdate}
+				/>
+				<Route
+				  exact path='/admin/modCategory'
+				  component={CrudCategoryUpdate}
+				/>
+			</div>
+		</div>
+	  </Router>
  );
 }
 

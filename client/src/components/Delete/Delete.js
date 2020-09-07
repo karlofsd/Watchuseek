@@ -29,7 +29,7 @@ const Delete = ()=> {
 
     return(
         <div>
-            <label>Inserte el Id de la categoria</label>
+            <label>Elija la Categoria a eliminar </label>
             <form onSubmit = {(e) => handleSubmit(e)}>
         <div>
             {categories.map((p) =>{

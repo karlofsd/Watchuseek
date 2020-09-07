@@ -1,0 +1,9 @@
+.crud_content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form_update{
+    padding: 20px 0 0 20px;
+}

@@ -7,7 +7,7 @@ import Product from './components/Products/product.js';
 import './app.css';
 import Categories from './components/Categories/Categories';
 import Admin from './components/Admin/Admin'
-
+import CrudCategoryUpdate from './components/CrudCategoryUpdate/CrudCategoryUpdate.js'
 import Axios from 'axios';
 function App() {
 
@@ -37,10 +37,7 @@ function App() {
 
   return (
     <Router>
-        <Route
-         path='/'
-         render={()=><Nav setSearchApp = {setSearchApp}/>}
-        />
+        <Nav setSearchApp = {setSearchApp}/>
         
         <Route
         exact path="/products/search"
@@ -50,7 +47,7 @@ function App() {
         />
         
         <Route
-        exact path='/admin'
+        path='/admin'
         render={() => <Admin/>}
         />
 
@@ -72,6 +69,12 @@ function App() {
             <Product data={products.filter(p => p.id === Number(match.params.id))}/>
           </div>}
         />
+
+        <Route
+				  exact path='/admin/modCategory'
+				  component={CrudCategoryUpdate}
+				/>
+
     </Router>
   );
 }

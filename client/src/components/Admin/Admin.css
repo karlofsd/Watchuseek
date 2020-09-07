@@ -1,4 +1,21 @@
-.content5{
+.mayor_content{
+    display: flex;
+    align-items: center;
+    
+}
+.panel{
+    display: flex;
+    padding: 20px 0 0 35px;
+    height: 89vh;
+    width: 30%;
+    flex-direction: column;
+    background-color: black;
+    color:white
+}
+.content_admin{
+    width: 70%;
+}
+/* .content5{
     background-color:black;
     display: flex;
     flex-direction: column;
@@ -71,4 +88,4 @@
     color: white;
     margin-top: 40px;
     height: 30%;
-}
+} */
