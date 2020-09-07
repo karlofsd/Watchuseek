@@ -27,7 +27,7 @@ try {
 server.delete('/:id', async (request, response) => {
   const { id } = request.params;
   // Eliminar categoria por ID
-  await Categories.remove({
+  await Categories.destroy({
     where: {
       id
     }
@@ -45,6 +45,18 @@ server.get('/', (req, res, next) => {
           console.log(categories);
       })
       .catch(next);
+});
+
+server.get("/:id", (req,res) => {
+  const id = req.params.id;
+
+  Categories.findByPk(id)
+  .then(e => {
+    res.send(e);
+  })
+  .catch(err => {
+    res.status(404).send(err);
+  })
 });
 
 server.put('/:id', (req, res) => {

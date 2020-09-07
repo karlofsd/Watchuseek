@@ -16,6 +16,7 @@ const Categories = () => {
       }
 
       const handleSubmit = async  (e) => {
+        e.preventDefault();
         const urlApi = 'http://localhost:3001/category/create';
         const dataPost = {
           name: input.category,

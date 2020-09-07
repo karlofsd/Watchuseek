@@ -2,12 +2,9 @@ import React,{useState, useEffect} from 'react';
 import Catalogo from './components/Catalogo/Catalogo';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
 import Nav from './components/Nav/Nav';
-import Crud from './components/crud/crud';
 import Product from './components/Products/product.js';
 import './app.css';
-import Categories from './components/Categories/Categories';
 import Admin from './components/Admin/Admin'
-import CrudCategoryUpdate from './components/CrudCategoryUpdate/CrudCategoryUpdate.js'
 import Axios from 'axios';
 function App() {
 
@@ -69,11 +66,6 @@ function App() {
             <Product data={products.filter(p => p.id === Number(match.params.id))}/>
           </div>}
         />
-
-        <Route
-				  exact path='/admin/modCategory'
-				  component={CrudCategoryUpdate}
-				/>
 
     </Router>
   );

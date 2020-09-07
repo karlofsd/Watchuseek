@@ -33,11 +33,11 @@ const Admin = () => {
 					component={Categories}
 				/>
 				<Route
-					exact path='/admin/delCategory'
+					exact path='/admin/delProduct'
 					component={CrudDelete}
 				/>
 				<Route
-					exact path='/admin/delProduct'
+					exact path='/admin/delCategory'
 					component={Delete}
 				/>
 				<Route
