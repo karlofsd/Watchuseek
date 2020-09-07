@@ -31,20 +31,25 @@ server.delete('/:id', async (request, response) => {
     where: {
       id
     }
-  });
-  // Responder con mensaje personalizado
-  response.status(200).json({
-    message: 'Category deleted.'
-  });
+  })
+  .then(() => {
+    response.status(200).json({
+      message: 'Category deleted.'
+    });
+  })
+  .catch(err => {
+    response.status(400).send(err)
+  })
 });
 
-server.get('/', (req, res, next) => {
+server.get('/', (req, res) => {
   Categories.findAll()
       .then(categories => {
           res.json(categories);
-          console.log(categories);
       })
-      .catch(next);
+      .catch(err => {
+        res.status(400).send(err);
+      });
 });
 
 server.get("/:id", (req,res) => {
@@ -68,6 +73,9 @@ server.put('/:id', (req, res) => {
       }
       ).then(category => {
         res.send(category)
+      })
+      .catch((err)=>{
+        res.status(404).json(err)
       })
     });
 

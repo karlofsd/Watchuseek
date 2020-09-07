@@ -31,16 +31,13 @@ const CrudUpdate = () => {
     const handleSearch = async (e) => {
         e.preventDefault();
         const {data} = await axios.get(`http://localhost:3001/products/${update.searchId}`);
+        if(!data){
+            return alert("No se encontró el producto")
+        };
         setProduct(data)
     };
 
     const handleInputChange = function(e) {
-        /* let data = {};
-        data[e.target.name] = e.target.value
-        setUpdate({
-            ...update,
-            product: data,
-        }) */
         setProduct({
             ...product,
             [e.target.name]: e.target.value
@@ -56,7 +53,6 @@ const CrudUpdate = () => {
          price: product.price,
          stock: product.stock,
          image: product.image,
-         //category:product.category
        };
         console.log(dataPost);
        await axios.put(urlApi , dataPost);

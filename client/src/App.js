@@ -12,7 +12,7 @@ function App() {
     array: [],
     word: "",
   });
-  
+  const [category,setCategory] = useState([1,2,3])
 
   useEffect(()=>{
     const fetchdata = async () => {
@@ -36,7 +36,7 @@ function App() {
         
         <Route
         path='/admin'
-        render={() => <Admin/>}
+        render={() => <Admin products={products} category={category}/>}
         />
 
         <Route 

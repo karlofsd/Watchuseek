@@ -39,7 +39,9 @@ const Crud = () => {
 
       const handleSubmit = async (e) => {
          e.preventDefault();
-
+         if(!input.title||!input.description||!input.price||input.stock||!input.image){
+             return alert("Debe completar todos los campos para agregar un producto");
+         };
         const urlApi = 'http://localhost:3001/products/';
         const dataPost = {
           name: input.title.toLowerCase(),
@@ -47,7 +49,7 @@ const Crud = () => {
           price: input.price,
           stock: input.stock,
           image: input.image,
-          category:input.category
+          //category:input.category
         };
 
         const {data} = await axios.post(urlApi , dataPost);
@@ -55,14 +57,9 @@ const Crud = () => {
         
       }
 
-      // const productos = [ { categoria:'Mujer', id:1,name:'Rolex',precio:2000, src:'https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550, https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550 2x'},
-      // { categoria:'Hombre',id:2,name:'Rolex',precio:2000, src:'https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550, https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550 2x'},
-      // { categoria:'Oro',id:3,name:'Rolex',precio:2000, src:'https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550, https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550 2x'},
-      // { categoria:'Acero',id:4,name:'Rolex',precio:2000 , src:'https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550, https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550 2x'},
-      // { categoria:'Acero-Oro',id:5,name:'Rolex',precio:2000 , src:'https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550, https://content.rolex.com/dam/new-watches-2020/homepage/roller/all-watches/watches_0006_m126333-0010-datejust-41.jpg?imwidth=550 2x'}];
-    return (
+      return (
     <form onSubmit = {(e) => handleSubmit(e)} >
-        <div className ="content1">
+        <div className ="content7">
         <div>
             <label>Titulo:</label>
             <br/>
@@ -91,8 +88,10 @@ const Crud = () => {
             </select>
         </div>
 
-        <button type = "submit" className='button' >Enviar</button>
-       
+        <button type = "submit" className='button' >Crear</button>
+        <button type = "submit" className='button' >Modificar</button>
+        <button type = "submit" className='button' >Eliminar</button>
+        
         </div>
     </form>
     );

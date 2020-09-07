@@ -1,0 +1,37 @@
+.contentProfile{
+    flex-direction: column;
+    background-color: black;
+    width: 500px;
+    height: 500px;
+    margin-top: 0px;
+    outline: 14px outset tomato; 
+}
+
+.logoProfile{
+    width: 120px;
+    height: 80px;
+}
+
+.h2Profile {
+    color: white; 
+    font-family: Tahoma, Geneva, sans-serif;
+    
+}
+
+.nombreAdmin {
+    color: white; 
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 15px;
+}
+
+.numeroAdmin {
+    color: white; 
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 15px;
+}
+
+.mailAdmin {
+    color: white; 
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 15px;
+}
