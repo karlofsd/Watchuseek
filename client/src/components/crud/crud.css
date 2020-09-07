@@ -8,7 +8,7 @@
     margin-left: auto;
     border-radius: 5%;
     color: white;
-    margin-top: 40px;
+    margin-top: 50px;
     height: auto;
 }
 
@@ -27,6 +27,8 @@ input{
    color:black;
    background-color: gray;
    border: 0px;
+   margin-left: auto;
+   margin-right: auto;
    border-radius: 10px;
    margin-bottom: 10px;
 }

@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import axios from 'axios';
+import './Categories.css'
 
 const Categories = () => {
     const [input, setInput] = useState({
@@ -13,15 +15,25 @@ const Categories = () => {
         });
       }
 
-      const handleSubmit = function (e){
+      const handleSubmit = async  (e) => {
         e.preventDefault();
-        console.log(input);
-        alert("Agregado exitosamente");
+        const urlApi = 'http://localhost:3001/category/create';
+        const dataPost = {
+          name: input.category,
+          description: input.description
+        };
+
+        const {data} = await axios.post(urlApi , dataPost);
+        alert('Agregado correctamente')
+
+        if (!data) {
+          console.log('Se rompio')
+        };
       }
 
-
     return (
-    <form onSubmit = {(e) => handleSubmit(e)} >
+      <div>
+    <form onSubmit = {(e) => handleSubmit(e)} className='Form' >
         <div >
         <div>
             <label>Categoria:</label><br/>
@@ -31,9 +43,11 @@ const Categories = () => {
             <label>Descripción:</label><br/>
             <input type = "text" autoComplete = "off" name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]} />
         </div>
-        <button type = "submit" >Boton</button>
+        <button type = "submit" className='buttonAdd' >Agregar categoria</button>
         </div>
+
     </form>
+    </div>
     );
 };
 

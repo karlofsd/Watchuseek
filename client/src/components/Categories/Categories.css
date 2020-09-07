@@ -1,0 +1,30 @@
+.Form{
+    background-color:black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5%;
+    color: white;
+    margin-top: 40px;
+    height: auto;
+}
+
+input{
+    border: 0px;
+    margin-bottom: 10px;
+}
+
+.buttonAdd{
+    margin-top:20px;
+    width: 100%;
+    color:black;
+    background-color: gray;
+    margin-right: auto;
+    margin-left: auto;
+    border: 0px;
+    border-radius: 5%;
+    margin-bottom: 10px;
+ }

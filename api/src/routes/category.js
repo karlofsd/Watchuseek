@@ -1,15 +1,22 @@
 const server = require('express').Router();
 const { Categories } = require('../db.js');
 
-server.post('/category', async (request, response) => {
+server.post('/create', async (request, response) => {
   const { name, description } = request.body;
+  let newCategory;
   // Crear y guardar nueva categoria
-  const newCategory = await Categories.findOrCreate({
+try {  
+   newCategory = await Categories.findOrCreate({
     where: {
       name,
       description
     }
   });
+} catch( error) {
+  response.status(400).json({
+    error
+  });
+}
   // Objeto creado
   response.status(201).json({
     newCategory
@@ -17,7 +24,7 @@ server.post('/category', async (request, response) => {
 
 });
 
-server.delete('/category/:id', async (request, response) => {
+server.delete('/:id', async (request, response) => {
   const { id } = request.params;
   // Eliminar categoria por ID
   await Categories.destroy({
@@ -31,18 +38,28 @@ server.delete('/category/:id', async (request, response) => {
   });
 });
 
-// server.get('/category/:name', (req, res, next) => {
-//   Categories.findAll({
-//     where: {name: req.params.name}
-//     })
-//       .then(products => {
-//           res.send(products);
-//           console.log(products);
-//       })
-//       .catch(next);
-// });
+server.get('/', (req, res, next) => {
+  Categories.findAll()
+      .then(categories => {
+          res.json(categories);
+          console.log(categories);
+      })
+      .catch(next);
+});
 
-server.put('/category/:id', (req, res) => {
+server.get("/:id", (req,res) => {
+  const id = req.params.id;
+
+  Categories.findByPk(id)
+  .then(e => {
+    res.send(e);
+  })
+  .catch(err => {
+    res.status(404).send(err);
+  })
+});
+
+server.put('/:id', (req, res) => {
   let id = req.params.id;
   Categories.update ({
     name: req.body.name, description: req.body.description
