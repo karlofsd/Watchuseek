@@ -7,20 +7,19 @@ import {Link} from 'react-router-dom';
 
 const Search = ({setSearchApp}) => {
     const [search, setSearch] = useState();
-    const [flag, setFlag] = useState(true);
-    
+        
 
    function handleChange(e){
         e.target.value.toLowerCase();
         setSearch(e.target.value);
     };
 
-
     async function handleSubmit(){
-        setFlag(false);
+        if(!search){
+            return alert("Ingrese una busqueda valida");
+        };
         search.toLowerCase();
         let {data} = await axios.get(`http://localhost:3001/products/search?name=${search}`)
-        console.log(data)
         setSearchApp({
             array: data,
             word: search,

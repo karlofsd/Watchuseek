@@ -9,66 +9,38 @@ const CrudUpdate = () => {
         searchId: null,
         product: {}
     });
-    const [product, setProduct] = useState({
-        // name: "",
-        // description: "",
-        // price: null,
-        // stock: null,
-        // image: "",
-        // category: null,
-    });
+    const [product, setProduct] = useState({});
     const [categories, setCategories] = useState();
 
-    useEffect(async ()=>{
+    useEffect(() => {
+        const fetchdata = async () => {
         let cate = await fetch("http://localhost:3001/category");
         let data = await cate.json();
         setCategories(data);
-       },[]);
-    // const {data} = axios.get(`http://localhost:3001/category`)
-    //     .then(e => {
-    //     return e.data
-    //     })
-    
-    // setCategories(data)
-    // //data();
-    // console.log(data)
+        }
+        fetchdata()
+    },[]);
 
     const handleUpdateChange = (e) => {
         setUpdate({
             ...update,
             searchId: e.target.value,
         })
-        console.log(update.searchId);
     };
 
     const handleSearch = async (e) => {
         e.preventDefault();
         const {data} = await axios.get(`http://localhost:3001/products/${update.searchId}`);
-        /* setUpdate({
-            ...update,
-            product: data,
-        }); */
         setProduct(data)
     };
 
-    console.log(product)
     const handleInputChange = function(e) {
-        let data = {};
+        /* let data = {};
         data[e.target.name] = e.target.value
-        console.log(e.target.name);
         setUpdate({
             ...update,
             product: data,
-        })
-        console.log("---------")
-        console.log(update)
-       /*  setUpdate({
-            ...update,
-            product:{
-                ...product,
-                [e.target.name]: e.target.value
-            }
-        }); */
+        }) */
         setProduct({
             ...product,
             [e.target.name]: e.target.value
@@ -84,10 +56,10 @@ const CrudUpdate = () => {
          price: product.price,
          stock: product.stock,
          image: product.image,
-         category:product.category
+         //category:product.category
        };
-        
-       const {data} = await axios.put(urlApi , dataPost);
+        console.log(dataPost);
+       await axios.put(urlApi , dataPost);
        await axios.post(`http://localhost:3001/products/${update.searchId}/category/${product.category}`)
        
      };
@@ -120,23 +92,14 @@ const CrudUpdate = () => {
                 <input type = "number" name = "stock" onChange={(e) =>handleInputChange(e)} value = {product["stock"]} />
             </div>
             <div className='img' >
-                <label>Url-Imagen:</label><br/>
+            <label>Url-Imagen:</label><br/>
                 <input type = "text" name = "image" onChange={(e) =>handleInputChange(e)} value = {product["image"]} />
             </div>
-            { <div>
-        {/* {categories && categories.map((p) =>{
-        return(
-            <>
-            <label>{p.name}
-            <input style={{marginLeft: '3px' , marginRight: '10px'}} type='checkbox' value={p.id} name = "category" onChange={(e)=>handleInputChange(e)}/>
-            </label>
-            </>
-          )
-        })} */}
+            <div>
             <select name='category' id='cate' onChange={(e)=>handleInputChange(e)}>
                 {categories && categories.map(p => <option value={p.id}>{p.name}</option>)}
             </select>
-        </div> }
+        </div>
             <button type = "submit" className='button'>Enviar</button>
             </div>
         </form>

@@ -41,12 +41,12 @@ const Admin = () => {
 					component={Delete}
 				/>
 				<Route
-					exact path='/admin/updateProduct'
-					component={CrudUpdate}
-				/>
-				<Route
 				  exact path='/admin/modCategory'
 				  component={CrudCategoryUpdate}
+				/>
+				<Route
+				exact path = "/admin/updateProduct"
+				component = {CrudUpdate}
 				/>
 			</div>
 		</div>

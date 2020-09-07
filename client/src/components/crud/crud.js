@@ -18,10 +18,13 @@ const Crud = () => {
     const [categories, setCategories] = useState([]); 
 
 
-    useEffect(async ()=>{
-        let cate = await fetch("http://localhost:3001/category");
-        let data = await cate.json();
-        setCategories(data);
+    useEffect(()=>{
+        const fetchData = async () => {
+            let cate = await fetch("http://localhost:3001/category");
+            let data = await cate.json();
+            setCategories(data);
+        }
+        fetchData()
     },[]);
 
 
@@ -82,15 +85,9 @@ const Crud = () => {
         </div>
 
         <div>
-        {categories.map((p) =>{
-        return(
-            <>
-            <label>{p.name}
-            <input style={{marginLeft: '3px' , marginRight: '10px'}} type='checkbox' value={p.id} name = "category" onChange={(e)=>handleInputChange(e)}/>
-            </label>
-            </>
-          )
-        })}
+            <select name='category' id='cate' onChange={(e)=>handleInputChange(e)}>
+                {categories && categories.map(p => <option value={p.id}>{p.name}</option>)}
+            </select>
         </div>
 
         <button type = "submit" className='button' >Enviar</button>
