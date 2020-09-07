@@ -30,6 +30,7 @@ const Crud = () => {
 
     const handleInputChange = function(e) {
         console.log(e.target.name);
+        console.log(e.target.value);
         setInput({
           ...input,
           [e.target.name]: e.target.value

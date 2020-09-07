@@ -23,8 +23,6 @@ function App() {
     fetchdata();
    },[products]);
 
-   
-
   return (
     <Router>
         <Nav setSearchApp = {setSearchApp}/>
@@ -48,7 +46,7 @@ function App() {
 
         <Route 
          exact path= "/catalogo/:id"
-         render={({match})=> <Catalogo products={products.filter(p => p.categoria === Number(match.params.id))} />}
+         render={({match})=> <Catalogo products={products.filter(p => p.categoryId === Number(match.params.id))} />}
         />
 
         <Route
