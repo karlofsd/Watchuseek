@@ -23,12 +23,12 @@ const DeleteProducts = ()=> {
       }
 
     return(
-        <div>
+        <div className='general2'>
             
-            <label>Inserte el Id del producto</label>
+            <label className='tituloCrudDelete'>Inserte el Id del producto</label>
             <form onSubmit = {(e) => handleSubmit(e)}>
-                 <input  type='text' onChange={(e)=>handleInputChange(e)} />
-                <button className='bottom3' type = "submit"  >Eliminar</button>
+                 <input  type='text' onChange={(e)=>handleInputChange(e)} className='selectCrudDelete' /><br/>
+                <button className='bottom3' type = "submit" className='botonCrudDelete' >Eliminar</button>
             </form>
 
         </div>

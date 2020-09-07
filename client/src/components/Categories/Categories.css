@@ -17,12 +17,14 @@ input{
     margin-bottom: 10px;
 }
 
-.button{
+.buttonAdd{
     margin-top:20px;
-    width: 100px;
+    width: 100%;
     color:black;
     background-color: gray;
+    margin-right: auto;
+    margin-left: auto;
     border: 0px;
-    border-radius: 10px;
+    border-radius: 5%;
     margin-bottom: 10px;
  }

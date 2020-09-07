@@ -1,12 +1,42 @@
-.bottom3{
+.general1{
     margin-top:20px;
-    width: 100px;
-    color:black;
-    background-color: gray;
+    width: 250px;
+    background-color: black;
     border: 0px;
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
     margin-bottom: 10px;
  }
+
+ .select1{
+    margin-left: 25%;
+    margin-right: auto;
+    padding: 10px;
+ }
  
+
+
+ .botonDelete{
+     margin-top: 15px;
+     width: 100px;
+     border: 0px;
+     background-color: gray;
+     color:black;
+     margin-left: 30%;
+     margin-right: auto;
+     border-radius: 10px;
+     margin-bottom: 5px;
+ }
+
+ .botonDelete:hover{
+     background-color: red;
+     font-size: 20px
+ }
+
+ .tituloDelete {
+     color:white;
+    margin-left: 5%;
+    margin-right: auto;
+    font-weight: bolder;
+ }

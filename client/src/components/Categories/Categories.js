@@ -24,6 +24,7 @@ const Categories = () => {
         };
 
         const {data} = await axios.post(urlApi , dataPost);
+        alert('Agregado correctamente')
 
         if (!data) {
           console.log('Se rompio')
@@ -42,7 +43,7 @@ const Categories = () => {
             <label>Descripción:</label><br/>
             <input type = "text" autoComplete = "off" name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]} />
         </div>
-        <button type = "submit" className='button' >Boton</button>
+        <button type = "submit" className='buttonAdd' >Agregar categoria</button>
         </div>
 
     </form>

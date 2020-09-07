@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import axios from "axios";
+import './CrudCategory.css'
 
 const CrudCategoryUpdate =()=>{
     const [input, setInput] = useState({
@@ -40,22 +41,22 @@ const CrudCategoryUpdate =()=>{
 
     return(
         <div>
-        <form onSubmit = {(e) => handleSubmit(e)} className='Form' >
+        <form onSubmit = {(e) => handleSubmit(e)} className='general4'>
             <div >
                 <div>
-                    <label>Id de Categoria</label>
-                <input type = "text" autoComplete = "off" name = "searchId" onChange={(e) =>handleInputChange(e)} value = {input["searchId"]} />
-                <button onClick= {(e) => handleSearch(e)}>Buscar producto</button>
+                    <label className='labelCategory1'>Id de Categoria</label><br/>
+                <input type = "text" autoComplete = "off" name = "searchId" onChange={(e) =>handleInputChange(e)} value = {input["searchId"]} className='inputCategory' /><br/>
+                <button onClick= {(e) => handleSearch(e)} className='botonBuscarUpdate' >Buscar producto</button>
                 </div>
             <div>
-                <label>Nombre de Categoria:</label><br/>
-                <input type = "text" autoComplete = "off" placeholder = {category && category.name} name = "category" onChange={(e) =>handleInputChange(e)} value = {input["category"]} />
+                <label className='labelCategory2'>Nombre de Categoria:</label><br/>
+                <input className='inputCategory' type = "text" autoComplete = "off" placeholder = {category && category.name} name = "category" onChange={(e) =>handleInputChange(e)} value = {input["category"]} />
             </div>
             <div>
-                <label>Descripción:</label><br/>
-                <input type = "text" autoComplete = "off"  placeholder = {category && category.description } name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]} />
+                <label className='labelCategory3'>Descripción:</label><br/>
+                <input className='inputCategory' type = "text" autoComplete = "off"  placeholder = {category && category.description } name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]} />
             </div>
-            <button type = "submit" className='button' >Modificar</button>
+            <button type = "submit" className='botonBuscarUpdate' >Modificar</button>
             </div>
     
         </form>

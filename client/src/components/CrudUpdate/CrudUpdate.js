@@ -65,14 +65,14 @@ const CrudUpdate = () => {
      };
 
     return (
-        <div className="crud_content">
+        <div className="crud_contentUpdate">
         <form className='form_update' onSubmit = {(e) =>handleSubmit(e)} >
             <div >
             <div>
                 <label>Ingrese el id del producto a modificar:</label>
                 <br/>
                 <input type = "text" name = "id"  onChange={(e) =>handleUpdateChange(e)} value = {update.searchId} />
-                <button onClick= {(e) => handleSearch(e)}>Buscar producto</button>
+                <button onClick= {(e) => handleSearch(e)} className='botonUpdate' >Buscar producto</button>
             </div>
             <div>
                 <label>Titulo:</label>

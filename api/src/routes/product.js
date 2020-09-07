@@ -11,7 +11,11 @@ server.get('/', (req, res, next) => {
 		.then(products => {
 			res.send(products);
 		})
-		.catch(next);
+		.catch(error => {
+			res.status(400).json({
+				error
+			});
+		});
 		
 });
 

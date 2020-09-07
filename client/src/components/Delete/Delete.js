@@ -29,15 +29,15 @@ const Delete = ()=> {
       }
 
     return(
-        <div>
-            <label>Elija la Categoria a eliminar </label>
+        <div  className='general1'>
+            <label className='tituloDelete'>Elija la Categoria a eliminar </label>
             <form onSubmit = {(e) => handleSubmit(e)}>
-        <div>
+        <div  className='select1'>
             <select name='category' id='cate' onChange={(e)=>handleInputChange(e)}>
                 {categories.map(p => <option value={p.id}>{p.name}</option>)}
             </select>
         </div>
-                <button className='bottom3' type = "submit" >Eliminar</button>
+                <button className='botonDelete' type = "submit" >Eliminar</button>
             </form>
 
         </div>
