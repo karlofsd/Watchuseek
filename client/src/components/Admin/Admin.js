@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import Crud from "../crud/crud.js";
 import Categories from "../Categories/Categories.js";
 import Delete from "../Delete/Delete.js";
@@ -8,14 +8,29 @@ import Profile from "../Profile/Profile.js"
 import "./Admin.css";
 import CrudCategoryUpdate from '../CrudCategoryUpdate/CrudCategoryUpdate.js'
 import { Link, BrowserRouter as Router, Route} from "react-router-dom";
+import Category from '../Admin_product_category/category.js'
+import Product from '../Admin_product_category/product.js'
+import axios from 'axios'
 
 
-const Admin = ({products,category}) => {
-    
+const Admin = ({products}) => {
+	
+	const [categories,setCategories] = useState()
+
+	useEffect(()=>{
+        const fetchData = async () => {
+            let cate = await fetch("http://localhost:3001/category");
+			let data = await cate.json();
+			console.log(data)
+            setCategories(data);
+        }
+        fetchData()
+    },[]);
+
  return(
 	 <Router>
 		<div className='mayor_content'>
-         <div className='panel'>
+        	<div className='panel'>
 				<h3>Panel de Administrador</h3>
 				<Link to='/admin/'>Perfil</Link>
 				<Link to='/admin/products'>Productos</Link>
@@ -36,7 +51,7 @@ const Admin = ({products,category}) => {
 								)}
 							</div>
 							<div className = "crud">
-								<Crud/>
+								
 							</div>
 						</div>}
 				/>
@@ -44,13 +59,11 @@ const Admin = ({products,category}) => {
 					exact path='/admin/categories'
 					render={()=>
 						<div className='box'>
-							<div className='list_box'>
-								{category.map(c => 
-									<label>{c}</label>
-								)}
-							</div>
+							{/* <div className='list_box'>
+								<Listbox categories={categories}/>
+							</div> */}
 							<div>
-								<Categories/>
+								<Category categories={categories}/>
 							</div>
 						</div>}
 				/>	
