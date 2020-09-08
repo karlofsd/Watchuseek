@@ -21,11 +21,11 @@ const Admin = ({products}) => {
         const fetchData = async () => {
             let cate = await fetch("http://localhost:3001/category");
 			let data = await cate.json();
-			console.log(data)
-            setCategories(data);
+			setCategories(data);
         }
-        fetchData()
-    },[]);
+		fetchData()
+	},[]);
+
 
  return(
 	 <Router>
@@ -43,25 +43,12 @@ const Admin = ({products}) => {
 				/>
 				<Route
 					exact path='/admin/products'
-					render={()=>
-						<div className='box'>
-							<div className='list_box'>
-								{products.map(p => 
-									<label >{p.name}</label>
-								)}
-							</div>
-							<div className = "crud">
-								
-							</div>
-						</div>}
+					render={()=> <Product categories={categories} />}
 				/>
 				<Route
 					exact path='/admin/categories'
 					render={()=>
 						<div className='box'>
-							{/* <div className='list_box'>
-								<Listbox categories={categories}/>
-							</div> */}
 							<div>
 								<Category categories={categories}/>
 							</div>

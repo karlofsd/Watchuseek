@@ -1,0 +1,25 @@
+.crud_product{
+    background-color:black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 110%;
+    margin-right: auto;
+    margin-left: 200%;
+    border-radius: 5%;
+    color: white;
+    margin-top: 50px;
+    height: auto;
+    margin-top: auto;
+}
+
+.divLinks{
+    border: solid black 1px;
+    display: flex;
+    flex-direction: column;
+    margin-left:10%
+}
+
+.h11{
+    margin-left: 10%
+}

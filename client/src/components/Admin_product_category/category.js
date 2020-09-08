@@ -1,22 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 
 const Category =({categories})=>{
 
-    const [input, setInput] = useState({
-        id: null,
-        name: "",
-        description: "",
-    });
-
-    const [catSearch,setCatSearch] = useState({
-        id: null
-    })
+  const [input, setInput] = useState({});
 
   const handleSearch = async(e) => {
-    const {data} = await axios.get(`http://localhost:3001/category/${e.target.value}`);
-    setCatSearch(data) 
+    const {data} = await axios.get(`http://localhost:3001/category/${e.id}`);
+    setInput(data);
   }
 
 
@@ -33,9 +26,10 @@ const Category =({categories})=>{
 
 
       const handleUpdate = async() => {
-        const urlApi = `http://localhost:3001/category/${catSearch.id}`;
+
+        const urlApi = `http://localhost:3001/category/${input.id}`;
         const dataPost = {
-          name: input.category,
+          name: input.name,
           description: input.description
         };
         console.log(dataPost);
@@ -62,8 +56,8 @@ const Category =({categories})=>{
      }
 
      const handleDelete = async  (e) => {
-        setInput(e.target.value);
-        await axios.delete (`http://localhost:3001/category/${catSearch.id}`);
+        //setInput(e.target.value);
+        await axios.delete (`http://localhost:3001/category/${input.id}`);
         alert('Se ha eliminado correctamente')
       }
       
@@ -73,8 +67,8 @@ const Category =({categories})=>{
 
         <div>
           {categories && categories.map(function(c){
-            return <a onClick={(e) => handleSearch(e)} value={c.id}>{c.name}</a>
-          })}
+            return <Link onClick={(e) => handleSearch(c)} value={c.id} >{c.name}</Link> 
+          })}<br/>
         </div>
 
 

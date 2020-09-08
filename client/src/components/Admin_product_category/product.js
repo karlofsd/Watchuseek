@@ -1,11 +1,13 @@
-import {React, useState, useEffect} from 'react'
+import React,{useState, useEffect} from 'react'
+import axios from 'axios'
+import {Link} from 'react-router-dom'
+import './product.css';
 
-
-const Product = ({products}) => {
+const Product = ({categories}) => {
     
     const [input,setInput] = useState(
         {
-            title: "",
+            name: "",
             description: "",
             price: null,
             stock: null,
@@ -13,19 +15,22 @@ const Product = ({products}) => {
             category: null
         }
     )
-
     const [product,setProduct] = useState()
-    
-    const [categories,setCategories] = useState()
 
     useEffect(()=>{
         const fetchData = async () => {
-            let cate = await fetch("http://localhost:3001/category");
+            let cate = await fetch("http://localhost:3001/products");
             let data = await cate.json();
-            setCategories(data);
+            setProduct(data);
         }
         fetchData()
     },[]);
+
+    const handleSearch = async(e) => {
+        const {data} = await axios.get(`http://localhost:3001/products/${e.id}`);
+        setInput(data);
+        console.log(data)
+      }
 
 
     const handleInputChange = function(e) {
@@ -39,50 +44,88 @@ const Product = ({products}) => {
         e.preventDefault()
     }
     
+    const handleUpdate = async (e) => {
+       const urlApi = `http://localhost:3001/products/${input.id}`;
+       const dataPost = {
+         name: input.name.toLowerCase(),
+         description: input.description.toLowerCase(),
+         price: input.price,
+         stock: input.stock,
+         image: input.image,
+       };
+        console.log(dataPost);
+       await axios.put(urlApi , dataPost);
+       await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`)
+       
+     };
 
+     const handlePost = async (e) => {
+        const urlApi = `http://localhost:3001/products/`;
+        const dataPost = {
+          name: input.name.toLowerCase(),
+          description: input.description.toLowerCase(),
+          price: input.price,
+          stock: input.stock,
+          image: input.image,
+        };
+         console.log(dataPost);
+        await axios.post(urlApi , dataPost);
+        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`)
+        
+      };
+
+
+     const handleDelete = async  (e) => {
+        e.preventDefault();
+        await axios.delete (`http://localhost:3001/products/${input.id}`);
+        alert('Se ha eliminado correctamente')
+      }
+      
     return(
-        <div className="crud_contentUpdate">
+        <div>
+            <h1 className='h11'>Products</h1>
+        <div className = "divLinks">
+        {product && product.map(function(p){
+          return <Link onClick={(e) => handleSearch(p)} value={p.id} >{p.name}</Link> 
+        })}<br/>
+      </div>
+        <div className="crud_product">
             <form className='form_update' onSubmit = {(e) =>handleSubmit(e)} >
                 <div >
-                    {/* <div>
-                        <label>Ingrese el id del producto a modificar:</label>
-                        <br/>
-                        <input type = "text" name = "id"  onChange={(e) =>handleUpdateChange(e)} value = {update.searchId} />
-                        <button onClick= {(e) => handleSearch(e)} className='botonUpdate' >Buscar producto</button>
-                    </div> */}
                     <div>
                         <label>Titulo:</label>
                         <br/>
-                        <input type = "text" name = "name" onChange={(e) =>handleInputChange(e)} value = {product["name"]}  />
+                        <input type = "text" name = "name" onChange={(e) =>handleInputChange(e)} value = {input["name"]}  />
                     </div>
                     <div className='descripcion'>
                         <label>Descripción:</label><br/>
-                        <input type = "text" name = "description" onChange={(e) =>handleInputChange(e)} value = {product["description"]}  />
+                        <input type = "text" name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]}  />
                     </div>
                     <div className='Precio' >
                         <label>Precio:</label><br/>
-                        <input type = "number" name = "price" onChange={(e) =>handleInputChange(e)} value = { product["price"]} />
+                        <input type = "number" name = "price" onChange={(e) =>handleInputChange(e)} value = { input["price"]} />
                     </div>
                     <div className='stock' >
                         <label>Stock:</label><br/>
-                        <input type = "number" name = "stock" onChange={(e) =>handleInputChange(e)} value = {product["stock"]} />
+                        <input type = "number" name = "stock" onChange={(e) =>handleInputChange(e)} value = {input["stock"]} />
                     </div>
                     <div className='img' >
                         <label>Url-Imagen:</label><br/>
-                        <input type = "text" name = "image" onChange={(e) =>handleInputChange(e)} value = {product["image"]} />
+                        <input type = "text" name = "image" onChange={(e) =>handleInputChange(e)} value = {input["image"]} />
                     </div>
                     <div>
                         <select name='category' id='cate' onChange={(e)=>handleInputChange(e)}>
                             {categories && categories.map(p => <option value={p.id}>{p.name}</option>)}
                         </select>
                     </div>
-                    <button type = "submit" className='button' >Add</button>
-                    <button type = "submit" className='button' >Update</button>
-                    <button type = "submit" className='button' >Delete</button>
+                    <button  className='button' onClick={() => handlePost()} >Add</button><br/>
+                    <button  className='button' onClick={()=>handleUpdate()} >Update</button><br/>
+                    <button  className='button' onClick={(e)=>handleDelete(e)} >Delete</button><br/>
                 </div>
             </form>
+        </div>
         </div>
     )
 }
 
-export default Product;
+export default Product
