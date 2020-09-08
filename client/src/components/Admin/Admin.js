@@ -43,15 +43,16 @@ const Admin = ({products}) => {
 				/>
 				<Route
 					exact path='/admin/products'
-					render={()=> <Product categories={categories} />}
+					render={()=>
+						<div >
+								<Product categories={categories}/>
+						</div>}
 				/>
 				<Route
 					exact path='/admin/categories'
 					render={()=>
-						<div className='box'>
-							<div>
+						<div>
 								<Category categories={categories}/>
-							</div>
 						</div>}
 				/>	
 			</div>

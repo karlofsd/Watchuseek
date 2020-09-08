@@ -1,9 +1,12 @@
-.Form{
+/* .Form{
     background-color:black;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 120%;
+    padding-top: 10px;
+    padding-bottom: 12px;
+    margin-top: 5px;
     margin-right: auto;
     margin-left: auto;
     border-radius: 5%;
@@ -27,4 +30,4 @@ input{
     border: 0px;
     border-radius: 5%;
     margin-bottom: 10px;
- }
+ } */

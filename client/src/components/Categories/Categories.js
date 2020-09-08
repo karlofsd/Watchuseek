@@ -34,7 +34,7 @@ const Categories = () => {
     return (
       <div>
     <form onSubmit = {(e) => handleSubmit(e)} className='Form' >
-        <div >
+        <div className="divCategorias">
         <div>
             <label>Categoria:</label><br/>
             <input type = "text" autoComplete = "off" name = "category" onChange={(e) =>handleInputChange(e)} value = {input["category"]} />

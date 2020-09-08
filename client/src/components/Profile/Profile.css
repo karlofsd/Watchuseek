@@ -1,37 +1,44 @@
 .contentProfile{
-    flex-direction: column;
     background-color: black;
-    width: 500px;
-    height: 500px;
-    margin-top: 0px;
-    outline: 14px outset tomato; 
+    width: 320px;
+    height: 260px;
+    margin-top: auto;
+    margin-left: 300px;
+    border-radius: 1em;
 }
 
 .logoProfile{
     width: 120px;
     height: 80px;
+    margin-left: 101px;
+    background-position: 50% 50%;
 }
 
-.h2Profile {
-    color: white; 
+.adminAdmin {
+    color: darkgoldenrod; 
     font-family: Tahoma, Geneva, sans-serif;
-    
+    margin-left: 112px;
+    padding-top: 15px;
 }
 
 .nombreAdmin {
     color: white; 
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 15px;
+    padding-top: 15px;
+    padding-left: 15px;
 }
 
 .numeroAdmin {
     color: white; 
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 15px;
+    padding-left: 15px;
 }
 
 .mailAdmin {
     color: white; 
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 15px;
+    padding-left: 15px;
 }

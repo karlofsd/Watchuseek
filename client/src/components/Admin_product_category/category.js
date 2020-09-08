@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import "./category.css";
 
 
 const Category =({categories})=>{
@@ -63,9 +64,10 @@ const Category =({categories})=>{
       
 
      return(
-        <div>
+        <div className = "contentCategory">
 
-        <div>
+        <div className = "divcategories">
+          <h1>Categorias</h1>
           {categories && categories.map(function(c){
             return <Link onClick={(e) => handleSearch(c)} value={c.id} >{c.name}</Link> 
           })}<br/>
@@ -83,10 +85,11 @@ const Category =({categories})=>{
                 <label>Descripción:</label><br/>
                 <input type = "text" autoComplete = "off" name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]} />
             </div>
-            <button type = "submit" className='buttonAdd' onClick={()=>handleCreate()} >Agregar categoria</button>
-            <button type = "submit" className='buttonAdd' onClick={()=> handleUpdate()} >Modificar Categoria</button>
-            <button type = "submit" className='buttonAdd' onClick={(e)=> handleDelete(e)} >Eliminar Categoria</button>
-            
+            <div className = "divcategoriesbuttons">
+            <button type = "submit" className='buttonAddCat' onClick={()=>handleCreate()} >Add</button>
+            <button type = "submit" className='buttonEditCat' onClick={()=> handleUpdate()} >Edit</button>
+            <button type = "submit" className='buttonDeleteCat' onClick={(e)=> handleDelete(e)} >Delete</button>
+            </div>
             </div>
     
         </form>
