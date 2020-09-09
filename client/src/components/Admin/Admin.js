@@ -1,16 +1,10 @@
 import React,{useState, useEffect} from "react";
-import Crud from "../crud/crud.js";
-import Categories from "../Categories/Categories.js";
-import Delete from "../Delete/Delete.js";
-import CrudDelete from '../CrudDelete/crudDelete.js'
-import CrudUpdate from "../CrudUpdate/CrudUpdate.js";
 import Profile from "../Profile/Profile.js"
 import "./Admin.css";
-import CrudCategoryUpdate from '../CrudCategoryUpdate/CrudCategoryUpdate.js'
 import { Link, BrowserRouter as Router, Route} from "react-router-dom";
 import Category from '../Admin_product_category/category.js'
 import Product from '../Admin_product_category/product.js'
-import axios from 'axios'
+
 
 
 const Admin = ({products}) => {

@@ -45,6 +45,9 @@ const Product = ({ categories }) => {
     }
 
     const handleUpdate = async (e) => {
+        if(!input.name||!input.description||!input.price||!input.stock||!input.image){
+            return alert("Debe completar todos los campos para agregar un producto");
+        };
         const urlApi = `http://localhost:3001/products/${input.id}`;
         const dataPost = {
             name: input.name.toLowerCase(),
@@ -60,6 +63,9 @@ const Product = ({ categories }) => {
     };
 
     const handlePost = async (e) => {
+        if(!input.name||!input.description||!input.price||!input.stock||!input.image){
+            return alert("Debe completar todos los campos para agregar un producto");
+        };
         const urlApi = `http://localhost:3001/products/`;
         const dataPost = {
             name: input.name.toLowerCase(),
@@ -68,14 +74,17 @@ const Product = ({ categories }) => {
             stock: input.stock,
             image: input.image,
         };
-        console.log(dataPost);
-        await axios.post(urlApi, dataPost);
-        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`)
+        const {data} = await axios.post(urlApi, dataPost);
+        console.log(data);
+        await axios.post(`http://localhost:3001/products/${data[0].id}/category/${input.category}`)
 
     };
 
 
     const handleDelete = async (e) => {
+        if(!input.id){
+            return alert("Debe seleccionar un producto");
+        }
         e.preventDefault();
         await axios.delete(`http://localhost:3001/products/${input.id}`);
         alert('Se ha eliminado correctamente')
