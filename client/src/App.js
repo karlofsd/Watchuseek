@@ -5,23 +5,28 @@ import Nav from './components/Nav/Nav';
 import Product from './components/Products/product.js';
 import './app.css';
 import Admin from './components/Admin/Admin'
-function App() {
 
-  const [products,setProducts] = useState([]);
+import {useSelector} from 'react-redux'
+
+function App() {
+  
+  const products = useSelector(store => store.products.products)
+  const categories = useSelector(store => store.categories.categories)
+  /* const [products,setProducts] = useState([]); */
   const [search,setSearchApp] = useState({
     array: [],
     word: "",
   });
 
   
-  useEffect(()=>{
+  /* useEffect(()=>{
     const fetchdata = async () => {
     let cate = await fetch("http://localhost:3001/products");
     let data = await cate.json();
     setProducts(data);
     }
     fetchdata();
-   },[products]);
+   },[products]); */
 
   return (
     <Router>
@@ -36,7 +41,7 @@ function App() {
         
         <Route
         path='/admin'
-        render={() => <Admin products={products}/>}
+        render={() => <Admin products={products} categories={categories}/>}
         />
 
         <Route 

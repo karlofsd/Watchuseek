@@ -4,12 +4,13 @@ import "./Admin.css";
 import { Link, BrowserRouter as Router, Route} from "react-router-dom";
 import Category from '../Admin_product_category/category.js'
 import Product from '../Admin_product_category/product.js'
+import { useDispatch } from "react-redux";
+import {getCategories} from '../../Redux/categories/categories.js'
 
 
-
-const Admin = ({products}) => {
-	
-	const [categories,setCategories] = useState()
+const Admin = ({products,categories}) => {
+	const dispatch = useDispatch()
+	/* const [categories,setCategories] = useState()
 
 	useEffect(()=>{
         const fetchData = async () => {
@@ -18,8 +19,7 @@ const Admin = ({products}) => {
 			setCategories(data);
         }
 		fetchData()
-	},[]);
-
+	},[]); */
 
  return(
 	 <Router>
@@ -28,7 +28,7 @@ const Admin = ({products}) => {
 				<h3>Panel de Administrador</h3>
 				<Link to='/admin/'>Perfil</Link>
 				<Link to='/admin/products'>Productos</Link>
-				<Link to='/admin/categories'>Categorias</Link>
+				<Link onClick={() => dispatch(getCategories())}to='/admin/categories'>Categorias</Link>
 			</div>
 			<div className='content_admin'>
 				<Route
@@ -39,7 +39,7 @@ const Admin = ({products}) => {
 					exact path='/admin/products'
 					render={()=>
 						<div >
-								<Product categories={categories}/>
+								<Product products={products} categories={categories}/>
 						</div>}
 				/>
 				<Route

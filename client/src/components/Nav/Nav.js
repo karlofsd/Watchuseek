@@ -5,9 +5,14 @@ import {Avatar,Button,MenuItem,Menu} from '@material-ui/core'
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
+import {useDispatch, useSelector} from 'react-redux'
+import {getProducts} from '../../Redux/products/products.js'
+
 
 const Nav = ({setSearchApp}) => {
-   
+    const dispatch = useDispatch()
+    
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [categories, setCategories] = useState([]); 
 
@@ -48,7 +53,7 @@ const Nav = ({setSearchApp}) => {
                      return <MenuItem key={e.id} onClick={handleClose}><Link className='itemList'to={`/catalogo/${e.id}`}>{e.name}</Link></MenuItem>
                     })}
                 </Menu>
-                <Link to='/catalogo'>Inicio</Link>
+                <Link to='/catalogo' onClick={()=>dispatch(getProducts())}>Inicio</Link>
             </div>
             <div>
                 <SearchBar
@@ -59,7 +64,7 @@ const Nav = ({setSearchApp}) => {
                 <img className = "logo" src = "https://images.squarespace-cdn.com/content/v1/5b12409c7e3c3aefa533dc9b/1541399363634-4X65VEBY9Y6L21BB877G/ke17ZwdGBToddI8pDm48kAH-rRb1vQpTziZIFTqQBctZw-zPPgdn4jUwVcJE1ZvWEtT5uBSRWt4vQZAgTJucoTqqXjS3CfNDSuuf31e0tVG5RzxJlIkHE-djMTvjefB_XwQ_QLa2-1fn_ftyfanSTjqWIIaSPh2v08GbKqpiV54/watchuseek-logo.png" />
             </div>
             <div>
-           <Link to='/admin'>Admin</Link>
+                <Link to='/admin'>Admin</Link>
             </div>
 
             <div className = "login">
