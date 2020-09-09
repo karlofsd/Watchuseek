@@ -1,0 +1,87 @@
+.crud_content{
+    display: flex;
+    /* align-items: baseline; */
+}
+.crud_product{
+    display: flex;
+    justify-content: center;
+    border-radius: 5%;
+    background-color: black;
+    color: #FFA62B;
+    margin-left: 40px;
+    width: 400px;
+}
+
+.input{
+    width: 300px;
+}
+
+.divbutton{
+    display: flex;
+}
+
+.buttonAdd{
+    margin-top:20px;
+    width: 100px;
+    color:black;
+    background-color: gray;
+    border: 0px;
+    margin-left: auto;
+    margin-right: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+ }
+ .buttonAdd:hover{
+    background-color: rgb(4, 161, 4);
+ }
+ .buttonUpdate{
+    margin-top:20px;
+    width: 100px;
+    color:black;
+    background-color: gray;
+    border: 0px;
+    margin-left: auto;
+    margin-right: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+ }
+
+ .buttonUpdate:hover{
+    background-color: rgb(255, 174, 0);
+ }
+ .buttonDelete{
+    margin-top:20px;
+    width: 100px;
+    color:black;
+    background-color: gray;
+    border: 0px;
+    margin-left: auto;
+    margin-right: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+ }
+
+ .buttonDelete:hover{
+    background-color: red;
+ }
+
+.products {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5%;
+    color: #FFA62B;
+    background-color: black;
+    margin: 60px;
+    width: 250px;
+}
+
+.divLinks{
+    border: solid black 1px;
+    display: flex;
+    flex-direction: column;
+    margin-left:10%
+}
+
+.h11{
+    margin-left: 10%
+}

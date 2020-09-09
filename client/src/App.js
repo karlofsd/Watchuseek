@@ -12,8 +12,8 @@ function App() {
     array: [],
     word: "",
   });
-  
 
+  
   useEffect(()=>{
     const fetchdata = async () => {
     let cate = await fetch("http://localhost:3001/products");
@@ -26,7 +26,7 @@ function App() {
   return (
     <Router>
         <Nav setSearchApp = {setSearchApp}/>
-        
+
         <Route
         exact path="/products/search"
         render={()=> <Catalogo products = {
@@ -36,7 +36,7 @@ function App() {
         
         <Route
         path='/admin'
-        render={() => <Admin/>}
+        render={() => <Admin products={products}/>}
         />
 
         <Route 

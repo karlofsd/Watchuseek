@@ -3,8 +3,6 @@ const { Product } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
 
 
-
-
 server.get('/', (req, res, next) => {
 	
 	Product.findAll()
@@ -25,7 +23,7 @@ server.get('/category/:category',(req,res) => {
 	}).then(products => {
 		res.json(products)
 	}).catch(error => {
-		res.status(404).send(error)
+		res.status(400).send(error)
 	})
 })
 
@@ -44,7 +42,7 @@ server.get('/search',(req,res) => {
 	}).then(products => {
 		res.json(products)
 	}).catch(error => {
-		res.status(404).send(error)
+		res.status(400).send(error)
 	})
 })
 
@@ -62,7 +60,7 @@ server.get('/:id',(req,res) => {
 	.then(product => {
 		res.json(product)
 	}).catch(error => {
-		res.status(404).send(error)
+		res.status(400).send(error)
 	})
 })
 
@@ -90,13 +88,19 @@ server.delete('/:idProducto/category/:idCategoria', (req, res) => {
 		  return res.status(404).send("No fue enviado el producto");
 		}
 		if(!idCategoria){
-		  return res.status(400).send("No fue enviada la categoria");
+		  return res.status(404).send("No fue enviada la categoria");
 		}
 	  Product.update (
 		  {categoryId: null},
 		  {where: {id:idProducto}}
 		  )
-		  res.status(201).send('La categoria fue eliminada');
+		  .then(()=>{
+			res.status(201).send('La categoria fue eliminada');
+		  })
+		  .catch((err)=>{
+			  res.status(400).send(err)
+		  })
+
 	  });
 
 server.post('/:idProducto/category/:idCategoria', (req, res) => {
@@ -106,7 +110,12 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
 		{categoryId: idCategoria},
 		{where: {id:idProducto}}
 	)
-	res.status(201).send('La categoria fue modificada');
+	.then(() =>{
+		res.status(201).send('La categoria fue modificada');
+	})
+	.catch((err)=>{
+      res.status(400).send(err)
+	})
 });
 
 module.exports = server;

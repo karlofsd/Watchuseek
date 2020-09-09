@@ -1,12 +1,10 @@
-import React, {useState,useCallback,useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import SearchBar from "../searchBar/searchBar.js";
 import "./Nav.css";
 import {Avatar,Button,MenuItem,Menu} from '@material-ui/core'
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
-import axios from 'axios';
-import Categories from "../Categories/Categories.js";
 
 const Nav = ({setSearchApp}) => {
    

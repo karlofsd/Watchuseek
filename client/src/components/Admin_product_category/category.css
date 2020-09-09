@@ -1,0 +1,90 @@
+.contentCategory{
+    display: flex;
+
+}
+
+.divcategories{
+    display: flex;
+    flex-direction: column;
+    border-radius: 5%;
+    background-color: black;
+    color: #FFA62B;
+    width: 220px;
+    margin-left: 15px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.divcategoriesbuttons{
+    display: flex;
+    margin-right: 5px;
+}
+
+.Form{
+    background-color:black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    padding-top: 5px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: 10px;
+    border-radius: 5%;
+    color: #FFA62B;
+    height: auto;
+}
+
+input{
+    border: 0px;
+    margin-bottom: 10px;
+}
+
+.buttonAddCat{
+    margin-top:20px;
+    width: 100px;
+    color:black;
+    background-color: slategray;
+    margin-right: 10px;
+    margin-left: auto;
+    border: 0px;
+    border-radius: 5%;
+    margin-bottom: 10px;
+ }
+ 
+ .buttonAddCat:hover {
+    background-color:  rgb(4, 161, 4);
+  }
+
+  .buttonEditCat{
+    margin-top:20px;
+    width: 100px;
+    color:black;
+    background-color: slategray;
+    margin-right: 10px;
+    margin-left: auto;
+    border: 0px;
+    border-radius: 5%;
+    margin-bottom: 10px;
+ }
+ 
+ .buttonEditCat:hover {
+    background-color: rgb(255, 174, 0);
+  }
+
+.buttonDeleteCat{
+    margin-top:20px;
+    width: 100px;
+    color:black;
+    background-color: slategray;
+    margin-right: 10px;
+    margin-left: auto;
+    border: 0px;
+    border-radius: 5%;
+    margin-bottom: 10px;
+ }
+ .buttonDeleteCat:hover {
+    background-color: red;
+  }
