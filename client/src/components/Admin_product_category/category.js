@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import "./category.css";
-
+import { useDispatch } from "react-redux";
+import {getCategories} from '../../Redux/categories/categories.js';
 
 const Category =({categories})=>{
-
+  const dispatch = useDispatch();
   const [input, setInput] = useState({});
 
   const handleSearch = async(e) => {
@@ -33,12 +34,12 @@ const Category =({categories})=>{
           name: input.name,
           description: input.description
         };
-        console.log(dataPost);
-        const {data} = await axios.put(urlApi , dataPost);
+        /*const {data} =*/ await axios.put(urlApi , dataPost);
+        dispatch(getCategories());
+        // if (!data) {
+        //   console.log('Se rompio')
+        // };
 
-        if (!data) {
-          console.log('Se rompio')
-        };
       }
 
      const handleCreate= async()=>{
@@ -50,16 +51,16 @@ const Category =({categories})=>{
 
         const {data} = await axios.post(urlApi , dataPost);
         alert('Agregado correctamente')
-
-        if (!data) {
-          console.log('Se rompio')
-        };
+        dispatch(getCategories());
+        // if (!data) {
+        //   console.log('Se rompio')
+        // };
      }
 
      const handleDelete = async  (e) => {
-        //setInput(e.target.value);
         await axios.delete (`http://localhost:3001/category/${input.id}`);
         alert('Se ha eliminado correctamente')
+        dispatch(getCategories());
       }
       
 

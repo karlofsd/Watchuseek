@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import './product.css';
+import { useDispatch } from "react-redux";
+import {getProducts} from '../../Redux/products/products.js'
 
-const Product = ({ categories }) => {
 
+const Product = ({ products,categories }) => {
+    const dispatch = useDispatch();
     const [input, setInput] = useState(
         {
             name: "",
@@ -15,16 +18,16 @@ const Product = ({ categories }) => {
             category: null
         }
     )
-    const [product, setProduct] = useState()
+    // const [product, setProduct] = useState()
 
-    useEffect(() => {
-        const fetchData = async () => {
-            let cate = await fetch("http://localhost:3001/products");
-            let data = await cate.json();
-            setProduct(data);
-        }
-        fetchData()
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         let cate = await fetch("http://localhost:3001/products");
+    //         let data = await cate.json();
+    //         setProduct(data);
+    //     }
+    //     fetchData()
+    // }, []);
 
     const handleSearch = async (e) => {
         const { data } = await axios.get(`http://localhost:3001/products/${e.id}`);
@@ -59,6 +62,7 @@ const Product = ({ categories }) => {
         console.log(dataPost);
         await axios.put(urlApi, dataPost);
         await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`)
+        dispatch(getProducts());
 
     };
 
@@ -77,7 +81,7 @@ const Product = ({ categories }) => {
         const {data} = await axios.post(urlApi, dataPost);
         console.log(data);
         await axios.post(`http://localhost:3001/products/${data[0].id}/category/${input.category}`)
-
+        dispatch(getProducts());
     };
 
 
@@ -88,13 +92,14 @@ const Product = ({ categories }) => {
         e.preventDefault();
         await axios.delete(`http://localhost:3001/products/${input.id}`);
         alert('Se ha eliminado correctamente')
+        dispatch(getProducts());
     }
 
     return (
         <div className = "crud_content">
             <div className = "products">
                     <h1 className='h11'>Productos</h1>
-                    {product && product.map(function (p) {
+                    {products && products.map(function (p) {
                         return <Link onClick={(e) => handleSearch(p)} value={p.id} >-{p.name}</Link>
                     })}<br />
             </div>

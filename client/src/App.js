@@ -12,25 +12,16 @@ function App() {
   
   const products = useSelector(store => store.products.products)
   const categories = useSelector(store => store.categories.categories)
-  /* const [products,setProducts] = useState([]); */
   const [search,setSearchApp] = useState({
     array: [],
     word: "",
   });
 
-  
-  /* useEffect(()=>{
-    const fetchdata = async () => {
-    let cate = await fetch("http://localhost:3001/products");
-    let data = await cate.json();
-    setProducts(data);
-    }
-    fetchdata();
-   },[products]); */
-
   return (
     <Router>
-        <Nav setSearchApp = {setSearchApp}/>
+        <Nav 
+        render={()=><Nav setSearchApp={setSearchApp} />}
+        />
 
         <Route
         exact path="/products/search"

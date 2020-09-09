@@ -35,7 +35,7 @@ export default function productReducer(state = initialState, action) {
 // --- ACTIONS ---
 export const getProducts = () => async(dispatch, getState) => {
   try{
-    const {data} = await axios.get('http://localhost:3001/products/')
+    const {data} = await axios.get('http://localhost:3001/products')
     dispatch({
       type: GET_PRODUCTS,
       payload: data
@@ -50,7 +50,7 @@ export const getProducts = () => async(dispatch, getState) => {
 
 export const getProduct = () => async(dispatch, getState) => {
   try{
-    const res = await axios.get('http://localhost:3001/category/:id')
+    const res = await axios.get('http://localhost:3001/products/:id')
     dispatch({
       type: GET_PRODUCT,
       payload: res.data

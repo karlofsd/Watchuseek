@@ -1,31 +1,24 @@
-import React, {useState,useEffect} from "react";
+import React from "react";
 import SearchBar from "../searchBar/searchBar.js";
 import "./Nav.css";
 import {Avatar,Button,MenuItem,Menu} from '@material-ui/core'
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
-import {useDispatch, useSelector} from 'react-redux'
-import {getProducts} from '../../Redux/products/products.js'
-
+import {useDispatch, useSelector} from 'react-redux';
+import {getCategories} from '../../Redux/categories/categories.js';
+import {getProducts} from '../../Redux/products/products.js';
 
 const Nav = ({setSearchApp}) => {
+    const categories = useSelector(store => store.categories.categories)
     const dispatch = useDispatch()
     
 
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [categories, setCategories] = useState([]); 
-
-
-    useEffect(async ()=>{
-        let cate = await fetch("http://localhost:3001/category");
-        let data = await cate.json();
-        setCategories(data);
-    },[]);
-
     
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
+      dispatch(getCategories())
     };
   
     const handleClose = () => {
