@@ -2,18 +2,28 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import "./category.css";
-import { useDispatch } from "react-redux";
-import {getCategories} from '../../Redux/categories/categories.js';
+import {getCategories, getCategory} from '../../Redux/categories/categories.js';
+import {connect} from 'react-redux'
 
-const Category =({categories})=>{
-  const dispatch = useDispatch();
-  const [input, setInput] = useState({});
+const Category =({allCategories,currentCategory,setCategories})=>{
+  
+  const [input, setInput] = useState({
+        id: null,
+        name: "",
+        description: "",
+        price: null,
+        stock: null,
+        image: "",
+        category: null
+  });
 
-  const handleSearch = async(e) => {
-    const {data} = await axios.get(`http://localhost:3001/category/${e.id}`);
+  useEffect(() => {
+    setCategories();
+},[])
+
+  const handleSearch = (data) => {
     setInput(data);
   }
-
 
     const handleInputChange = function(e) {
         setInput({
@@ -34,12 +44,9 @@ const Category =({categories})=>{
           name: input.name,
           description: input.description
         };
-        /*const {data} =*/ await axios.put(urlApi , dataPost);
-        dispatch(getCategories());
-        // if (!data) {
-        //   console.log('Se rompio')
-        // };
-
+        await axios.put(urlApi , dataPost);
+        setCategories();
+        setInput(currentCategory);
       }
 
      const handleCreate= async()=>{
@@ -49,18 +56,17 @@ const Category =({categories})=>{
           description: input.description
         };
 
-        const {data} = await axios.post(urlApi , dataPost);
-        alert('Agregado correctamente')
-        dispatch(getCategories());
-        // if (!data) {
-        //   console.log('Se rompio')
-        // };
+        await axios.post(urlApi , dataPost);
+        alert('Agregado correctamente');
+        setCategories();
+        setInput(currentCategory);
      }
 
-     const handleDelete = async  (e) => {
+     const handleDelete = async  () => {
         await axios.delete (`http://localhost:3001/category/${input.id}`);
-        alert('Se ha eliminado correctamente')
-        dispatch(getCategories());
+        alert('Se ha eliminado correctamente');
+        setCategories();
+        setInput(currentCategory);
       }
       
 
@@ -69,8 +75,8 @@ const Category =({categories})=>{
 
         <div className = "divcategories">
           <h1>Categorias</h1>
-          {categories && categories.map(function(c){
-            return <Link onClick={(e) => handleSearch(c)} value={c.id} >{c.name}</Link> 
+          {allCategories && allCategories.map(function(c){
+            return <Link onClick={() => handleSearch(c)} value={c.id} >{c.name}</Link> 
           })}<br/>
         </div>
 
@@ -98,4 +104,14 @@ const Category =({categories})=>{
     )
 }
 
-export default Category
+const mapDispatchToProps = dispatch => ({
+  setCategories: () => dispatch(getCategories()),
+  setCategory: () => dispatch(getCategory())
+})
+
+const mapStateToProps = state => ({
+  currentCategory: state.categories.category,
+  allCategories: state.categories.categories,
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Category)

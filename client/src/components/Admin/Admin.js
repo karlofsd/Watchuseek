@@ -6,11 +6,9 @@ import Category from '../Admin_product_category/category.js';
 import Product from '../Admin_product_category/product.js';
 import { useDispatch } from "react-redux";
 import {getCategories} from '../../Redux/categories/categories.js'
-import {getProducts} from '../../Redux/products/products.js'
+import {getProducts, getProduct} from '../../Redux/products/products.js'
 
-
-
-const Admin = ({products,categories}) => {
+const Admin = () => {
 	const dispatch = useDispatch();
 
  return(
@@ -31,14 +29,14 @@ const Admin = ({products,categories}) => {
 					exact path='/admin/products'
 					render={()=>
 						<div >
-								<Product products={products} categories={categories}/>
+								<Product  />
 						</div>}
 				/>
 				<Route
 					exact path='/admin/categories'
 					render={()=>
 						<div>
-								<Category categories={categories}/>
+								<Category />
 						</div>}
 				/>	
 			</div>

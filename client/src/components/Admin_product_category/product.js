@@ -1,53 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect} from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './product.css';
-import { useDispatch } from "react-redux";
-import {getProducts} from '../../Redux/products/products.js'
+import { connect} from "react-redux";
+import {getProducts, getProduct} from '../../Redux/products/products.js';
+import category from './category';
 
+const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
+    
+    const [input, setInput] = useState({
+        id: null,
+        name: "",
+        description: "",
+        price: null,
+        stock: null,
+        image: "",
+        category: null
+    });
 
-const Product = ({ products,categories }) => {
-    const dispatch = useDispatch();
-    const [input, setInput] = useState(
-        {
-            name: "",
-            description: "",
-            price: null,
-            stock: null,
-            image: "",
-            category: null
-        }
-    )
-    // const [product, setProduct] = useState()
+        useEffect(() => {
+            setProducts();
+        },[])
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         let cate = await fetch("http://localhost:3001/products");
-    //         let data = await cate.json();
-    //         setProduct(data);
-    //     }
-    //     fetchData()
-    // }, []);
-
-    const handleSearch = async (e) => {
-        const { data } = await axios.get(`http://localhost:3001/products/${e.id}`);
-        setInput(data);
-        console.log(data)
-    }
-
+    const handleSearch = async(product) => {
+         setInput(product)
+    };
 
     const handleInputChange = function (e) {
         setInput({
             ...input,
             [e.target.name]: e.target.value
         });
-    }
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+        e.preventDefault();
+    };
 
-    const handleUpdate = async (e) => {
+    const handleUpdate = async () => {
         if(!input.name||!input.description||!input.price||!input.stock||!input.image){
             return alert("Debe completar todos los campos para agregar un producto");
         };
@@ -59,14 +49,17 @@ const Product = ({ products,categories }) => {
             stock: input.stock,
             image: input.image,
         };
-        console.log(dataPost);
         await axios.put(urlApi, dataPost);
-        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`)
-        dispatch(getProducts());
-
+        if(!input.category){
+                setProducts();
+         return setInput(currentProduct);
+        }
+        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`);
+        setProducts();
+        setInput(currentProduct);
     };
 
-    const handlePost = async (e) => {
+    const handlePost = async () => {
         if(!input.name||!input.description||!input.price||!input.stock||!input.image){
             return alert("Debe completar todos los campos para agregar un producto");
         };
@@ -79,28 +72,29 @@ const Product = ({ products,categories }) => {
             image: input.image,
         };
         const {data} = await axios.post(urlApi, dataPost);
-        console.log(data);
-        await axios.post(`http://localhost:3001/products/${data[0].id}/category/${input.category}`)
-        dispatch(getProducts());
+        await axios.post(`http://localhost:3001/products/${data[0].id}/category/${input.category}`);
+        setProducts();
+        setInput(currentProduct);
     };
 
 
-    const handleDelete = async (e) => {
+    const handleDelete = async () => {
         if(!input.id){
             return alert("Debe seleccionar un producto");
         }
-        e.preventDefault();
         await axios.delete(`http://localhost:3001/products/${input.id}`);
-        alert('Se ha eliminado correctamente')
-        dispatch(getProducts());
-    }
+        alert('Se ha eliminado correctamente');
+        setProducts();
+        setInput(currentProduct);
+        
+    };
 
     return (
         <div className = "crud_content">
             <div className = "products">
                     <h1 className='h11'>Productos</h1>
-                    {products && products.map(function (p) {
-                        return <Link onClick={(e) => handleSearch(p)} value={p.id} >-{p.name}</Link>
+                    {allProducts && allProducts.map(function (p) {
+                        return <Link onClick={() => handleSearch(p)} value={p.id} >-{p.name}</Link>
                     })}<br />
             </div>
             <div className = "crud_product" >
@@ -128,8 +122,9 @@ const Product = ({ products,categories }) => {
                             <input className = "input" type="text" name="image" onChange={(e) => handleInputChange(e)} value={input["image"]} />
                         </div>
                         <div>
-                            <select name='category' id='cate' onChange={(e) => handleInputChange(e)}>
-                                {categories && categories.map(p => <option value={p.id}>{p.name}</option>)}
+                            <select name='category' id='cate' value={input.category} onChange={(e) => handleInputChange(e)}>
+                                <option value="" selected disabled>Seleccione la categoria</option>
+                                {allCategories && allCategories.map(p => <option value={p.id}>{p.name}</option>)}
                             </select>
                         </div>
                         <div className = "divbutton">
@@ -141,7 +136,18 @@ const Product = ({ products,categories }) => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Product
+const mapDispatchToProps = dispatch => ({
+    setProducts: () => dispatch(getProducts()),
+    setProduct: () => dispatch(getProduct())
+  });
+
+const mapStateToProps = state => ({
+    currentProduct: state.products.product,
+    allProducts: state.products.products,
+    allCategories: state.categories.categories
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(Product);

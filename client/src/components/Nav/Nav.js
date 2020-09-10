@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import SearchBar from "../searchBar/searchBar.js";
 import "./Nav.css";
 import {Avatar,Button,MenuItem,Menu} from '@material-ui/core'
@@ -10,15 +10,17 @@ import {getCategories} from '../../Redux/categories/categories.js';
 import {getProducts} from '../../Redux/products/products.js';
 
 const Nav = ({setSearchApp}) => {
-    const categories = useSelector(store => store.categories.categories)
-    const dispatch = useDispatch()
     
+    const dispatch = useDispatch()
+    const categories = useSelector(store => store.categories.categories)
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+
     
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
-      dispatch(getCategories())
+      dispatch(getCategories());
+      dispatch(getProducts());
     };
   
     const handleClose = () => {
@@ -28,9 +30,7 @@ const Nav = ({setSearchApp}) => {
         <div className = "content">
             <div className="categorias">
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e)=> handleClick(e)} >
-                 <a href='#'>
-                    <MenuIcon/>
-                 </a>
+                    <MenuIcon style={{color:'#FFA62B'}}/>
                 </Button>
                 
                 <Menu
@@ -57,7 +57,7 @@ const Nav = ({setSearchApp}) => {
                 <img className = "logo" src = "https://images.squarespace-cdn.com/content/v1/5b12409c7e3c3aefa533dc9b/1541399363634-4X65VEBY9Y6L21BB877G/ke17ZwdGBToddI8pDm48kAH-rRb1vQpTziZIFTqQBctZw-zPPgdn4jUwVcJE1ZvWEtT5uBSRWt4vQZAgTJucoTqqXjS3CfNDSuuf31e0tVG5RzxJlIkHE-djMTvjefB_XwQ_QLa2-1fn_ftyfanSTjqWIIaSPh2v08GbKqpiV54/watchuseek-logo.png" />
             </div>
             <div>
-                <Link to='/admin'>Admin</Link>
+                <Link to='/admin' onClick={()=>{dispatch(getProducts()); dispatch(getCategories())}} >Admin</Link>
             </div>
 
             <div className = "login">

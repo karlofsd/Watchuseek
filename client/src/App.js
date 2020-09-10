@@ -19,10 +19,8 @@ function App() {
 
   return (
     <Router>
-        <Nav 
-        render={()=><Nav setSearchApp={setSearchApp} />}
-        />
-
+        <Nav setSearchApp = {setSearchApp}/>
+ 
         <Route
         exact path="/products/search"
         render={()=> <Catalogo products = {

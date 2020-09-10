@@ -3,14 +3,20 @@ import axios from 'axios'
 // --- CONSTANTES ---
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const GET_PRODUCT = 'GET_PRODUCT'
-const ADD_PRODUCT = 'ADD_PRODUCT'
-const DEL_PRODUCT= 'DEL_PRODUCT'
-const UP_PRODUCT = 'UP_PRODUCT'
+const RESET_PRODUCT = 'RESET_PRODUCT'
 
 // --- STATE ---
+
 const initialState = {
-    products:[],
-    product:{}
+    products: [],
+    product:{
+        name: "",
+        description: "",
+        price: "",
+        stock: "", 
+        image: "",
+        categoryId: ""
+    }
   };
 
 // --- REDUCER ---
@@ -26,9 +32,23 @@ export default function productReducer(state = initialState, action) {
        return {
          ...state,
          product: action.payload
-       }  
-      default:
-        return state;
+       }
+
+      case RESET_PRODUCT:
+        return state
+
+      default :
+        return {
+          ...state,
+          product: {
+            name: "",
+            description: "",
+            price: "",
+            stock: "",
+            image: "",
+            categoryId: ""
+          }
+        };
     } 
   }
 
@@ -40,7 +60,6 @@ export const getProducts = () => async(dispatch, getState) => {
       type: GET_PRODUCTS,
       payload: data
     })
-    console.log(data)
   }
   catch(error){
     console.log(error)
@@ -48,12 +67,12 @@ export const getProducts = () => async(dispatch, getState) => {
   
 }
 
-export const getProduct = () => async(dispatch, getState) => {
+export const getProduct = (id) => async(dispatch, getState) => {
   try{
-    const res = await axios.get('http://localhost:3001/products/:id')
+    const {data} = await axios.get(`http://localhost:3001/products/${id}`)
     dispatch({
       type: GET_PRODUCT,
-      payload: res.data
+      payload: data
     })
   }
   catch(error){
@@ -61,25 +80,5 @@ export const getProduct = () => async(dispatch, getState) => {
   }
 }
 
-export const addProduct = (data) => {
-  return {
-        type:ADD_PRODUCT,
-        product:data
-      };    
-};
-
-export const delProduct = (id)=>{
-  return {
-      type: DEL_PRODUCT,
-      id:id
-  };
-};
-
-export const upProduct = (id,data)=>{
-  return {
-      type: UP_PRODUCT,
-      id: id,
-      product:data
-  };
-};
-  
+export const resetProduct = () => (dispatch) => dispatch({type: RESET_PRODUCT})
+ 
