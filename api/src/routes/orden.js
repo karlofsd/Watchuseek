@@ -14,6 +14,7 @@ server.get('/', async (request, response) => {
   if(!orders) {
     return response.status(400).json({
       message: 'Orders not found' 
+
     });
   }
 
@@ -22,6 +23,7 @@ server.get('/', async (request, response) => {
   });
 
 });
+
 
 server.get('/:id', async (request, response) => {
   const { id } = request.params;
@@ -51,5 +53,4 @@ server.put('/:id', (req, res)=>{
     res.status(404).send('No se pudo completar con exito!')
   }) 
 })
-
 module.exports = server;
