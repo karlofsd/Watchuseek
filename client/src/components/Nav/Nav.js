@@ -5,22 +5,22 @@ import {Avatar,Button,MenuItem,Menu} from '@material-ui/core'
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCategories} from '../../Redux/categories/categories.js';
+import {getProducts} from '../../Redux/products/products.js';
 
 const Nav = ({setSearchApp}) => {
-   
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [categories, setCategories] = useState([]); 
+    
+    const dispatch = useDispatch()
+    const categories = useSelector(store => store.categories.categories)
 
-
-    useEffect(async ()=>{
-        let cate = await fetch("http://localhost:3001/category");
-        let data = await cate.json();
-        setCategories(data);
-    },[]);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
+      dispatch(getCategories());
+      dispatch(getProducts());
     };
   
     const handleClose = () => {
@@ -30,9 +30,7 @@ const Nav = ({setSearchApp}) => {
         <div className = "content">
             <div className="categorias">
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e)=> handleClick(e)} >
-                 <a href='#'>
-                    <MenuIcon/>
-                 </a>
+                    <MenuIcon style={{color:'#FFA62B'}}/>
                 </Button>
                 
                 <Menu
@@ -48,7 +46,7 @@ const Nav = ({setSearchApp}) => {
                      return <MenuItem key={e.id} onClick={handleClose}><Link className='itemList'to={`/catalogo/${e.id}`}>{e.name}</Link></MenuItem>
                     })}
                 </Menu>
-                <Link to='/catalogo'>Inicio</Link>
+                <Link to='/catalogo' onClick={()=>dispatch(getProducts())}>Inicio</Link>
             </div>
             <div>
                 <SearchBar
@@ -59,7 +57,7 @@ const Nav = ({setSearchApp}) => {
                 <img className = "logo" src = "https://images.squarespace-cdn.com/content/v1/5b12409c7e3c3aefa533dc9b/1541399363634-4X65VEBY9Y6L21BB877G/ke17ZwdGBToddI8pDm48kAH-rRb1vQpTziZIFTqQBctZw-zPPgdn4jUwVcJE1ZvWEtT5uBSRWt4vQZAgTJucoTqqXjS3CfNDSuuf31e0tVG5RzxJlIkHE-djMTvjefB_XwQ_QLa2-1fn_ftyfanSTjqWIIaSPh2v08GbKqpiV54/watchuseek-logo.png" />
             </div>
             <div>
-           <Link to='/admin'>Admin</Link>
+                <Link to='/admin' onClick={()=>{dispatch(getProducts()); dispatch(getCategories())}} >Admin</Link>
             </div>
 
             <div className = "login">

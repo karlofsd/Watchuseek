@@ -2,15 +2,19 @@ import React from 'react';
 import ProductCard from "../ProductCard/ProductCard.js";
 import './Catalogo.css'
 import {Link} from "react-router-dom"
+import {useDispatch, useSelector} from 'react-redux'
+import {getProducts} from '../../Redux/products/products.js'
 
 
 const Catalogo = ({products}) => {
-
+    console.log(products)
+   /*  const dispatch = useDispatch()
+    const products = useSelector(store => store.products.products) */
     return (
          <div className='general'>
         
              <section className='cont-productos'>
-                {products.map(p=>(
+                {products && products.map(p=>(
                  <ProductCard
                   key={p.id}
                   id={p.id}
