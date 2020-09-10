@@ -4,21 +4,16 @@ import "./Admin.css";
 import { Link, BrowserRouter as Router, Route} from "react-router-dom";
 import Category from '../Admin_product_category/category.js';
 import Product from '../Admin_product_category/product.js';
-import { useDispatch } from "react-redux";
-import {getCategories} from '../../Redux/categories/categories.js'
-import {getProducts, getProduct} from '../../Redux/products/products.js'
 
 const Admin = () => {
-	const dispatch = useDispatch();
-
  return(
 	 <Router>
 		<div className='mayor_content'>
         	<div className='panel'>
 				<h3>Panel de Administrador</h3>
 				<Link to='/admin/'>Perfil</Link>
-				<Link onClick = {() => dispatch(getProducts())} to='/admin/products'>Productos</Link>
-				<Link onClick = {() => dispatch(getCategories())} to='/admin/categories'>Categorias</Link>
+				<Link to='/admin/products'>Productos</Link>
+				<Link to='/admin/categories'>Categorias</Link>
 			</div>
 			<div className='content_admin'>
 				<Route
