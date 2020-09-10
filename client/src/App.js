@@ -5,10 +5,12 @@ import Nav from './components/Nav/Nav';
 import Product from './components/Products/product.js';
 import './app.css';
 import Admin from './components/Admin/Admin'
-
-import {useSelector} from 'react-redux'
+import {getCategories} from './Redux/categories/categories.js';
+import {getProducts} from './Redux/products/products.js';
+import {useDispatch, useSelector} from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch()
   
   const products = useSelector(store => store.products.products)
   const categories = useSelector(store => store.categories.categories)
@@ -16,6 +18,11 @@ function App() {
     array: [],
     word: "",
   });
+
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getProducts());
+  },[])
 
   return (
     <Router>
