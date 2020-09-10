@@ -33,16 +33,17 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Product } = sequelize.models;
 const {Categories} = sequelize.models;
 const { Users} = sequelize.models;
-const { Orden } = sequelize.models
+const { Carrito } = sequelize.models
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 Categories.hasMany(Product, {as: "product" });
 Product.belongsTo(Categories, {as: "category" });
-Orden.hasMany(Product, {as: "product_pedido" })
-Product.belongsToMany(Orden, {through: "carrito"})
-Users.hasMany(Orden,{as: "user_orden"})
-Orden.belongsTo(Users, {as: "orden_user"})
+Carrito.hasMany(Product, {as: "product_pedido" })
+Product.belongsToMany(Carrito, {through: "orden"})
+Users.hasMany(Carrito,{as: "user_orden"})
+
+
 
 
 //https://sequelize.org/master/manual/advanced-many-to-many.html

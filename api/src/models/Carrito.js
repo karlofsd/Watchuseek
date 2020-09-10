@@ -2,16 +2,16 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('orden', {
+    sequelize.define('carrito', {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
           },
           price: {
-            type: DataTypes.FLOAT, 
+            type: DataTypes.INTEGER, 
             allowNull: false,
           },
-          stock: {
+          quantity: {
             type: DataTypes.INTEGER,
             allowNull: false,
           },
