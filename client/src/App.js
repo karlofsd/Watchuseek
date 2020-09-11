@@ -8,6 +8,7 @@ import Admin from './components/Admin/Admin'
 import {getCategories} from './Redux/categories/categories.js';
 import {getProducts} from './Redux/products/products.js';
 import {useDispatch, useSelector} from 'react-redux';
+import Carrito from './components/Carrito/carrito.js'
 
 function App() {
   const dispatch = useDispatch()
@@ -58,6 +59,10 @@ function App() {
           </div>}
         />
 
+       <Route
+       exact path="/carrito"
+       component={Carrito}
+       />
     </Router>
   );
 }
