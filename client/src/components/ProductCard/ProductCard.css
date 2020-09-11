@@ -70,6 +70,7 @@ body{
           background: #F1F1F1;
           transition: background 0.5s;
           border-left:solid thin rgba(0,0,0,0.1);
+          border:0
         }
          .buy i{
             font-size:30px;

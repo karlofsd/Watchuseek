@@ -7,19 +7,17 @@ const Card = ({ name, price, image, id }) => {
 
 
   const handleClick = async (e) => {
-    const data = {
-      name,
-      price,
+    const dataValue = {
+      name: name,
+      price: price,
       quantity: 1,
-      user,
-      id
+      status: "carrito"
     };
 
-    const { data } = await axios.post(`http://localhost:3001/user/${5}/carrito`, data);
+    const { data } = await axios.post(`http://localhost:3001/user/${2}/carrito`, dataValue);
 
-    console.log(data);
   }
-
+  
   return (
     <div className="wrapper">
       <div className="container">
@@ -35,7 +33,7 @@ const Card = ({ name, price, image, id }) => {
               <h1>{name = name.substring(0, 1).toUpperCase() + name.substring(1)}</h1>
               <p>$USD {price}</p>
             </div>
-            <div onClick={() => handleClick} className="buy"><i className="fas fa-shopping-cart"></i></div>
+            <button onClick={() => handleClick()} className="buy"><i className="fas fa-shopping-cart"></i></button>
           </div>
         </div>
       </div>
