@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const orden = require('./models/orden');
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -30,17 +31,38 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Categories, Users, Carrito, Lineaorden } = sequelize.models;
+const { Product, Categories, Users, Carrito, Orden } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+//---------Product-Category----------------
+
 Categories.hasMany(Product, {as: "product" });
 Product.belongsTo(Categories, {as: "category" });
-// Carrito.hasMany(Product, {as: "product_pedido" })
-Users.hasMany(Carrito,{as: "user_orden"})
+//----------------------------------------------
 
-Product.belongsToMany(Carrito, {through: Lineaorden})
-Carrito.belongsToMany(Product, {through: Lineaorden})
+Carrito.hasMany(Orden, {as: "orden"})
+Orden.belongsTo(Carrito, {as: "carrito"})
+Orden.belongsToMany(Carrito, {through: "carrito_orden"})
+
+//---------User--------------------------
+
+Users.hasMany(Carrito, {as: "user_carrito"})
+Orden.belongsTo(Users, {as: "user"})
+
+// Orden.belongsTo(Carrito,{as: "pedido"})
+
+
+
+
+//ordenid carrito
+//user id orden
+
+// Carrito.hasMany(Product, {as: "product_pedido" })
+// Users.hasMany(Carrito,{as: "user_orden"})
+// Product.belongsToMany(Carrito, {through: Lineaorden})
+// Carrito.belongsToMany(Product, {through: Lineaorden})
+
 
 
 
