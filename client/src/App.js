@@ -8,8 +8,13 @@ import Admin from './components/Admin/Admin'
 import {getCategories} from './Redux/categories/categories.js';
 import {getProducts} from './Redux/products/products.js';
 import {useDispatch, useSelector} from 'react-redux';
+<<<<<<< HEAD
 import User from './components/User/user.js'
 import Activity from './components/Activity/activity.js'
+=======
+import Carrito from './components/Carrito/carrito.js'
+
+>>>>>>> master
 function App() {
   const dispatch = useDispatch()
   
@@ -64,10 +69,17 @@ function App() {
         component={User}
         />
 
+<<<<<<< HEAD
         <Route
         exact path ='/user/activity' 
         component={Activity}
         />
+=======
+       <Route
+       exact path="/carrito"
+       component={Carrito}
+       />
+>>>>>>> master
     </Router>
   );
 }

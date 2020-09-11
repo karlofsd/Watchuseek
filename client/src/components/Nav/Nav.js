@@ -59,9 +59,9 @@ const Nav = ({setSearchApp, categories}) => {
                 
               <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>
             </div>
-            <div className='cart'>
-                <ShoppingCartIcon />
-            </div>
+            <Link to='/carrito'> <div >
+             <ShoppingCartIcon />
+            </div></Link> 
         </div>
     );
 };
