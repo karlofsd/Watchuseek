@@ -46,6 +46,7 @@ Users.hasMany(Carrito,{as: "user_orden"})
 
 
 
+
 //https://sequelize.org/master/manual/advanced-many-to-many.html
 
 

@@ -18,10 +18,6 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         category: null
     });
 
-        useEffect(() => {
-            setProducts();
-        },[])
-
     const handleSearch = async(product) => {
          setInput(product)
     };

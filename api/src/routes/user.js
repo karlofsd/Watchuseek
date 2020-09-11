@@ -130,7 +130,7 @@ server.put('/:UserId/carrito/:id', (req, res) => {
     })
 })
 
-server.get('/:id/orders', async (request, response) => {
+server.get('/:id/ordenes', async (request, response) => {
   const { id } = request.params;
 
   const orders = await Carrito.findAll({
