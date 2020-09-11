@@ -79,7 +79,7 @@ server.post("/:UserId/carrito", (req, res) => {
 
 
 
-server.get("/:UserId/carrito", (req, res) => {
+/* server.get("/:UserId/carrito", (req, res) => {
   var id = req.params.UserId
 
   Carrito.findAll({
@@ -94,7 +94,7 @@ server.get("/:UserId/carrito", (req, res) => {
     .catch(err => {
       res.status(404).send('No se encontraron pedidos o hubo un error!')
     })
-})
+}) */
 
 
 
@@ -151,8 +151,23 @@ server.get('/:id/ordenes', async (request, response) => {
 
 });
 
+/// traer ordenes segun user (solo procesando)
+server.get("/:UserId/carrito", (req, res) => {
+  var id = Number(req.params.UserId)
 
-
+  Carrito.findAll({
+    where: {
+      userId: id,
+      status: "procesando"
+    }
+  })
+    .then(orden => {
+      res.status(201).send(orden)
+    })
+    .catch(err => {
+      res.status(404).send('No se encontraron pedidos o hubo un error!')
+    })
+})
 
 
 module.exports = server;

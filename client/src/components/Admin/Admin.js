@@ -36,10 +36,23 @@ const Admin = () => {
 			});
 			return result;
 		};
+		const getData = (arg) => {
+			var array = [];
+			var obj = {};
+			for(var e in arg){
+				obj = {
+					userId: e,
+					status: arg[e][0].status,
+				};
+				array.push(obj);
+			};
+			return array
+		};
 		const fetchdata = async () => {
 			const {data} = await axios.get("http://localhost:3001/orders")
 			const order = groupBy(data,"userId");
-			setOrders(order);
+			const newOrders = getData(order)
+			setOrders(newOrders);
 		};
 		fetchdata();
 	},[])

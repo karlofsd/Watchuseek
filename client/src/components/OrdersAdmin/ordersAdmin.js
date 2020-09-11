@@ -1,40 +1,40 @@
 import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import Orden from '../Orden/orden'
+import Axios from 'axios'
 
 const OrdersAdmin = ({orders}) => {
     
-    const [order,setOrder] = useState()
-    const [state,setState] = useState()
-
-    const handleSearch = (e) => {
-        setOrder(e)
+    const [order,setOrder] = useState([])
+    const [totalPrice,setTotalPrice] = useState()
+    const getTotal = (arg) => {
+        let total = 0
+        for(var product in arg){
+            total = total + arg[product].price
+        }
+        return total
     }
 
-    const getdata = (orders) => {
-        var array = [];
-        var obj = {};
-        for(var e in orders){
-            obj = {
-                userId: e,
-                status: orders[e][0].status,
-            };
-            array.push(obj);
-        };
-    };
-
+    const handleSearch = async(e) => {
+        console.log(e)
+        const {data} = await Axios.get(`http://localhost:3001/user/${e}/carrito`)
+        const total = getTotal(data)
+        
+        setTotalPrice(total)
+        setOrder(data)
+    }
+    console.log(order)
+    console.log(totalPrice)
     return(
     
         <div className = "crud_content">
             <div className = "products">
                     <h1 className='h11'>Orders</h1>
-                    {console.log(getdata(orders))}
-                     {/* {orders[0] && orders.map(function (p) {
-                         p.map(( e => {} ))
-                        return <Link onClick={() => handleSearch(p)} value={p.id} > - {p.name} ({p.status})</Link>
-                    })}<br />  */}
+                     {orders.map(function (p) {
+                        return <Link onClick={() => handleSearch(p.userId)} >  {"->"}  Orden N°{p.userId}  ({p.status})</Link>
+                    })}<br /> 
             </div>
-            <Orden order={order}/>
+            {order[0] && <Orden order={order} total={totalPrice}/>}
         </div>
     )
 }
