@@ -21,7 +21,7 @@ server.post("/", (req, res) => {
 server.get("/", (req, res) => {
   Users.findAll()
     .then(users => {
-      return res.status(201).send(users)
+      return s.status(201).send(users)
     })
     .catch(err => {
       return res.status(404).send(err)
@@ -85,7 +85,7 @@ server.get("/:UserId/carrito", (req, res) => {
   Carrito.findAll({
     where: {
       userId: id,
-      status: { [Op.or]: ["carrito", "procesando", "creada"] }
+      status: { [Op.or]: ["carrito"] }
     }
   })
     .then(orden => {
@@ -113,6 +113,42 @@ server.delete('/:UserId/carrito', (req, res) => {
       res.status(404).send('Hubo un error')
     })
 })
+
+
+server.delete('/:UserId/carrito/:id', (req, res) => {
+  let userId = req.params.UserId
+  let id = req.params.id
+
+  Carrito.destroy({
+    where: {
+      userId, id}})
+    .then(orden => {
+      res.status(201).send('Se ha vaciado el carrito')
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(404).send('Hubo un error')
+    })
+})
+
+
+server.put('/:UserId/carrito/:id', (req, res) => {
+
+  let userId = req.params.UserId
+  let id = req.params.id
+  const { status } = req.body
+
+  Carrito.update({ status: "procesando" }, { where: { userId, id } })
+    .then(orden => {
+      res.status(201).send(orden)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(404).send(err)
+    })
+})
+
+
 
 
 server.put('/:UserId/carrito/:id', (req, res) => {
@@ -150,6 +186,9 @@ server.get('/:id/orders', async (request, response) => {
   });
 
 });
+
+
+
 
 
 

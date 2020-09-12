@@ -9,6 +9,8 @@ import {getCategories} from './Redux/categories/categories.js';
 import {getProducts} from './Redux/products/products.js';
 import {useDispatch, useSelector} from 'react-redux';
 import Carrito from './components/Carrito/carrito.js'
+import User from './components/User/user.js'
+import Activity from './components/Activity/activity.js'
 
 function App() {
   const dispatch = useDispatch()
@@ -25,9 +27,10 @@ function App() {
     dispatch(getProducts());
   },[])
 
+  
   return (
     <Router>
-        <Nav setSearchApp = {setSearchApp}/>
+        <Nav categories={categories} setSearchApp = {setSearchApp}/>
  
         <Route
         exact path="/products/search"
@@ -57,6 +60,15 @@ function App() {
           <div className='product'>
             <Product data={products.filter(p => p.id === Number(match.params.id))}/>
           </div>}
+        />
+          <Route
+        exact path = '/user'
+        component={User}
+        />
+
+        <Route
+        exact path ='/user/activity' 
+        component={Activity}
         />
 
        <Route

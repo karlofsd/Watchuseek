@@ -20,7 +20,7 @@ const Carrito = ()=>{
    }
 
    const eliminar = async()=>{
-       await axios.delete(`http://localhost:3001/user/${2}/carrito/${8}`)
+       await axios.delete(`http://localhost:3001/user/${2}/carrito/${1}`)
    } 
 
    useEffect(()=>{

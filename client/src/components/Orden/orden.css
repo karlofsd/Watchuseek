@@ -1,0 +1,10 @@
+.columns{
+    display: flex;
+    justify-content: space-between;
+}
+
+td{
+    display: flex;
+    margin : 0 10px 0 10px;
+    width: 50px;
+}

@@ -7,9 +7,7 @@ import {getProducts} from '../../Redux/products/products.js'
 
 
 const Catalogo = ({products}) => {
-    console.log(products)
-   /*  const dispatch = useDispatch()
-    const products = useSelector(store => store.products.products) */
+    
     return (
          <div className='general'>
         
