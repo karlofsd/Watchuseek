@@ -1,31 +1,31 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 
-const Carrito = ()=>{
+const Carrito = ({user})=>{
 
     const comprar = async()=>{
         
-          const { data } = await axios.get(`http://localhost:3001/user/${2}/carrito`);
+          const { data } = await axios.get(`http://localhost:3001/user/${user.id}/carrito`);
           console.log(data);
           data.map( async (e) => {
               console.log(e)
-              await axios.put(`http://localhost:3001/user/${2}/carrito/${e.id}`)
+              await axios.put(`http://localhost:3001/user/${user.id}/carrito/${e.id}`)
           })
     }
    
    const [product, setProduct] = useState([])
     
    const eliminarTodo = async()=>{
-       await axios.delete(`http://localhost:3001/user/${2}/carrito`)
+       await axios.delete(`http://localhost:3001/user/${user.id}/carrito`)
    }
 
    const eliminar = async()=>{
-       await axios.delete(`http://localhost:3001/user/${2}/carrito/${1}`)
+       await axios.delete(`http://localhost:3001/user/${user.id}/carrito/${1}`)
    } 
 
    useEffect(()=>{
    const fetchData = async ()=>{
-   const {data} = await axios.get(`http://localhost:3001/user/${2}/carrito`)
+   const {data} = await axios.get(`http://localhost:3001/user/${user.id}/carrito`)
    setProduct(data)
    console.log(data)
     }

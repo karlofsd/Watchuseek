@@ -6,9 +6,9 @@ const { Sequelize: { Op } } = require('sequelize');
 
 server.post("/", (req, res) => {
   const { email, password } = req.body
-  Users.findOrCreate({
-    where: { email, password }
-  })
+  Users.create(
+    { email, password }
+  )
     .then(user => {
       return res.status(201).send(user)
     })
@@ -22,6 +22,20 @@ server.get("/", (req, res) => {
   Users.findAll()
     .then(users => {
       return s.status(201).send(users)
+    })
+    .catch(err => {
+      return res.status(404).send(err)
+    })
+})
+
+
+
+
+server.get("/:email", (req, res) => {
+  const email = req.params.email;
+  Users.findOne({where:{email}})
+    .then(user => {
+      return res.status(201).send(user)
     })
     .catch(err => {
       return res.status(404).send(err)

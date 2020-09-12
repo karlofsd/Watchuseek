@@ -4,17 +4,19 @@ import {Route, BrowserRouter as Router} from 'react-router-dom';
 import Nav from './components/Nav/Nav';
 import Product from './components/Products/product.js';
 import './app.css';
-import Admin from './components/Admin/Admin'
+import Admin from './components/Admin/Admin';
 import {getCategories} from './Redux/categories/categories.js';
 import {getProducts} from './Redux/products/products.js';
 import {useDispatch, useSelector} from 'react-redux';
-import Carrito from './components/Carrito/carrito.js'
-import User from './components/User/user.js'
-import Activity from './components/Activity/activity.js'
+import Carrito from './components/Carrito/carrito.js';
+import User from './components/User/user.js';
+import Activity from './components/Activity/activity.js';
+import Login from './components/LogIn/Login.js';
 
 function App() {
   const dispatch = useDispatch()
-  
+
+  const user = useSelector(store => store.users.user)
   const products = useSelector(store => store.products.products)
   const categories = useSelector(store => store.categories.categories)
   const [search,setSearchApp] = useState({
@@ -58,22 +60,26 @@ function App() {
            path='/catalogo/product/:id'
           render={({match}) => 
           <div className='product'>
-            <Product data={products.filter(p => p.id === Number(match.params.id))}/>
+            <Product user={user} data={products.filter(p => p.id === Number(match.params.id))}/>
           </div>}
         />
           <Route
         exact path = '/user'
         component={User}
         />
+        <Route
+          exact path = '/login'
+          component ={Login}
+        />
 
         <Route
         exact path ='/user/activity' 
-        component={Activity}
+        render = {() => <Activity user = {user}/>}
         />
 
        <Route
        exact path="/carrito"
-       component={Carrito}
+       render = {() => <Carrito user = {user}/>}
        />
     </Router>
   );

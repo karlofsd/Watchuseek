@@ -53,11 +53,9 @@ const Nav = ({setSearchApp, categories}) => {
             </div>
 
             <div className = "login">
-                
-              <Link to='/user'> <a href = "#" >Registrate</a></Link> 
-                <a href = "#" >Iniciar sesión</a>
-                
-              <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>
+                <Link to='/user'>Registrate</Link> 
+                <Link to='/login'>Iniciar sesión</Link>
+                <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>
             </div>
             <Link to='/carrito'> <div >
              <ShoppingCartIcon />

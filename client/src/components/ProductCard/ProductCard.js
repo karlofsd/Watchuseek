@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import './ProductCard.css';
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
+import {useSelector} from "react-redux";
 
 const Card = ({ name, price, image, id }) => {
 
+  const user = useSelector(store => store.users.user)
 
   const handleClick = async (e) => {
     const dataValue = {
@@ -14,7 +16,7 @@ const Card = ({ name, price, image, id }) => {
       status: "carrito"
     };
 
-    const { data } = await axios.post(`http://localhost:3001/user/${2}/carrito`, dataValue);
+    const { data } = await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
 
   }
   

@@ -1,18 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-const Activity =()=>{
+const Activity =({user})=>{
   const [ordenes, setOrden] = useState([]);
 
 
  useEffect(()=>{
   const fetchData = async ()=>{ 
-  const {data} = await axios.get(`http://localhost:3001/user/${2}/orders`);
+  const {data} = await axios.get(`http://localhost:3001/user/${user.id}/orders`);
   setOrden(data); 
 };
   fetchData();
  },[]);
-
 
     return(
         <div>
