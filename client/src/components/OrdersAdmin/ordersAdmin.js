@@ -16,8 +16,9 @@ const OrdersAdmin = ({orders}) => {
     }
 
     const handleSearch = async(e) => {
-        console.log(e)
-        const {data} = await Axios.get(`http://localhost:3001/user/${e}/carrito`)
+        console.log(e);
+        const {data} = await Axios.get(`http://localhost:3001/user/${e}/admin`)
+        console.log(data)
         const total = getTotal(data)
         
         setTotalPrice(total)
@@ -38,4 +39,4 @@ const OrdersAdmin = ({orders}) => {
     )
 }
 
-export default OrdersAdmin;
+export default OrdersAdmin; 

@@ -2,11 +2,10 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 
 const Carrito = ({user})=>{
-
+    
     const comprar = async()=>{
         
           const { data } = await axios.get(`http://localhost:3001/user/${user.id}/carrito`);
-          console.log(data);
           data.map( async (e) => {
               console.log(e)
               await axios.put(`http://localhost:3001/user/${user.id}/carrito/${e.id}`)
@@ -27,7 +26,6 @@ const Carrito = ({user})=>{
    const fetchData = async ()=>{
    const {data} = await axios.get(`http://localhost:3001/user/${user.id}/carrito`)
    setProduct(data)
-   console.log(data)
     }
    
    fetchData()

@@ -110,6 +110,22 @@ server.get("/:UserId/carrito", (req, res) => {
     })
 })
 
+server.get("/:UserId/admin", (req, res) => {
+   var id = req.params.UserId
+  
+  Carrito.findAll({
+     where: {
+        userId: id,
+      }
+    })
+      .then(orden => {
+        res.status(201).send(orden)
+      })
+      .catch(err => {
+        res.status(404).send('No se encontraron pedidos o hubo un error!')
+      })
+  })
+
 
 
 server.delete('/:UserId/carrito', (req, res) => {
@@ -145,6 +161,53 @@ server.delete('/:UserId/carrito/:id', (req, res) => {
     })
 })
 
+// server.put('/:UserId/carrito/:id', (req, res) => {
+
+//   let userId = req.params.UserId
+//   let id = req.params.id
+//   const { status } = req.body
+
+//   Carrito.update({ 
+//     [Op.or]:[
+//       {status:'carrito',where:{status:null}},
+//       {status:'procesando',where:{status:'carrito'}}
+//     ]
+//    }, { where: { userId, id } })
+//     .then(orden => {
+//       res.status(201).send(orden)
+//     })
+//     .catch(err => {
+//       console.log(err)
+//       res.status(404).send(err)
+//     })
+// })
+
+
+
+
+// server.put('/:UserId/carrito/:id',(req, res) => {
+
+//   let userId = req.params.UserId
+//   let id = req.params.id
+//   let data;
+//   Carrito.findOne({where:{userId: userId, id: id}})
+//   .then(e =>{
+//     data = e;
+//   });
+//   switch (data.status) {
+//     case "carrito":
+//        Carrito.update({status: "procesando"},{where: {userId:userId, id:id}})
+//        .then(e => {
+//          res.status(201).send(e);
+//        })
+//       break;
+  
+//     default:
+//       break;
+//   }
+
+// })
+
 
 server.put('/:UserId/carrito/:id', (req, res) => {
 
@@ -152,7 +215,7 @@ server.put('/:UserId/carrito/:id', (req, res) => {
   let id = req.params.id
   const { status } = req.body
 
-  Carrito.update({ status: "procesando" }, { where: { userId, id } })
+  Carrito.update({ status: "creada" }, { where: { userId, id } })
     .then(orden => {
       res.status(201).send(orden)
     })
@@ -163,6 +226,21 @@ server.put('/:UserId/carrito/:id', (req, res) => {
 })
 
 
+server.put('/:UserId/cancelada/:id', (req, res) => {
+
+  let userId = req.params.UserId
+  let id = req.params.id
+  const { status } = req.body
+
+  Carrito.update({ status: "cancelada" }, { where: { userId, id } })
+    .then(orden => {
+      res.status(201).send(orden)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(404).send(err)
+    })
+})
 
 
 server.put('/:UserId/carrito/:id', (req, res) => {
