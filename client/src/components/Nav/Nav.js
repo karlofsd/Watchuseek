@@ -1,19 +1,15 @@
-import React, {useState,useEffect} from "react";
+import React, {useState} from "react";
 import SearchBar from "../searchBar/searchBar.js";
 import "./Nav.css";
 import {Avatar,Button,MenuItem,Menu} from '@material-ui/core'
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
-import {useDispatch, useSelector} from 'react-redux';
 
-const Nav = ({setSearchApp}) => {
-    
-    const dispatch = useDispatch()
-    const categories = useSelector(store => store.categories.categories)
+
+const Nav = ({setSearchApp, categories}) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
-
     
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -38,7 +34,7 @@ const Nav = ({setSearchApp}) => {
                     onClose={handleClose}
                 >
                     <MenuItem onClick={handleClose} ><Link className='itemList' to='/catalogo/'>Todos</Link></MenuItem>
-                    {categories.map(function(e){
+                    {categories && categories.map(function(e){
                      return <MenuItem key={e.id} onClick={handleClose}><Link className='itemList'to={`/catalogo/${e.id}`}>{e.name}</Link></MenuItem>
                     })}
                 </Menu>
@@ -58,10 +54,10 @@ const Nav = ({setSearchApp}) => {
 
             <div className = "login">
                 
-                <a href = "#" >Registrate</a>
+              <Link to='/user'> <a href = "#" >Registrate</a></Link> 
                 <a href = "#" >Iniciar sesión</a>
                 
-                <Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" />
+              <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>
             </div>
             <Link to='/carrito'> <div >
              <ShoppingCartIcon />

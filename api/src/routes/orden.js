@@ -18,9 +18,9 @@ server.get('/', async (request, response) => {
     });
   }
 
-  return response.status(200).json({
+  return response.status(200).json(
     orders
-  });
+  );
 
 });
 
