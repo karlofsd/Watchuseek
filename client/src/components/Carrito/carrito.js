@@ -5,27 +5,27 @@ const Carrito = ()=>{
 
     const comprar = async()=>{
         
-          const { data } = await axios.get(`http://localhost:3001/user/${2}/carrito`);
+          const { data } = await axios.get(`http://localhost:3001/user/${1}/carrito`);
           console.log(data);
           data.map( async (e) => {
               console.log(e)
-              await axios.put(`http://localhost:3001/user/${2}/carrito/${e.id}`)
+              await axios.put(`http://localhost:3001/user/${1}/carrito/${e.id}`)
           })
     }
    
    const [product, setProduct] = useState([])
     
    const eliminarTodo = async()=>{
-       await axios.delete(`http://localhost:3001/user/${2}/carrito`)
+       await axios.delete(`http://localhost:3001/user/${1}/carrito`)
    }
 
    const eliminar = async()=>{
-       await axios.delete(`http://localhost:3001/user/${2}/carrito/${8}`)
+       await axios.delete(`http://localhost:3001/user/${1}/carrito/${1}`)
    } 
 
    useEffect(()=>{
    const fetchData = async ()=>{
-   const {data} = await axios.get(`http://localhost:3001/user/${2}/carrito`)
+   const {data} = await axios.get(`http://localhost:3001/user/${1}/carrito`)
    setProduct(data)
    console.log(data)
     }
