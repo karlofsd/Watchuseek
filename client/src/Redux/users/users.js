@@ -36,10 +36,10 @@ export default function userReducer(state = initialState, action) {
       default :
         return {
           ...state,
-          user: {
+          /* user: {
             email: "",
             password: "",
-          }
+          } */
         };
     } 
   }

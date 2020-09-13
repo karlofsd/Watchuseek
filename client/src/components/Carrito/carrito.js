@@ -1,35 +1,39 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
+import {newOrden} from '../../Redux/carrito/carrito'
+import {useSelector, useDispatch} from 'react-redux'
 
 const Carrito = ({user})=>{
     const [product, setProduct] = useState([]);
-
-    useEffect(()=>{
-        const fetchData = async ()=>{
-        const {data} = await axios.get(`http://localhost:3001/user/${user.id}/carrito`)
-        setProduct(data)
-         }
-        
-        fetchData()
-         },[])
+    const dispatch = useDispatch()
+    const orden = useSelector(store => store.carrito.numeroOrden)
+    const carrito = useSelector(store => store.carrito.carrito)
     
-    const handleBuy = async()=>{
+    console.log("esto es carrito");
+    console.log(carrito);
+
+    console.log("esto es product");
+    console.log(product);
+    
+    useEffect(()=>{
+        setProduct(carrito);
+         },[carrito])
+    
+    const handleBuy = ()=>{
         
-          product.map( async (e) => {
+        dispatch(newOrden(user.id,carrito,orden))
+          /* carrito.map( async (e) => {
               console.log(e)
               await axios.put(`http://localhost:3001/user/${user.id}/cantidad/${e.id}`, e)
               await axios.put(`http://localhost:3001/user/${user.id}/creada/${e.id}`)
-          })
+          }) */
     }
 
     const handleInputChange = function (e,index) {
         let data = product;
         data[index].quantity = Number(e.target.value)
        setProduct(data);
-       console.log(product);
     };
-    console.log("esto es despues de la funcion")
-    console.log(product);
     
    const eliminarTodo = async()=>{
        await axios.delete(`http://localhost:3001/user/${user.id}/carrito`)
@@ -44,7 +48,7 @@ const Carrito = ({user})=>{
             <div>
                 {console.log("antes del map")}
                 {console.log(product)}
-            {product[0] && product.map((e,index)=>{
+            {carrito[0] && carrito.map((e,index)=>{
          return(
          <div>
              <button onClick={()=>eliminar()}>X</button>

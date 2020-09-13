@@ -15,7 +15,6 @@ import Login from './components/LogIn/Login.js';
 
 function App() {
   const dispatch = useDispatch()
-
   const user = useSelector(store => store.users.user)
   const products = useSelector(store => store.products.products)
   const categories = useSelector(store => store.categories.categories)
@@ -32,7 +31,7 @@ function App() {
   
   return (
     <Router>
-        <Nav categories={categories} setSearchApp = {setSearchApp}/>
+        <Nav user={user} categories={categories} setSearchApp = {setSearchApp}/>
  
         <Route
         exact path="/products/search"

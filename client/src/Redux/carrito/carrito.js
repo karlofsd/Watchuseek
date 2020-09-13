@@ -1,57 +1,65 @@
-// import axios from 'axios'
+import axios from 'axios'
 
-// // --- CONSTANTES ---
-// const GET_CARRITO = 'GET_CARRITO'
-// const RESET_CARRITO = 'RESET_CARRITO'
+// --- CONSTANTES ---
+const GET_CARRITO = "GET_CARRITO"
+const SET_NUMORDEN = 'SET_NUMORDEN'
 
-// // --- STATE ---
+// --- STATE ---
 
-// const initialState = {
-//     carrito: []
-//   };
+const initialState = {
+    carrito: [],
+    numeroOrden: 1,
+  };
 
-// // --- REDUCER ---
-// export default function productReducer(state = initialState, action) {
-//     switch (action.type) {
-//       case GET_CARRITO : 
-//         return {
-//           ...state,
-//           carrito: action.payload
-//         }
-//       case RESET_PRODUCT:
-//         return state
+// --- REDUCER ---
 
-//       default :
-//         return 
-//     } 
-//   }
+export default function ordenReducer (state = initialState,action) {
+    switch(action.type){
+        case SET_NUMORDEN:
+            return {
+                ...state,
+                numeroOrden: state.numeroOrden + 1
+            }
+        
+        case GET_CARRITO:
+            return{
+                ...state,
+                carrito: action.payload
+            };
+        default: 
+            return {
+                ...state
+            }
+    };
+};
 
-// // --- ACTIONS ---
-// export const getCarrito = (id) => async(dispatch, getState) => {
-//   try{
-//     const {data} = await axios.get(`http://localhost:3001/user/${id}/carrito`)
-//     dispatch({
-//       type: GET_PRODUCTS,
-//       payload: data
-//     })
-//   }
-//   catch(error){
-//     console.log(error)
-//   }
-  
-// }
 
-// export const getProduct = (id) => async(dispatch, getState) => {
-//   try{
-//     const {data} = await axios.get(`http://localhost:3001/products/${id}`)
-//     dispatch({
-//       type: GET_PRODUCT,
-//       payload: data
-//     })
-//   }
-//   catch(error){
-//     console.log(error)
-//   }
-// }
+//---- ACTION -----
+export const getCarrito = (userId) => async (dispatch,getState) => {
+    try {
+        const {data} = await axios.get(`http://localhost:3001/user/${userId}/carrito`)
+        console.log(data);
+        dispatch({
+            type: GET_CARRITO,
+            payload: data,
+        })
+        
+    } catch (error) {
+        console.log(error);
+    };
+};
 
-// export const resetProduct = () => (dispatch) => dispatch({type: RESET_PRODUCT})
+export const newOrden = (userId,carrito,orden) => async(dispatch,getState) => {
+    try {
+        console.log(carrito);
+        carrito.map( async (e) => {
+            console.log(e)
+            await axios.put(`http://localhost:3001/user/${userId}/cantidad/${e.id}`, e)
+            await axios.put(`http://localhost:3001/user/${userId}/creada/${orden}`)
+        })
+        dispatch({type:SET_NUMORDEN})
+    }
+    catch(error){
+        console.log(error)
+    }
+}

@@ -5,16 +5,18 @@ import {Avatar,Button,MenuItem,Menu} from '@material-ui/core'
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
+import {useDispatch} from "react-redux";
+import {getCarrito} from "../../Redux/carrito/carrito.js";
 
 
-const Nav = ({setSearchApp, categories}) => {
-
+const Nav = ({setSearchApp, categories,user}) => {
+    const dispatch = useDispatch()
     const [anchorEl, setAnchorEl] = useState(null);
     
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
-  
+
     const handleClose = () => {
       setAnchorEl(null);
     };
@@ -57,7 +59,7 @@ const Nav = ({setSearchApp, categories}) => {
                 <Link to='/login'>Iniciar sesión</Link>
                 <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>
             </div>
-            <Link to='/carrito'> <div >
+            <Link onClick={()=> dispatch(getCarrito(user.id))} to='/carrito'> <div >
              <ShoppingCartIcon />
             </div></Link> 
         </div>

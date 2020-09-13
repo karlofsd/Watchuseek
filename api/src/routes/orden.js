@@ -56,6 +56,7 @@ server.put('/:id', (req, res)=>{
 
 // ACTUALIZAR ESTADO DE ORDEN
 server.put('/:userId/changeStatus/',(req,res) => {
+  const cancel = req.query.cancel
   Carrito.findAll({where:{userId:req.params.userId}})
     .then(productos => {
       console.log(productos)
@@ -66,7 +67,11 @@ server.put('/:userId/changeStatus/',(req,res) => {
         return Carrito.update({status:'procesando'},{where:{userId:req.params.userId}})
         .then(() => res.status(201).send('orden procesada'))
       }else if(productos[0].status === 'procesando'){
-        return Carrito.update({status:'completa'},{where:{userId:req.params.userId}})
+        if(cancel){
+          return Carrito.update({status:'cancelado'},{where:{userId:req.params.userId}})
+          .then(() => res.status(201).send('orden cancelada'))
+        }
+        else return Carrito.update({status:'completa'},{where:{userId:req.params.userId}})
         .then(() => res.status(201).send('orden completada'))
       }else return res.status(201).send('no hay ordenes pendientes')
     }).catch(err => res.status(404).send(err))

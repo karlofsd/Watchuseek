@@ -11,7 +11,7 @@ const Orden = ({order,total}) => {
     console.log(data.orders);
     data.orders.map( async (e) => {
         console.log(e)
-        await axios.put(`http://localhost:3001/user/${order[0].userId}/completa/${e.id}`)
+        await axios.put(`http://localhost:3001/orders/${order[0].userId}/changeStatus/`)
     })
 }
 

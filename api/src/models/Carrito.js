@@ -15,8 +15,12 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
           },
-           status:{
+          status:{
             type: DataTypes.ENUM(["carrito", "creada", "procesando", "cancelada", "completa"])
+          },
+          order: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
           }
     });
   };

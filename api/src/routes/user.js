@@ -151,32 +151,30 @@ server.delete('/:UserId/carrito/:id', (req, res) => {
 })
 
 
+// server.put('/:UserId/completa/:id', (req, res) => {
 
+//   let userId = req.params.UserId
+//   let id = req.params.id
 
-server.put('/:UserId/completa/:id', (req, res) => {
-
-  let userId = req.params.UserId
-  let id = req.params.id
-
-  Carrito.update({ status: "carrito" ? "procesando" : "completa"}, { where: { userId, id } })
-    .then(orden => {
-      res.status(201).send(orden)
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(404).send(err)
-    })
-})
+//   Carrito.update({ status: "carrito" ? "procesando" : "completa"}, { where: { userId, id } })
+//     .then(orden => {
+//       res.status(201).send(orden)
+//     })
+//     .catch(err => {
+//       console.log(err)
+//       res.status(404).send(err)
+//     })
+// })
 
 
 
 
-server.put('/:UserId/creada/:id', (req, res) => {
+server.put('/:UserId/creada/:order', (req, res) => {
 
-  let userId = req.params.UserId
-  let id = req.params.id
+  let userId = req.params.UserId;
+  let order = req.params.order;
 
-  Carrito.update({ status: "creada" }, { where: { userId, id } })
+  Carrito.update({ status: "creada", order: order }, { where: { userId, status: "carrito" } })
     .then(orden => {
       res.status(201).send(orden)
     })
@@ -239,5 +237,19 @@ server.get('/:id/orders', async (request, response) => {
   });
 
 });
+
+
+// server.put("/:userId/order", (req, res)=>{
+//   let userId = req.params.userId
+//   let 
+//   Carrito.increment({'order': 1}, {where: {userId}})
+//   .then(response =>{
+//     res.status(201).send(response)
+//   })
+//   .catch(err =>{
+//     res.status(404).send(err)
+//   })
+// })
+
 
 module.exports = server;
