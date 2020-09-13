@@ -11,7 +11,7 @@ const Admin = () => {
 
 	const [orders, setOrders] = useState([])
 	
-	useEffect(() => {
+	/* useEffect(() => {
 		const groupBy = (collection, iterator) => {
 			var result = {};
 			collection.map(e => {
@@ -55,6 +55,16 @@ const Admin = () => {
 			setOrders(newOrders);
 		};
 		fetchdata();
+	},[]) */
+
+	useEffect(()=> {
+		const fetchData = async () =>{
+			const {data} = await axios.get(`http://localhost:3001/user/order/ordersAdmin`)
+			setOrders(data)
+			console.log('---- LISTA DE ORDENES ----')
+			console.log(data)
+		}
+		fetchData();
 	},[])
 
  return(

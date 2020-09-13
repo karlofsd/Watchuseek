@@ -18,7 +18,7 @@ export default function ordenReducer (state = initialState,action) {
         case SET_NUMORDEN:
             return {
                 ...state,
-                numeroOrden: state.numeroOrden + 1
+                numeroOrden: action.payload
             }
         
         case GET_CARRITO:
@@ -49,17 +49,21 @@ export const getCarrito = (userId) => async (dispatch,getState) => {
     };
 };
 
-export const newOrden = (userId,carrito,orden) => async(dispatch,getState) => {
+export const newOrden = (userId,carrito) => async(dispatch,getState) => {
+    const lastorder = getState().carrito.numeroOrden
+    console.log(`lastorder: ${lastorder}`);
+    const neworder = lastorder + 1
+    console.log(`neworder : ${neworder}`)
     try {
         console.log(carrito);
         carrito.map( async (e) => {
             console.log(e)
             await axios.put(`http://localhost:3001/user/${userId}/cantidad/${e.id}`, e)
-            await axios.put(`http://localhost:3001/user/${userId}/creada/${orden}`)
+            await axios.put(`http://localhost:3001/user/${userId}/creada/${lastorder}`)
         })
-        dispatch({type:SET_NUMORDEN})
+        dispatch({type:SET_NUMORDEN, payload:neworder})
     }
     catch(error){
         console.log(error)
-    }
+    } 
 }

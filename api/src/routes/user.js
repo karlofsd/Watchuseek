@@ -1,7 +1,7 @@
 const server = require('express').Router();
 const { Users } = require('../db.js');
 const { Carrito } = require('../db.js');
-const { Sequelize: { Op } } = require('sequelize');
+const { Sequelize: { Op,fn,col },Sequelize } = require('sequelize');
 
 
 server.post("/", (req, res) => {
@@ -100,12 +100,12 @@ server.get("/:UserId/carrito", (req, res) => {
 })
 
 
-server.get("/:UserId/admin", (req, res) => {
-   var id = req.params.UserId
+server.get("/:orderId/admin", (req, res) => {
+   var id = req.params.orderId;
   
   Carrito.findAll({
      where: {
-        userId: id,
+        order: id,
       }
     })
       .then(orden => {
@@ -167,8 +167,6 @@ server.delete('/:UserId/carrito/:id', (req, res) => {
 // })
 
 
-
-
 server.put('/:UserId/creada/:order', (req, res) => {
 
   let userId = req.params.UserId;
@@ -222,7 +220,7 @@ server.get('/:id/orders', async (request, response) => {
 
   const orders = await Carrito.findAll({
     where: {
-      userId: id
+      order: id
     }
   });
 
@@ -238,6 +236,41 @@ server.get('/:id/orders', async (request, response) => {
 
 });
 
+server.get("/order/ordersAdmin", (req,res) => {
+  Carrito.findAll({
+    attributes: ['order','status',
+    [Sequelize.fn('count',Sequelize.col('id')),'idCount']],
+    group: ['order','status'],
+    raw:true
+  })
+  .then(order => {
+    res.status(200).send(order);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+})
+
+// Location.findAll({
+//   attributes: { 
+//       include: [[Sequelize.fn("COUNT", Sequelize.col("sensors.id")), "sensorCount"]] 
+//   },
+//   include: [{
+//       model: Sensor, attributes: []
+//   }],
+//   group: ['Location.id']
+// })
+
+server.get("/order/allOrders/:orderId", (req,res) => {
+  const orderId = req.params.orderId;
+  Carrito.findAll({where: {order: orderId}})
+  .then(order => {
+    res.status(200).send(order);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+})
 
 // server.put("/:userId/order", (req, res)=>{
 //   let userId = req.params.userId

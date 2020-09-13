@@ -6,12 +6,11 @@ const Orden = ({order,total}) => {
 
 
   const comprar = async()=>{
-     console.log(order[0].userId);   
-    const { data } = await axios.get(`http://localhost:3001/user/${order[0].userId}/orders`);
-    console.log(data.orders);
+    const { data } = await axios.get(`http://localhost:3001/user/${order[0].order}/orders`);
+    console.log(data);
     data.orders.map( async (e) => {
-        console.log(e)
-        await axios.put(`http://localhost:3001/orders/${order[0].userId}/changeStatus/`)
+        
+        await axios.put(`http://localhost:3001/orders/${order[0].order}/changeStatus/`)
     })
 }
 
