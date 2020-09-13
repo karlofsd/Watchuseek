@@ -1,0 +1,25 @@
+.divindex12{
+    display: flex;
+    justify-content:center;
+    position: relative;
+    object-fit: cover;
+    width: 100%;
+    
+}
+
+.videoindex{
+    position: absolute;
+    width: 100%;
+}
+
+.welcome{
+    padding-top: 100px;
+    text-align: center;
+    color:white;
+    position:relative;
+    font-size: xx-large
+
+
+}
+
+

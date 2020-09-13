@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import "./user.css";
 
 
 const User =()=>{
@@ -33,18 +34,21 @@ const User =()=>{
      }
 
     return(
-        <div>
-            <form onSubmit={()=>handleSubmit()}>
-                <div>
-               <label>User Email</label>     
-         <input type="email" autoComplete = "off" name = "email" onChange={(e) =>handleInputChange(e)} value = {input["email"]} />
+      <div className='divmayor'>
+        <div className = "contentUser">
+            <form className = "formUser" onSubmit={()=>handleSubmit()}>
+              <h1 className='titulo'>Crear usuario</h1>
+                <div className = "divLogin">
+               <label className='labelemail'>User Email</label> <br/>   
+         <input placeholder='   email@mail.com' className='inputemail' type="email" autoComplete = "off" name = "email" onChange={(e) =>handleInputChange(e)} value = {input["email"]} />
                 </div>
                 <div>
-                <label>User Password</label>    
-         <input type = "password" autoComplete = "off" name = "password" onChange={(e) =>handleInputChange(e)} value = {input["password"]} />
+                <label className='labelemail' >User Password</label> <br/>    
+         <input placeholder='   your_password' className='inputemail' type = "password" autoComplete = "off" name = "password" onChange={(e) =>handleInputChange(e)} value = {input["password"]} />
                 </div>
-             <button onClick={(e)=>handleCreate(e)}>Crear usuario</button>
+             <button className = "btnUser" onClick={(e)=>handleCreate(e)}>Aceptar</button>
             </form>
+        </div>
         </div>
     )
 }

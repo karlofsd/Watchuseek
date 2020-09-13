@@ -1,14 +1,14 @@
 const server = require('express').Router();
 const { Users } = require('../db.js');
 const { Carrito } = require('../db.js');
-const { Sequelize: { Op } } = require('sequelize');
+const { Sequelize: { Op,fn,col },Sequelize } = require('sequelize');
 
 
 server.post("/", (req, res) => {
-  const { email, password } = req.body
-  Users.findOrCreate({
-    where: { email, password }
-  })
+  const { email, password } = req.body;
+  Users.create(
+    { email, password }
+  )
     .then(user => {
       return res.status(201).send(user)
     })
@@ -16,12 +16,24 @@ server.post("/", (req, res) => {
       return res.status(404).json(error)
     })
 
-})
+});
 
 server.get("/", (req, res) => {
   Users.findAll()
     .then(users => {
-      return s.status(201).send(users)
+      return res.status(201).send(users)
+    })
+    .catch(err => {
+      return res.status(404).send(err)
+    })
+});
+
+server.get("/:email", (req, res) => {
+  const email = req.params.email;
+  const password = req.body.password
+  Users.findOne({where:{email:email}})
+    .then(user => {
+      return res.status(201).send(user)
     })
     .catch(err => {
       return res.status(404).send(err)
@@ -38,9 +50,6 @@ server.put("/:id", (req, res) => {
     .catch(err => {
       return res.status(404).send(err)
     })
-
-
-
 })
 
 server.delete('/:id', async (request, response) => {
@@ -49,13 +58,11 @@ server.delete('/:id', async (request, response) => {
   const userEliminated = await Users.destroy({
     where: { id }
   });
-
   if (!userEliminated) {
     return response.status(404).json({
       message: `The user with id: ${id} doesn't exist.`
     });
   }
-
   return response.status(200).json({
     message: 'User deleted.'
   });
@@ -63,11 +70,9 @@ server.delete('/:id', async (request, response) => {
 });
 
 
-
 server.post("/:UserId/carrito", (req, res) => {
   var id = req.params.UserId
   const { name, price, quantity, status } = req.body;
-
   Carrito.findOrCreate({ where: { userId: id, name, price, quantity, status } })
     .then(order => {
       res.status(201).json(order)
@@ -76,7 +81,6 @@ server.post("/:UserId/carrito", (req, res) => {
       res.status(404).json('No se pudo agregar')
     })
 })
-
 
 
 server.get("/:UserId/carrito", (req, res) => {
@@ -96,6 +100,22 @@ server.get("/:UserId/carrito", (req, res) => {
     })
 })
 
+
+server.get("/:orderId/admin", (req, res) => {
+   var id = req.params.orderId;
+  
+  Carrito.findAll({
+     where: {
+        order: id,
+      }
+    })
+      .then(orden => {
+        res.status(201).send(orden)
+      })
+      .catch(err => {
+        res.status(404).send('No se encontraron pedidos o hubo un error!')
+      })
+  })
 
 
 server.delete('/:UserId/carrito', (req, res) => {
@@ -132,13 +152,28 @@ server.delete('/:UserId/carrito/:id', (req, res) => {
 })
 
 
-server.put('/:UserId/carrito/:id', (req, res) => {
+// server.put('/:UserId/completa/:id', (req, res) => {
 
-  let userId = req.params.UserId
-  let id = req.params.id
-  const { status } = req.body
+//   let userId = req.params.UserId
+//   let id = req.params.id
 
-  Carrito.update({ status: "procesando" }, { where: { userId, id } })
+//   Carrito.update({ status: "carrito" ? "procesando" : "completa"}, { where: { userId, id } })
+//     .then(orden => {
+//       res.status(201).send(orden)
+//     })
+//     .catch(err => {
+//       console.log(err)
+//       res.status(404).send(err)
+//     })
+// })
+
+
+server.put('/:UserId/creada/:order', (req, res) => {
+
+  let userId = req.params.UserId;
+  let order = req.params.order;
+
+  Carrito.update({ status: "creada", order: order }, { where: { userId, status: "carrito" } })
     .then(orden => {
       res.status(201).send(orden)
     })
@@ -149,9 +184,24 @@ server.put('/:UserId/carrito/:id', (req, res) => {
 })
 
 
+server.put('/:UserId/cancelada/:id', (req, res) => {
+
+  let userId = req.params.UserId
+  let id = req.params.id
+  const { status } = req.body
+
+  Carrito.update({ status: "cancelada" }, { where: { userId, id } })
+    .then(orden => {
+      res.status(201).send(orden)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(404).send(err)
+    })
+})
 
 
-server.put('/:UserId/carrito/:id', (req, res) => {
+server.put('/:UserId/cantidad/:id', (req, res) => {
   let userId = req.params.UserId
   let id = req.params.id
   const { quantity } = req.body
@@ -166,12 +216,28 @@ server.put('/:UserId/carrito/:id', (req, res) => {
     })
 })
 
+
+
+server.get('/:id/ordenes', (req,res)=>{
+  const {id} = req.params
+  Carrito.findAll({where:{
+    userId:id 
+  }})
+  .then(orden=>{
+    res.status(201).send(orden)
+  })
+  .catch(err=>{
+    res.status(404).send(err)
+  })
+})
+
+
 server.get('/:id/orders', async (request, response) => {
   const { id } = request.params;
 
   const orders = await Carrito.findAll({
     where: {
-      userId: id
+      order: id
     }
   });
 
@@ -187,11 +253,53 @@ server.get('/:id/orders', async (request, response) => {
 
 });
 
+server.get("/order/ordersAdmin", (req,res) => {
+  Carrito.findAll({
+    attributes: ['order','status',
+    [Sequelize.fn('count',Sequelize.col('id')),'idCount']],
+    group: ['order','status'],
+    raw:true
+  })
+  .then(order => {
+    res.status(200).send(order);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+})
 
+// Location.findAll({
+//   attributes: { 
+//       include: [[Sequelize.fn("COUNT", Sequelize.col("sensors.id")), "sensorCount"]] 
+//   },
+//   include: [{
+//       model: Sensor, attributes: []
+//   }],
+//   group: ['Location.id']
+// })
 
+server.get("/order/allOrders/:orderId", (req,res) => {
+  const orderId = req.params.orderId;
+  Carrito.findAll({where: {order: orderId}})
+  .then(order => {
+    res.status(200).send(order);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+})
 
-
-
+// server.put("/:userId/order", (req, res)=>{
+//   let userId = req.params.userId
+//   let 
+//   Carrito.increment({'order': 1}, {where: {userId}})
+//   .then(response =>{
+//     res.status(201).send(response)
+//   })
+//   .catch(err =>{
+//     res.status(404).send(err)
+//   })
+// })
 
 
 module.exports = server;

@@ -10,51 +10,13 @@ import axios from "axios";
 const Admin = () => {
 
 	const [orders, setOrders] = useState([])
-	
-	useEffect(() => {
-		const groupBy = (collection, iterator) => {
-			var result = {};
-			collection.map(e => {
-				let property;
-				if (typeof iterator === "function") {
-					property = iterator(e);
-					if (!result.hasOwnProperty(property)) {
-						result[property] = [];
-						result[property].push(e);
-					} else {
-						result[property].push(e);
-					}
-				} else if(typeof iterator === "string") {
-					property = e[iterator];
-					if (!result.hasOwnProperty(property)) {
-						result[property] = [];
-						result[property].push(e);
-					} else {
-						result[property].push(e);
-					};
-				};
-			});
-			return result;
-		};
-		const getData = (arg) => {
-			var array = [];
-			var obj = {};
-			for(var e in arg){
-				obj = {
-					userId: e,
-					status: arg[e][0].status,
-				};
-				array.push(obj);
-			};
-			return array
-		};
-		const fetchdata = async () => {
-			const {data} = await axios.get("http://localhost:3001/orders")
-			const order = groupBy(data,"userId");
-			const newOrders = getData(order)
-			setOrders(newOrders);
-		};
-		fetchdata();
+
+	useEffect(()=> {
+		const fetchData = async () =>{
+			const {data} = await axios.get(`http://localhost:3001/user/order/ordersAdmin`)
+			setOrders(data)
+		}
+		fetchData();
 	},[])
 
  return(
