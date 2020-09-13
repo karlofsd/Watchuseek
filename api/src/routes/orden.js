@@ -79,7 +79,7 @@ server.put('/:order/changeStatus/',(req,res) => {
 
 
 // modelo contador
-server.get('/algo/count',(req,res) => {
+server.get('/counter/count',(req,res) => {
   Ordenfinal.findAll({
     limit: 1,
     order: [['id','DESC']]
@@ -87,10 +87,10 @@ server.get('/algo/count',(req,res) => {
   .then(e => {
     res.status(200).send(e);
   })
-})
+});
 
-server.post("/count", (req,res) => {
-  Ordenfinal.create({contador: 3})
+server.post("/counter", (req,res) => {
+  Ordenfinal.create({contador: 0})
   .then(e => {
     res.status(200).send(e);
   })

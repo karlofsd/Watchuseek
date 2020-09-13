@@ -30,7 +30,8 @@ server.get("/", (req, res) => {
 
 server.get("/:email", (req, res) => {
   const email = req.params.email;
-  Users.findOne({where:{email}})
+  const password = req.body.password
+  Users.findOne({where:{email:email}})
     .then(user => {
       return res.status(201).send(user)
     })

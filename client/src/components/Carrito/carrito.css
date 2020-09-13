@@ -1,0 +1,31 @@
+.contentCarrito{
+    display: flex;
+    border: solid #FFA62B;;
+    flex-direction: column;
+    justify-content: center;
+    background-color: black;
+    color: #FFA62B;
+}
+
+.divcontentItems{
+    display: flex;
+    margin-left: 5px;
+
+}
+
+.divItem{
+    width: 200px;
+    height: 120px;
+    margin-top: 5px;
+    margin-right: 10px;
+    background-color: #FFA62B;
+    color: black;
+}
+
+.btnsCarrito{
+    margin-top: 20px;
+}
+
+.inputItem{
+    width: 80px;
+}

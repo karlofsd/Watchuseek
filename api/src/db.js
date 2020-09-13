@@ -33,7 +33,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Product } = sequelize.models;
 const {Categories} = sequelize.models;
 const { Users} = sequelize.models;
-const { Carrito } = sequelize.models
+const { Carrito } = sequelize.models;
+const {Ordenfinal} = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);

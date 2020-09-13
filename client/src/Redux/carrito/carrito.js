@@ -18,7 +18,7 @@ export default function ordenReducer (state = initialState,action) {
         case SET_NUMORDEN:
             return {
                 ...state,
-                numeroOrden: action.payload
+                numeroOrden: state.numeroOrden + 1
             }
         
         case GET_CARRITO:
@@ -50,20 +50,16 @@ export const getCarrito = (userId) => async (dispatch,getState) => {
 };
 
 export const newOrden = (userId,carrito) => async(dispatch,getState) => {
-    const lastorder = getState().carrito.numeroOrden
-    console.log(`lastorder: ${lastorder}`);
-    const neworder = lastorder + 1
-    console.log(`neworder : ${neworder}`)
     try {
-        console.log(carrito);
+        await axios.post("http://localhost:3001/orders/counter");
+        const {data} = await axios.get("http://localhost:3001/orders/counter/count")
         carrito.map( async (e) => {
-            console.log(e)
             await axios.put(`http://localhost:3001/user/${userId}/cantidad/${e.id}`, e)
-            await axios.put(`http://localhost:3001/user/${userId}/creada/${lastorder}`)
+            await axios.put(`http://localhost:3001/user/${userId}/creada/${data[0].id}`)
         })
-        dispatch({type:SET_NUMORDEN, payload:neworder})
+        dispatch({type:SET_NUMORDEN})
     }
     catch(error){
         console.log(error)
-    } 
+    }
 }

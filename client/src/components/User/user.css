@@ -1,0 +1,28 @@
+.contentUser{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: black;
+    margin-top: 5%;
+    margin-left: 30%;
+    color: #FFA62B;
+    width: 500px;
+    height: 300px;
+}
+
+.formUser{
+     padding-left: 5%;
+}
+
+.divUser{
+    margin-bottom: 5px;
+}
+
+.btnUser{
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.btnUser:hover{
+    background-color: #FFA62B;
+}

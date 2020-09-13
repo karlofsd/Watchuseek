@@ -11,10 +11,6 @@ const Category =({allCategories,currentCategory,setCategories})=>{
         id: null,
         name: "",
         description: "",
-        price: null,
-        stock: null,
-        image: "",
-        category: null
   });
 
   useEffect(() => {
@@ -50,6 +46,9 @@ const Category =({allCategories,currentCategory,setCategories})=>{
       }
 
      const handleCreate= async()=>{
+       if(!input.name || !input.description){
+         return alert("Debes completar todos los campos");
+       }
         const urlApi = 'http://localhost:3001/category/create';
         const dataPost = {
           name: input.name,

@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import {useDispatch} from "react-redux";
 import {getUser} from "../../Redux/users/users.js";
+import "./Login.css";
 
 const Login = () => {
 
@@ -23,30 +24,19 @@ const Login = () => {
         e.preventDefault();
       }
 
-    //   const handleCreate= async(e)=>{
-    //       e.preventDefault()
-    //     const urlApi = 'http://localhost:3001/user';
-    //     const dataPost = {
-    //       email: input.email,
-    //       password: input.password
-    //     };
-
-    //     await axios.post(urlApi , dataPost);
-    //     alert('Agregado correctamente');
-    //  }
-
     return (
-        <div>
-        <form onSubmit={(e)=>handleSubmit(e)}>
-            <div>
-           <label>User Email</label>     
+        <div className = "contentLogin">
+        <form className = "formLogin" onSubmit={(e)=>handleSubmit(e)}>
+            <h1>Login</h1>
+            <div className = "divLogin">
+           <label>User Email</label><br/>        
      <input type="email" autoComplete = "off" name = "email" onChange={(e) =>handleInputChange(e)} value = {input["email"]} />
             </div>
             <div>
-            <label>User Password</label>    
+            <label>User Password</label><br/>    
      <input type = "password" autoComplete = "off" name = "password" onChange={(e) =>handleInputChange(e)} value = {input["password"]} />
             </div>
-         <button onClick={(e)=> dispatch(getUser(input.email))}>Iniciar sesión</button>
+         <button className = "btnLogin" onClick={(e)=> dispatch(getUser(input.email))}>Iniciar sesión</button>
         </form>
     </div>
     )

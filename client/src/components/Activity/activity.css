@@ -1,0 +1,53 @@
+.contentActivity{
+    display: flex;
+    margin-top: 10px;
+    padding-top: 15px;
+    border: solid #FFA62B 1px;
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    width: 1024px;
+    height: 540px;
+    
+    
+}
+
+.divInfo{
+    border-radius: 30px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5%;
+    background-color: #FFA62B;
+    width: 370px;
+    height: 400px;
+
+}
+
+.imgActivity{
+    margin-left: 40px;
+    margin-bottom: 20px;
+    width: 225px;
+    height: 225px;
+    border-radius: 50%;
+}
+
+.divHistory{
+    width: 500px;
+    border-radius: 15px;
+    background-color: #FFA62B;
+    margin-left: 15px;
+}
+
+.titleHistory{
+    display: flex;
+    justify-content: center;
+}
+
+.divItemHistory{
+    border: solid 1px;
+    margin-left: 5px;
+    padding-left: 5px;
+    width: 300px;
+}

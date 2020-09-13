@@ -2,19 +2,14 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import {newOrden} from '../../Redux/carrito/carrito'
 import {useSelector, useDispatch} from 'react-redux'
+import "./carrito.css";
 
 const Carrito = ({user})=>{
     const [product, setProduct] = useState([]);
     const dispatch = useDispatch()
     const orden = useSelector(store => store.carrito.numeroOrden)
     const carrito = useSelector(store => store.carrito.carrito)
-    
-    console.log("esto es carrito");
-    console.log(carrito);
 
-    console.log("esto es product");
-    console.log(product);
-    
     useEffect(()=>{
         setProduct(carrito);
          },[carrito])
@@ -44,27 +39,24 @@ const Carrito = ({user})=>{
    } 
 
     return(
-        <div>
-            <div>
-                {console.log("antes del map")}
-                {console.log(product)}
+        <div className = "contentCarrito">
+            <div className = "divcontentItems">
             {carrito[0] && carrito.map((e,index)=>{
          return(
-         <div>
+         <div className = "divItem">
              <button onClick={()=>eliminar()}>X</button>
             <div>
                <label>{e.name}</label> 
                <label>{e.price}</label>
                <div>
                     <label>{e.quantity}</label>
-                    <input className = "input" type="number" name={e.quantity} onChange={(e) => handleInputChange(e,index)}  />
+                    <input className = "inputItem" type="number" name={e.quantity} onChange={(e) => handleInputChange(e,index)}  />
                 </div>
-            </div>
-            <div></div> 
+            </div> 
          </div>)
      })}
             </div>
-            <div>
+            <div className = "btnsCarrito">
                 <button onClick={()=> handleBuy()} >COMPRAR</button>
                 <button onClick={()=> eliminarTodo()} >VACIAR CARRITO</button>
             </div>

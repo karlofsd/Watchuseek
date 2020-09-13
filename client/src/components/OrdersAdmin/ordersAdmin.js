@@ -1,28 +1,25 @@
-import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
-import Orden from '../Orden/orden'
-import Axios from 'axios'
+import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
+import Orden from '../Orden/orden';
+import Axios from 'axios';
 
 const OrdersAdmin = ({orders}) => {
     
-    const [order,setOrder] = useState([])
-    const [totalPrice,setTotalPrice] = useState()
+    const [order,setOrder] = useState([]);
+    const [totalPrice,setTotalPrice] = useState();
     const getTotal = (arg) => {
-        let total = 0
+        let total = 0;
         for(var product in arg){
-            total = total + arg[product].price
+            total = total + arg[product].price;
         }
-        return total
-    }
+        return total;
+    };
 
     const handleSearch = async(e) => {
-        console.log(e);
         const {data} = await Axios.get(`http://localhost:3001/user/${e}/admin`)
-        console.log(data)
-        const total = getTotal(data)
-        
-        setTotalPrice(total)
-        setOrder(data)
+        const total = getTotal(data);
+        setTotalPrice(total);
+        setOrder(data);
     }
     
     return(
@@ -36,7 +33,7 @@ const OrdersAdmin = ({orders}) => {
             </div>
             {order[0] && <Orden order={order} total={totalPrice}/>}
         </div>
-    )
-}
+    );
+};
 
 export default OrdersAdmin; 
