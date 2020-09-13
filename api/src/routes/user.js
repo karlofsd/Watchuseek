@@ -5,7 +5,7 @@ const { Sequelize: { Op } } = require('sequelize');
 
 
 server.post("/", (req, res) => {
-  const { email, password } = req.body
+  const { email, password } = req.body;
   Users.create(
     { email, password }
   )
@@ -16,7 +16,7 @@ server.post("/", (req, res) => {
       return res.status(404).json(error)
     })
 
-})
+});
 
 server.get("/", (req, res) => {
   Users.findAll()
@@ -26,10 +26,7 @@ server.get("/", (req, res) => {
     .catch(err => {
       return res.status(404).send(err)
     })
-})
-
-
-
+});
 
 server.get("/:email", (req, res) => {
   const email = req.params.email;
@@ -52,9 +49,6 @@ server.put("/:id", (req, res) => {
     .catch(err => {
       return res.status(404).send(err)
     })
-
-
-
 })
 
 server.delete('/:id', async (request, response) => {
@@ -63,13 +57,11 @@ server.delete('/:id', async (request, response) => {
   const userEliminated = await Users.destroy({
     where: { id }
   });
-
   if (!userEliminated) {
     return response.status(404).json({
       message: `The user with id: ${id} doesn't exist.`
     });
   }
-
   return response.status(200).json({
     message: 'User deleted.'
   });
@@ -77,11 +69,9 @@ server.delete('/:id', async (request, response) => {
 });
 
 
-
 server.post("/:UserId/carrito", (req, res) => {
   var id = req.params.UserId
   const { name, price, quantity, status } = req.body;
-
   Carrito.findOrCreate({ where: { userId: id, name, price, quantity, status } })
     .then(order => {
       res.status(201).json(order)
@@ -90,7 +80,6 @@ server.post("/:UserId/carrito", (req, res) => {
       res.status(404).json('No se pudo agregar')
     })
 })
-
 
 
 server.get("/:UserId/carrito", (req, res) => {
@@ -110,6 +99,7 @@ server.get("/:UserId/carrito", (req, res) => {
     })
 })
 
+
 server.get("/:UserId/admin", (req, res) => {
    var id = req.params.UserId
   
@@ -125,7 +115,6 @@ server.get("/:UserId/admin", (req, res) => {
         res.status(404).send('No se encontraron pedidos o hubo un error!')
       })
   })
-
 
 
 server.delete('/:UserId/carrito', (req, res) => {
@@ -161,59 +150,31 @@ server.delete('/:UserId/carrito/:id', (req, res) => {
     })
 })
 
-// server.put('/:UserId/carrito/:id', (req, res) => {
-
-//   let userId = req.params.UserId
-//   let id = req.params.id
-//   const { status } = req.body
-
-//   Carrito.update({ 
-//     [Op.or]:[
-//       {status:'carrito',where:{status:null}},
-//       {status:'procesando',where:{status:'carrito'}}
-//     ]
-//    }, { where: { userId, id } })
-//     .then(orden => {
-//       res.status(201).send(orden)
-//     })
-//     .catch(err => {
-//       console.log(err)
-//       res.status(404).send(err)
-//     })
-// })
 
 
 
-
-// server.put('/:UserId/carrito/:id',(req, res) => {
-
-//   let userId = req.params.UserId
-//   let id = req.params.id
-//   let data;
-//   Carrito.findOne({where:{userId: userId, id: id}})
-//   .then(e =>{
-//     data = e;
-//   });
-//   switch (data.status) {
-//     case "carrito":
-//        Carrito.update({status: "procesando"},{where: {userId:userId, id:id}})
-//        .then(e => {
-//          res.status(201).send(e);
-//        })
-//       break;
-  
-//     default:
-//       break;
-//   }
-
-// })
-
-
-server.put('/:UserId/carrito/:id', (req, res) => {
+server.put('/:UserId/completa/:id', (req, res) => {
 
   let userId = req.params.UserId
   let id = req.params.id
-  const { status } = req.body
+
+  Carrito.update({ status: "carrito" ? "procesando" : "completa"}, { where: { userId, id } })
+    .then(orden => {
+      res.status(201).send(orden)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(404).send(err)
+    })
+})
+
+
+
+
+server.put('/:UserId/creada/:id', (req, res) => {
+
+  let userId = req.params.UserId
+  let id = req.params.id
 
   Carrito.update({ status: "creada" }, { where: { userId, id } })
     .then(orden => {
@@ -243,7 +204,7 @@ server.put('/:UserId/cancelada/:id', (req, res) => {
 })
 
 
-server.put('/:UserId/carrito/:id', (req, res) => {
+server.put('/:UserId/cantidad/:id', (req, res) => {
   let userId = req.params.UserId
   let id = req.params.id
   const { quantity } = req.body
@@ -278,12 +239,5 @@ server.get('/:id/orders', async (request, response) => {
   });
 
 });
-
-
-
-
-
-
-
 
 module.exports = server;

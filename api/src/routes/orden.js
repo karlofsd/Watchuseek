@@ -53,4 +53,24 @@ server.put('/:id', (req, res)=>{
     res.status(404).send('No se pudo completar con exito!')
   }) 
 })
+
+// ACTUALIZAR ESTADO DE ORDEN
+server.put('/:userId/changeStatus/',(req,res) => {
+  Carrito.findAll({where:{userId:req.params.userId}})
+    .then(productos => {
+      console.log(productos)
+      if(productos[0].status === 'carrito'){
+        return Carrito.update({status:'creada'},{where:{userId:req.params.userId}})
+        .then(() => res.status(201).send('orden creada'))
+      } else if(productos[0].status === 'creada'){
+        return Carrito.update({status:'procesando'},{where:{userId:req.params.userId}})
+        .then(() => res.status(201).send('orden procesada'))
+      }else if(productos[0].status === 'procesando'){
+        return Carrito.update({status:'completa'},{where:{userId:req.params.userId}})
+        .then(() => res.status(201).send('orden completada'))
+      }else return res.status(201).send('no hay ordenes pendientes')
+    }).catch(err => res.status(404).send(err))
+})
+
+
 module.exports = server;
