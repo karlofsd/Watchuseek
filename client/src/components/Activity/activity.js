@@ -5,15 +5,21 @@ import "./activity.css";
 const Activity =({user})=>{
   const [ordenes, setOrden] = useState([]);
 
+  const Cancelar = (e)=>{
+     axios.put(`http://localhost:3001/user/${user.id}/cancelada/${e}`)
+  }
 
  useEffect(()=>{
   const fetchData = async ()=>{ 
-  const {data} = await axios.get(`http://localhost:3001/user/${user.id}/orders`);
-  setOrden(data); 
+  const {data} = await axios.get(`http://localhost:3001/user/${user.id}/ordenes`);
+  setOrden(data);
+  console.log(data) 
+  
 };
   fetchData();
  },[]);
 
+ console.log(ordenes)
     return(
         <div className = "contentActivity">
           <div className = "divInfo">
@@ -22,14 +28,15 @@ const Activity =({user})=>{
             <h2>Usuario N° {user.id}</h2>
           </div>
           <div className = "divHistory">
-          <h1 className = "titleHistory">Historial de compras</h1>
-        {ordenes.orders && ordenes.orders.map(e=>{
+          <h1 className = "titleHistory">Actividad del usuario</h1>
+        {ordenes && ordenes.map(e=>{
             return(
             <div className = "divItemHistory">
          <label>Name: {e.name}</label><br/> 
         <label>Price:{e.price}</label><br/> 
             <label>Quantity: {e.quantity}</label><br/> 
         <label>Status:{e.status}</label><br/> 
+        { e.status === "creada"  || e.status === "procesando" ? <button className='btoncancelar' onClick={()=> Cancelar(e.id)} >Cancelar pedido</button> : null}
             </div>)
             
         })}

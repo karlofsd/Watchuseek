@@ -29,14 +29,17 @@ const Orden = ({order,total}) => {
             {order.map(o => 
               <tr className='columns'>
                 <td>{o.name}</td>
+                       
                 <td>${o.price}</td>
+                       
                 <td>{o.quantity}</td>
               </tr>
             )}
           </table>
-        </div>
-        <h5 className="card-title">TOTAL: $USD {total}</h5>
-        <p className="card-text">Status: {order[0].status}</p>
+        </div><br/>
+        <br/>
+        <h5 className="card-title">TOTAL: $USD {total}</h5><br/>
+        <p className="card-text">Status: {order[0].status}</p><br/>
         <button onClick = {() => comprar()} className="btn btn-primary rounded-pill">ACEPTAR COMPRA</button>
       </div>
       <div className="card-footer text-muted">

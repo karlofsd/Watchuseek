@@ -21,7 +21,7 @@ server.post("/", (req, res) => {
 server.get("/", (req, res) => {
   Users.findAll()
     .then(users => {
-      return s.status(201).send(users)
+      return res.status(201).send(users)
     })
     .catch(err => {
       return res.status(404).send(err)
@@ -215,6 +215,22 @@ server.put('/:UserId/cantidad/:id', (req, res) => {
       res.status(404).send(err)
     })
 })
+
+
+
+server.get('/:id/ordenes', (req,res)=>{
+  const {id} = req.params
+  Carrito.findAll({where:{
+    userId:id 
+  }})
+  .then(orden=>{
+    res.status(201).send(orden)
+  })
+  .catch(err=>{
+    res.status(404).send(err)
+  })
+})
+
 
 server.get('/:id/orders', async (request, response) => {
   const { id } = request.params;

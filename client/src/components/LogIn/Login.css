@@ -1,13 +1,41 @@
+.divlogin{
+    background-color: #e3e3d8;
+}
+
+.login1{
+    font-size: 50px;
+    margin-top: -160px;
+    margin-left: 100px;
+    margin-bottom: 30px;
+}
+
+.emaillogin{
+    margin-left: 100px;
+    font-weight: bolder;
+}
+
+.inputlogin{
+    width: 300px;
+    margin-left: 100px;
+}
+
+.btnLogin{
+    width: 300px;
+    border-radius: 10px;
+    color: gray;
+    border: 0px;
+    margin-left: 100px;
+    color: black;
+}
+
 .contentLogin{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: black;
-    margin-top: 5%;
     margin-left: 30%;
     color: #FFA62B;
     width: 500px;
-    height: 300px;
+    height: 630px;
 }
 
 .formLogin{

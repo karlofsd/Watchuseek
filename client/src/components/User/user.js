@@ -34,19 +34,21 @@ const User =()=>{
      }
 
     return(
+      <div className='divmayor'>
         <div className = "contentUser">
             <form className = "formUser" onSubmit={()=>handleSubmit()}>
-              <h1>Crear usuario</h1>
+              <h1 className='titulo'>Crear usuario</h1>
                 <div className = "divLogin">
-               <label>User Email</label> <br/>   
-         <input type="email" autoComplete = "off" name = "email" onChange={(e) =>handleInputChange(e)} value = {input["email"]} />
+               <label className='labelemail'>User Email</label> <br/>   
+         <input placeholder='   email@mail.com' className='inputemail' type="email" autoComplete = "off" name = "email" onChange={(e) =>handleInputChange(e)} value = {input["email"]} />
                 </div>
                 <div>
-                <label>User Password</label> <br/>    
-         <input type = "password" autoComplete = "off" name = "password" onChange={(e) =>handleInputChange(e)} value = {input["password"]} />
+                <label className='labelemail' >User Password</label> <br/>    
+         <input placeholder='   your_password' className='inputemail' type = "password" autoComplete = "off" name = "password" onChange={(e) =>handleInputChange(e)} value = {input["password"]} />
                 </div>
              <button className = "btnUser" onClick={(e)=>handleCreate(e)}>Aceptar</button>
             </form>
+        </div>
         </div>
     )
 }

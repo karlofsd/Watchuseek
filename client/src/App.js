@@ -12,7 +12,7 @@ import Carrito from './components/Carrito/carrito.js';
 import User from './components/User/user.js';
 import Activity from './components/Activity/activity.js';
 import Login from './components/LogIn/Login.js';
-
+import Index from './components/Index/index.js'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector(store => store.users.user)
@@ -33,6 +33,11 @@ function App() {
     <Router>
         <Nav user={user} categories={categories} setSearchApp = {setSearchApp}/>
  
+        <Route
+       exact path='/'
+       component={Index}
+       />
+       
         <Route
         exact path="/products/search"
         render={()=> <Catalogo products = {
@@ -80,6 +85,8 @@ function App() {
        exact path="/carrito"
        render = {() => <Carrito user = {user}/>}
        />
+
+       
     </Router>
   );
 }

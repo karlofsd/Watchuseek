@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import {useSelector} from "react-redux";
 
-const Card = ({ name, price, image, id }) => {
+const Card = ({ name, price, image, id, stock }) => {
 
   const user = useSelector(store => store.users.user)
 
@@ -35,7 +35,7 @@ const Card = ({ name, price, image, id }) => {
               <h1>{name = name.substring(0, 1).toUpperCase() + name.substring(1)}</h1>
               <p>$USD {price}</p>
             </div>
-            <button onClick={() => handleClick()} className="buy"><i className="fas fa-shopping-cart"></i></button>
+          <button onClick={() => handleClick()} className="buy" ><i className="fas fa-shopping-cart"></i></button>
           </div>
         </div>
       </div>

@@ -19,6 +19,7 @@ const Catalogo = ({products}) => {
                   name={p.name}
                   price={p.price}
                   image={p.image}
+                  stock={p.stock}
                   category={p.category}
                  />
              ))}  

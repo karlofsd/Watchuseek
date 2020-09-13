@@ -34,32 +34,35 @@ const Carrito = ({user})=>{
        await axios.delete(`http://localhost:3001/user/${user.id}/carrito`)
    }
 
-   const eliminar = async()=>{
-       await axios.delete(`http://localhost:3001/user/${user.id}/carrito/${1}`)
+   const eliminar = async(e)=>{
+       await axios.delete(`http://localhost:3001/user/${user.id}/carrito/${e}`)
    } 
 
     return(
+        <div className='contentcarritomayor'>
+           <h1>Carrito del usuario</h1> 
         <div className = "contentCarrito">
             <div className = "divcontentItems">
             {carrito[0] && carrito.map((e,index)=>{
          return(
-         <div className = "divItem">
-             <button onClick={()=>eliminar()}>X</button>
+         <div className = "bordecarrito">
+             <button className='botonx' onClick={()=>eliminar(e.id)}>X</button>
             <div>
-               <label>{e.name}</label> 
-               <label>{e.price}</label>
+               <label className='labelcarrito'>Producto: { e.name}</label><br/> 
+               <label className='labelcarrito'>Precio: $USD{e.price}</label>
                <div>
-                    <label>{e.quantity}</label>
+                    <label className='labelcarrito'>Cantidad:</label><br/>
                     <input className = "inputItem" type="number" name={e.quantity} onChange={(e) => handleInputChange(e,index)}  />
                 </div>
             </div> 
          </div>)
      })}
             </div>
-            <div className = "btnsCarrito">
-                <button onClick={()=> handleBuy()} >COMPRAR</button>
-                <button onClick={()=> eliminarTodo()} >VACIAR CARRITO</button>
-            </div>
+           { carrito[0] && <div className='divboton' >
+               <button className = "btnsCarrito" onClick={()=> handleBuy()} >COMPRAR</button><br/>
+               <button className = "btnsCarrito" onClick={()=> eliminarTodo()} >VACIAR CARRITO</button>
+            </div>}
+        </div>
         </div>
     )
 }
