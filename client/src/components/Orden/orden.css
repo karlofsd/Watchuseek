@@ -1,3 +1,25 @@
+
+
+.orden-header{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.userEmail{
+    font-size: medium;
+}
+.card-bodyOrden{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
 .columns{
     display: flex;
     justify-content: space-between;
@@ -7,4 +29,8 @@ td{
     display: flex;
     margin : 0 20px 0 10px;
     width: 50px;
+}
+
+.fecha{
+    padding-left: 10px;
 }

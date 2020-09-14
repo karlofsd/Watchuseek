@@ -6,6 +6,8 @@ const Activity =({user})=>{
   const [ordenes, setOrden] = useState([]);
   const name = (mail) => mail.split('@')[0]
   const Cancelar = (e)=>{
+      console.log('---- cancelar ----')
+      console.log(e)
      axios.put(`http://localhost:3001/user/${user.id}/cancelada/${e}`)
   }
 
@@ -13,13 +15,10 @@ const Activity =({user})=>{
   const fetchData = async ()=>{ 
   const {data} = await axios.get(`http://localhost:3001/user/${user.id}/ordenes`);
   setOrden(data);
-  console.log(data) 
-  
 };
   fetchData();
  },[]);
 
- console.log(ordenes)
     return(
         <div className = "contentActivity">
           <div className = "divInfo">

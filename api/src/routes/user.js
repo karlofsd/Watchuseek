@@ -40,6 +40,12 @@ server.get("/:email", (req, res) => {
     })
 })
 
+server.get('/get/:id',(req,res) => {
+   Users.findByPk(req.params.id)
+   .then(user => res.status(201).json(user))
+   .catch(err => res.status(404).send('No se encontro usuario'))
+})
+
 server.put("/:id", (req, res) => {
   let id = req.params.id
   const { email, password } = req.body
@@ -101,14 +107,18 @@ server.get("/:UserId/carrito", (req, res) => {
 })
 
 
-server.get("/:orderId/admin", (req, res) => {
+server.get("/:orderId/admin/:stat", (req, res) => {
    var id = req.params.orderId;
-  
-  Carrito.findAll({
+   var {stat} = req.params
+  Carrito.findAll(stat ? {
      where: {
         order: id,
+        status:stat
       }
-    })
+    }: {where: {
+      order: id
+    }
+  } )
       .then(orden => {
         res.status(201).send(orden)
       })
@@ -255,9 +265,9 @@ server.get('/:id/orders', async (request, response) => {
 
 server.get("/order/ordersAdmin", (req,res) => {
   Carrito.findAll({
-    attributes: ['order','status','createdAt',
+    attributes: ['order','status',
     [Sequelize.fn('count',Sequelize.col('id')),'idCount']],
-    group: ['order','status','createdAt'],
+    group: ['order','status'],
     raw:true
   })
   .then(order => {

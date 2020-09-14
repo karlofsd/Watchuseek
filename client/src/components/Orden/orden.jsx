@@ -1,13 +1,15 @@
 import React from 'react'
 import './orden.css'
 import axios from "axios";
+import './orden.css'
 
-const Orden = ({order,total}) => {
-
-
-  const comprar = async()=>{
+const Orden = ({order,total,userData}) => {
+  let date = (fecha)=> order[0][fecha].split('T')[0]
+  console.log(order)
+  const vender = async()=>{
     const { data } = await axios.get(`http://localhost:3001/user/${order[0].order}/orders`);
-    data.orders.map( async (e) => {
+    console.log(data)
+    data.orders.map( async () => {
         await axios.put(`http://localhost:3001/orders/${order[0].order}/changeStatus/`)
     })
 }
@@ -15,10 +17,13 @@ const Orden = ({order,total}) => {
     
     return (
        <div className="card text-center shadow col-7 p-0 mx-auto" >
-      <div className="card-header">
-        <h2 className='title'>Orden N°{order[0].userId}</h2>
+      <div className="orden-header">
+        <h2 className='title-orden'>Orden N°{order[0].order}</h2>
+        <div>
+          <h3 className='userEmail'>User: {userData.email}</h3>
+        </div>
       </div>
-      <div className="card-body">
+      <div className="card-bodyOrden">
         <div>
           <table>
             <tr className='columns'>
@@ -39,8 +44,8 @@ const Orden = ({order,total}) => {
         </div><br/>
         <br/>
         <h5 className="card-title">TOTAL: $USD {total}</h5><br/>
-        <p className="card-text">Status: {order[0].status}</p><br/>
-            {order[0].status !== 'cancelada' && <button onClick = {() => comprar()} className="btn btn-primary rounded-pill">{
+            <p className="card-text">Status: {order[0].status}<span className='fecha'>{date('updatedAt')}</span></p><br/>
+            {order[0].status !== 'cancelada' && order[0].status !== 'completa' && <button onClick = {() => vender()} className="btn btn-primary rounded-pill">{
               order[0].status === 'procesando' ? 'COMPLETAR ORDEN' : 'PROCESAR ORDEN'
             }</button>}
       </div>

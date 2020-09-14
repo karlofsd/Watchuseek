@@ -8,6 +8,7 @@ const OrdersAdmin = ({orders}) => {
     
     const [order,setOrder] = useState([]);
     const [totalPrice,setTotalPrice] = useState();
+    const [userData,setUserData] = useState({})
     const getTotal = (arg) => {
         let total = 0;
         for(var product in arg){
@@ -17,8 +18,11 @@ const OrdersAdmin = ({orders}) => {
     };
 
     const handleSearch = async(e) => {
-        const {data} = await Axios.get(`http://localhost:3001/user/${e}/admin`)
+        const stat = e.status
+        const {data} = await Axios.get(`http://localhost:3001/user/${e.order}/admin/${stat}`)
+        const user = await Axios.get(`http://localhost:3001/user/get/${data[0].userId}`)
         const total = getTotal(data);
+        setUserData(user.data)
         setTotalPrice(total);
         setOrder(data);
     }
@@ -28,13 +32,14 @@ const OrdersAdmin = ({orders}) => {
         <div className = "crud_content">
             <div className = "tableOrders">
                     <h1 className='h11'>Orders</h1>
+
                      {orders.map(function (p) {
-                        let date = ()=>p.createdAt.split('T')[0]
-                        console.log(date)
-                     return <Link onClick={() => handleSearch(p.order)} >  {"->"}  Orden N°{p.order}______({date()})</Link>
+                        /* let date = ()=> p.createdAt.split('T')[0]
+                        console.log(date) */
+                     return <Link onClick={() => handleSearch(p)} >  {"->"}  Orden N°{p.order}______({p.status})</Link>
                     })}<br /> 
             </div>
-            {order[0] && <div className='ordenes'><Orden order={order} total={totalPrice}/></div>}
+            {order[0] && <div className='ordenes'><Orden order={order} total={totalPrice} userData={userData}/></div>}
         </div>
     );
 };

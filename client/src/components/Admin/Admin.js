@@ -14,6 +14,7 @@ const Admin = () => {
 	useEffect(()=> {
 		const fetchData = async () =>{
 			const {data} = await axios.get(`http://localhost:3001/user/order/ordersAdmin`)
+			console.log(data)
 			setOrders(data)
 		}
 		fetchData();
