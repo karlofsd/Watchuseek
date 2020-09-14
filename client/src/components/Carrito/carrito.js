@@ -40,19 +40,19 @@ const Carrito = ({user, products})=>{
 
     return(
         <div className='contentcarritomayor'>
-           <h1>Carrito del usuario</h1> 
+           <h1 className = "titleCarrito">Carrito del usuario</h1> 
         <div className = "contentCarrito">
             <div className = "divcontentItems">
             {carrito[0] && carrito.map((e,index)=>{
          return(
          <div className = "bordecarrito">
              <button className='botonx' onClick={()=>eliminar(e.id)}>X</button>
-            <div>
-               <label className='labelcarrito'>Producto: { e.name}</label><br/> 
-               <label className='labelcarrito'>Precio: $USD{e.price}</label>
+            <div className = "divLabel">
+               <label className='titlelableCarrito'>{ e.name}</label><br/> 
+               <label className='labelcarrito'>$USD{e.price}</label>
                <div>
                     <label className='labelcarrito'>Cantidad:</label><br/>
-                    <input className = "inputItem" type="number" name={e.quantity} onChange={(e) => handleInputChange(e,index)}  />
+                    <input className = "inputItem" type="number" min='1' max={products[index].stock} name={e.quantity} onChange={(e) => handleInputChange(e,index)}  />
                 </div>
             </div> 
          </div>)
@@ -62,6 +62,10 @@ const Carrito = ({user, products})=>{
                <button className = "btnsCarrito" onClick={()=> handleBuy()} >COMPRAR</button><br/>
                <button className = "btnsCarrito" onClick={()=> eliminarTodo()} >VACIAR CARRITO</button>
             </div>}
+            {!carrito[0] && <div className = "divcarritoVacio">
+                   <img className= "imgcarritoVacio" src = "https://cdn.dribbble.com/users/204955/screenshots/4930541/emptycart.png"/>
+                   <h2>¡Su carrito está vacío!</h2>
+                </div>}
         </div>
         </div>
     )

@@ -3,7 +3,7 @@ import {useDispatch,useSelector} from "react-redux";
 import {getUser,logoutUser} from "../../Redux/users/users.js";
 import "./Login.css";
 
-const Login = () => {
+const Login = ({history}) => {
     const user = useSelector(store => store.users.user)
     const dispatch = useDispatch()
     const name = (mail) => mail.split('@')[0]
@@ -11,7 +11,6 @@ const Login = () => {
         email: "",
         password: ""
   });
-
  
     const handleInputChange = function(e) {
         setInput({
@@ -26,6 +25,7 @@ const Login = () => {
           email: "",
           password: ""
         })
+        history.push('/')
       }
 
     return (

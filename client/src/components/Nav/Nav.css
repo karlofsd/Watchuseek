@@ -48,7 +48,7 @@ a:hover{
 }
 
 .user {
-    padding: 0 15px 0 15px;
+    padding: 0 0 0 15px;
     width: 70px;
     height: 35px; 
     border-radius: 50%;
@@ -58,15 +58,17 @@ a:hover{
     display: flex;
     width: 40px;
     height: 40px;
-    justify-content: center;text-decoration: none;
+    justify-content: center;
+    text-decoration: none;
     border-radius: 50%;
     align-items: center;
-    background-color: #FFA62B;
+    border: 2px solid;
+    border-color: #FFA62B;
     
 }
 /* MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded */
 .cart:hover{
-    background-color: white;
-}
+    border-color: white;
+}   
 
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import Orden from '../Orden/orden';
 import Axios from 'axios';
+import './ordersAdmin.css'
 
 const OrdersAdmin = ({orders}) => {
     
@@ -25,13 +26,15 @@ const OrdersAdmin = ({orders}) => {
     return(
     
         <div className = "crud_content">
-            <div className = "products">
+            <div className = "tableOrders">
                     <h1 className='h11'>Orders</h1>
                      {orders.map(function (p) {
-                        return <Link onClick={() => handleSearch(p.order)} >  {"->"}  Orden N°{p.order}  ({p.status})</Link>
+                        let date = ()=>p.createdAt.split('T')[0]
+                        console.log(date)
+                     return <Link onClick={() => handleSearch(p.order)} >  {"->"}  Orden N°{p.order}______({date()})</Link>
                     })}<br /> 
             </div>
-            {order[0] && <Orden order={order} total={totalPrice}/>}
+            {order[0] && <div className='ordenes'><Orden order={order} total={totalPrice}/></div>}
         </div>
     );
 };

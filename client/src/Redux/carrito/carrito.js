@@ -63,7 +63,7 @@ export const newOrden = (userId,carrito) => async(dispatch,getState) => {
             await axios.put(`http://localhost:3001/user/${userId}/cantidad/${e.id}`, e)
             await axios.put(`http://localhost:3001/products/${e.productId}`, producto.data);
             await axios.put(`http://localhost:3001/user/${userId}/creada/${data[0].id}`)
-           
+            
         })
         dispatch({type:SET_NUMORDEN})
     }

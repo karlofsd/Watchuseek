@@ -1,0 +1,23 @@
+
+.tableOrders{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    border-radius: 5px;
+    overflow: scroll;
+    height: 72vh;
+    width: 250px;
+    margin: 0 50px 0 50px;
+    
+}
+
+.h11{
+    color:#FFA62B
+}
+.ordenes{
+    display: flex;
+    justify-content: center;
+    border-radius: 5%;
+    padding: 0;
+    width: 500px;
+}

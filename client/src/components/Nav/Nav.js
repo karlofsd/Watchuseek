@@ -61,9 +61,11 @@ const Nav = ({setSearchApp, categories,user}) => {
                 {user.id && <Link to='/login'>Cerrar sesión</Link>}
                 <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>
             </div>
-            <Link onClick={()=> dispatch(getCarrito(user.id))} to='/carrito'> <div >
-             <ShoppingCartIcon />
-            </div></Link> 
+            <Link onClick={()=> dispatch(getCarrito(user.id))} to='/carrito'> 
+                <div className='cart'>
+                    <ShoppingCartIcon/>
+                </div>
+            </Link> 
         </div>
     );
 };

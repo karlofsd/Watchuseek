@@ -40,7 +40,9 @@ const Orden = ({order,total}) => {
         <br/>
         <h5 className="card-title">TOTAL: $USD {total}</h5><br/>
         <p className="card-text">Status: {order[0].status}</p><br/>
-        <button onClick = {() => comprar()} className="btn btn-primary rounded-pill">ACEPTAR COMPRA</button>
+            {order[0].status !== 'cancelada' && <button onClick = {() => comprar()} className="btn btn-primary rounded-pill">{
+              order[0].status === 'procesando' ? 'COMPLETAR ORDEN' : 'PROCESAR ORDEN'
+            }</button>}
       </div>
       <div className="card-footer text-muted">
         ORDEN DE COMPRA
