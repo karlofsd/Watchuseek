@@ -32,9 +32,9 @@ server.get("/:email", (req, res) => {
   const email = req.params.email;
   const password = req.body.password
   Users.findOne({where:{email:email}})
-    .then(user => {
-      return res.status(201).send(user)
-    })
+    .then(user => 
+       res.status(201).send(user)
+    )
     .catch(err => {
       return res.status(404).send(err)
     })
@@ -255,9 +255,9 @@ server.get('/:id/orders', async (request, response) => {
 
 server.get("/order/ordersAdmin", (req,res) => {
   Carrito.findAll({
-    attributes: ['order','status',
+    attributes: ['order','status','createdAt',
     [Sequelize.fn('count',Sequelize.col('id')),'idCount']],
-    group: ['order','status'],
+    group: ['order','status','createdAt'],
     raw:true
   })
   .then(order => {
