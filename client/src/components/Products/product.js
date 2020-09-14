@@ -3,14 +3,15 @@ import './product.css'
 import axios from 'axios'
 
 
+
 const Product = ({ user, data }) => {
-  console.log(data)
   const handleClick = async () => {
     const dataValue = {
       name: data[0].name,
       price: data[0].price,
       quantity: 1,
-      status: "carrito"
+      status: "carrito",
+      productId: data[0].id
     };
     await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
 
@@ -30,7 +31,7 @@ const Product = ({ user, data }) => {
         <hr />
         <h5 className="card-title">Price: $USD {data[0].price}</h5>
         <p className="card-text">Description: {data[0].description = data[0].description.substring(0,1).toUpperCase() + data[0].description.substring(1)}</p>
-        <button onClick={()=>handleClick()} className="btn btn-primary rounded-pill">Agregar al carrito</button>
+         <button onClick={()=>handleClick()} className="btn btn-primary rounded-pill">Agregar al carrito</button>
       </div>
       <div className="card-footer text-muted">
         {data[0].stock} stock.

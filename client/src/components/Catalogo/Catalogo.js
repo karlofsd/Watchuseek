@@ -7,7 +7,7 @@ import {getProducts} from '../../Redux/products/products.js'
 
 
 const Catalogo = ({products}) => {
-    products = products.filter(e => e.stock !== 0); 
+    products = products.filter(e => e.stock > 0); 
     return (
          <div className='general'>
         

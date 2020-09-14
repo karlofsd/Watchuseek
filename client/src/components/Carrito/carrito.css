@@ -44,6 +44,10 @@
    
 }
 
+.botonx:hover{
+    background-color: red;
+}
+
 
 .bordecarrito{
     display: flex;
