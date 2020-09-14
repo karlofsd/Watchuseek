@@ -83,7 +83,7 @@ function App() {
 
        <Route
        exact path="/carrito"
-       render = {() => <Carrito user = {user}/>}
+       render = {() => <Carrito user = {user} products= {products}/>}
        />
 
        

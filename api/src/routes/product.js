@@ -80,6 +80,13 @@ server.put('/:id',(req,res)=>{
 	.catch(error=>res.status(400).send(error))
 })
 
+server.put('/mod/:id',(req,res)=>{
+	let id=req.params.id;
+	const {stock} = req.body;
+	Product.update({stock},{where:{id}})
+	.then(product=>res.status(200).send(product))
+	.catch(error=>res.status(400).send(error))
+})
 
 server.delete('/:idProducto/category/:idCategoria', (req, res) => {
 	  var idProducto = req.params.idProducto;

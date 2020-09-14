@@ -4,7 +4,7 @@ import {newOrden} from '../../Redux/carrito/carrito'
 import {useSelector, useDispatch} from 'react-redux'
 import "./carrito.css";
 
-const Carrito = ({user})=>{
+const Carrito = ({user, products})=>{
     const [product, setProduct] = useState([]);
     const dispatch = useDispatch()
     const orden = useSelector(store => store.carrito.numeroOrden)
@@ -16,7 +16,7 @@ const Carrito = ({user})=>{
     
     const handleBuy = ()=>{
         
-        dispatch(newOrden(user.id,carrito,orden))
+        dispatch(newOrden(user.id,carrito))
           /* carrito.map( async (e) => {
               console.log(e)
               await axios.put(`http://localhost:3001/user/${user.id}/cantidad/${e.id}`, e)

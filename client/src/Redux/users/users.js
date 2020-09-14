@@ -31,15 +31,18 @@ export default function userReducer(state = initialState, action) {
        }
 
       case LOGOUT_USER:
-        return state
+        return {
+          ...state,
+          user: {
+            email: "",
+            password: "",
+          }
+        }
 
       default :
         return {
           ...state,
-          /* user: {
-            email: "",
-            password: "",
-          } */
+          
         };
     } 
   }

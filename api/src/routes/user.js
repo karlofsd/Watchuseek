@@ -72,8 +72,8 @@ server.delete('/:id', async (request, response) => {
 
 server.post("/:UserId/carrito", (req, res) => {
   var id = req.params.UserId
-  const { name, price, quantity, status } = req.body;
-  Carrito.findOrCreate({ where: { userId: id, name, price, quantity, status } })
+  const { name, price, quantity, status, productId } = req.body;
+  Carrito.findOrCreate({ where: { userId: id, name, price, quantity, status, productId } })
     .then(order => {
       res.status(201).json(order)
     })
