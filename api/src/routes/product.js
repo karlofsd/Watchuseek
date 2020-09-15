@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const { Product, Reviews } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
 
 
