@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const Review = require('./models/Review');
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -35,6 +36,8 @@ const {Categories} = sequelize.models;
 const { Users} = sequelize.models;
 const { Carrito } = sequelize.models;
 const {Ordenfinal} = sequelize.models;
+const {Reviews} = sequelize.models
+
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
@@ -43,8 +46,9 @@ Product.belongsTo(Categories, {as: "category" });
 Product.hasMany(Carrito, {as: "producto_carrito"})
 Product.belongsToMany(Carrito, {through: "orden"})
 Users.hasMany(Carrito,{as: "user_orden"})
+Product.hasMany(Reviews, {as: "review"})
 
-
+   
  
 //https://sequelize.org/master/manual/advanced-many-to-many.html
 
