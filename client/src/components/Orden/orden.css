@@ -1,10 +1,43 @@
-.columns{
+
+
+.orden-header{
+    padding-top: 10px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
+.userEmail{
+    font-size: medium;
+}
+.card-bodyOrden{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+.columns{
+    display: flex;
+    /* margin : 0 20px 0 5px; */
+    /* padding: 10px; */
+    /* width: 40px; */
+}
+th{
+    display: flex;
+    margin : 0 15px 0 0;
+    width: 40px;
+}
 td{
     display: flex;
-    margin : 0 20px 0 10px;
-    width: 50px;
+    margin : 0 15px 0 0;
+    width: 40px;
+    
+}
+
+.fecha{
+    padding-left: 10px;
 }

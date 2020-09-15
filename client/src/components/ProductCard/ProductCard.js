@@ -13,7 +13,8 @@ const Card = ({ name, price, image, id, stock }) => {
       name: name,
       price: price,
       quantity: 1,
-      status: "carrito"
+      status: "carrito",
+      productId: id
     };
 
     const { data } = await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);

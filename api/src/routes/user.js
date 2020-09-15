@@ -32,12 +32,18 @@ server.get("/:email", (req, res) => {
   const email = req.params.email;
   const password = req.body.password
   Users.findOne({where:{email:email}})
-    .then(user => {
-      return res.status(201).send(user)
-    })
+    .then(user => 
+       res.status(201).send(user)
+    )
     .catch(err => {
       return res.status(404).send(err)
     })
+})
+
+server.get('/get/:id',(req,res) => {
+   Users.findByPk(req.params.id)
+   .then(user => res.status(201).json(user))
+   .catch(err => res.status(404).send('No se encontro usuario'))
 })
 
 server.put("/:id", (req, res) => {
@@ -72,8 +78,8 @@ server.delete('/:id', async (request, response) => {
 
 server.post("/:UserId/carrito", (req, res) => {
   var id = req.params.UserId
-  const { name, price, quantity, status } = req.body;
-  Carrito.findOrCreate({ where: { userId: id, name, price, quantity, status } })
+  const { name, price, quantity, status, productId } = req.body;
+  Carrito.findOrCreate({ where: { userId: id, name, price, quantity, status, productId } })
     .then(order => {
       res.status(201).json(order)
     })
@@ -101,14 +107,18 @@ server.get("/:UserId/carrito", (req, res) => {
 })
 
 
-server.get("/:orderId/admin", (req, res) => {
+server.get("/:orderId/admin/:stat", (req, res) => {
    var id = req.params.orderId;
-  
-  Carrito.findAll({
+   var {stat} = req.params
+  Carrito.findAll(stat ? {
      where: {
         order: id,
+        status:stat
       }
-    })
+    }: {where: {
+      order: id
+    }
+  } )
       .then(orden => {
         res.status(201).send(orden)
       })
@@ -258,6 +268,7 @@ server.get("/order/ordersAdmin", (req,res) => {
     attributes: ['order','status',
     [Sequelize.fn('count',Sequelize.col('id')),'idCount']],
     group: ['order','status'],
+    order: [['order','DESC']],
     raw:true
   })
   .then(order => {

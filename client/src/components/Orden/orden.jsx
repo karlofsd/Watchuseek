@@ -1,37 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './orden.css'
 import axios from "axios";
+import './orden.css'
 
-const Orden = ({order,total}) => {
+const Orden = ({order,total,userData}) => {
+  let date = (fecha)=> order[0][fecha].split('T')[0]
 
-
-  const comprar = async()=>{
-    const { data } = await axios.get(`http://localhost:3001/user/${order[0].order}/orders`);
-    data.orders.map( async (e) => {
-        await axios.put(`http://localhost:3001/orders/${order[0].order}/changeStatus/`)
+  const vender = async()=>{
+    /* const { data } = await axios.get(`http://localhost:3001/user/${order[0].order}/orders`); */
+    order.map( async (e) => {
+        await axios.put(`http://localhost:3001/orders/${order[0].order}/changeStatus/${e.status}`)
     })
 }
-
-    
     return (
        <div className="card text-center shadow col-7 p-0 mx-auto" >
-      <div className="card-header">
-        <h2 className='title'>Orden N°{order[0].userId}</h2>
+      <div className="orden-header">
+        <h2 className='title-orden'>Orden N°{order[0].order}</h2>
+        <div>
+          <h3 className='userEmail'>User: {userData.email}</h3>
+        </div>
       </div>
-      <div className="card-body">
+      <div className="card-bodyOrden">
         <div>
           <table>
             <tr className='columns'>
               <th>Name</th>
               <th>Price</th>
+              <th>Total</th>
               <th>Quantity</th>
             </tr>
             {order.map(o => 
               <tr className='columns'>
                 <td>{o.name}</td>
-                       
+                
                 <td>${o.price}</td>
-                       
+                <td>${o.price*o.quantity}</td>       
                 <td>{o.quantity}</td>
               </tr>
             )}
@@ -39,8 +42,10 @@ const Orden = ({order,total}) => {
         </div><br/>
         <br/>
         <h5 className="card-title">TOTAL: $USD {total}</h5><br/>
-        <p className="card-text">Status: {order[0].status}</p><br/>
-        <button onClick = {() => comprar()} className="btn btn-primary rounded-pill">ACEPTAR COMPRA</button>
+            <p className="card-text">Status: {order[0].status}<span className='fecha'>{date('updatedAt')}</span></p><br/>
+            {order[0].status !== 'cancelada' && order[0].status !== 'completa' && <button onClick = {() => vender()} className="btn btn-primary rounded-pill">{
+              order[0].status === 'procesando' ? 'COMPLETAR ORDEN' : 'PROCESAR ORDEN'
+            }</button>}
       </div>
       <div className="card-footer text-muted">
         ORDEN DE COMPRA

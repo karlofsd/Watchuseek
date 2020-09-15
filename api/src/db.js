@@ -40,21 +40,20 @@ const {Ordenfinal} = sequelize.models;
 // Product.hasMany(Reviews);
 Categories.hasMany(Product, {as: "product" });
 Product.belongsTo(Categories, {as: "category" });
-Carrito.hasMany(Product, {as: "product_pedido" })
+Product.hasMany(Carrito, {as: "producto_carrito"})
 Product.belongsToMany(Carrito, {through: "orden"})
 Users.hasMany(Carrito,{as: "user_orden"})
 
 
-
-
+ 
 //https://sequelize.org/master/manual/advanced-many-to-many.html
 
 
-module.exports = {
+module.exports = {  
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
 };
 
 
 // User.belongsToMany(Project, { through: UserProject });
-// Project.belongsToMany(User, { through: UserProject });
+// Project.belongsToMany(User, { through: UserProject }); 

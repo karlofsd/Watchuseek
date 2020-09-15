@@ -12,12 +12,22 @@
     color:white;
 }
 
+.titleCarrito{
+    display: flex;
+    justify-content: center;
+}
+
 .divcontentItems{
     display: flex;
     flex-direction: row;
 }
 
+.titlelableCarrito{
+    font-size:30px;
+    margin-top: -10px;
+}
 .labelcarrito{
+    font-size: medium;
     font-weight: bolder;
 }
 .botonx{
@@ -32,6 +42,10 @@
     margin-top: 10px;
     width: 25px;
    
+}
+
+.botonx:hover{
+    background-color: red;
 }
 
 
@@ -51,6 +65,9 @@
     margin-top: -200px;
     justify-content: center;
 
+}
+.divLabel{
+    padding-left: 15px;
 }
 
 .divItem{
@@ -76,10 +93,30 @@
 
 .inputItem{
     width: 80px;
+    color: black;
 }
 
 .divboton{
     display: flex;
     justify-content: left;
     
+}
+
+.divcarritoVacio{
+    display: flex;
+    flex-direction: column;
+    color: black;
+    border-radius: 70%;
+    justify-content: center;
+    margin-left: 25%;
+    padding-left: 16%;
+    width: 65%;
+    height: 65%;
+    margin-top: -18%;
+}
+.imgcarritoVacio{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin-bottom: 25px;
 }
