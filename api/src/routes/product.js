@@ -147,6 +147,37 @@ server.post('/:id/review/:userId', (req,res)=>{
     })
 })
 
+//GET /product/:id/review/
+server.get('/:id/review/', (req, res) => {
+	let id = req.params.id
+
+	Reviews.findAll({where:{
+		productId: id
+	}})
+	.then(response => {
+		res.status(201).send(response)
+	})
+	.catch(err => {
+		console.log(err)
+		res.status(404).send("No se ha encontrado el producto", err)
+	})
+})
+
+//DELETE /product/:id/review/:idReview
+server.delete('/review/:idReview', (req, res) => {
+	let idReview = req.params.idReview
+
+	  Reviews.destroy ({where:{
+		id: idReview
+	}})
+	.then (response => {
+		res.status(201).send("La review fue eliminada")
+	})
+	.catch (err => {
+		res.status(404).send(err)
+	})
+})
+
 
 
 module.exports = server;
