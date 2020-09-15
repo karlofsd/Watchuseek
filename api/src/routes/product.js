@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const { Product, Reviews } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
 
 
@@ -124,5 +124,29 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
       res.status(400).send(err)
 	})
 });
+
+//----------------------> REVIEWS <--------------------------
+
+server.post('/:id/review/:userId', (req,res)=>{
+    const id = req.params.id
+    const iduser = req.params.userId
+	const {comentarios, stars } = req.body
+
+    Reviews.findOrCreate({where:{
+		productId:id,
+		userId: iduser,
+		comentarios, 
+		stars
+    }})
+    .then(response=>{
+        res.status(201).send(response)
+    })
+    .catch(err=>{
+		console.log(err)
+        res.status(404).send(err)
+    })
+})
+
+
 
 module.exports = server;
