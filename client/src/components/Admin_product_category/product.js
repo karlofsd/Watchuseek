@@ -28,11 +28,9 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
 
 
 
-
+//-------------------------------------------------
     const handleInputChange = function (e) {
-        let array = []
-
-
+  
         if(e.target.name !== "category"){
             setInput({
           
@@ -51,7 +49,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         }
      
     };
-
+//-----------------------------------------------------------
     const handleSubmit = (e) => {
         e.preventDefault();
     };

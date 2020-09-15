@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
+const { Product, Category_products } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
 
 
@@ -125,4 +125,31 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
 	})
 });
 
+server.post('/categoria', (req, res)=>{
+	var idProducto = req.body.productId;
+	var idCategoria = req.body.categoryId;
+
+	Category_products.findOrCreate({
+		where:{
+		categoryId: idCategoria,
+		productId: idProducto,
+		}
+	})
+	.then(() =>{
+		res.status(201).send('La categoria fue modificada');
+	})
+	.catch((err)=>{
+      res.status(400).send(err)
+	})
+})
+
+
+
 module.exports = server;
+
+
+// "name":"holaa",
+//   "description": "dsasd",
+//   "price": 2312,
+//   "stock": 231,
+//   "image": "fdsdffdsf"
