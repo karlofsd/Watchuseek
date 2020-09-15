@@ -268,6 +268,7 @@ server.get("/order/ordersAdmin", (req,res) => {
     attributes: ['order','status',
     [Sequelize.fn('count',Sequelize.col('id')),'idCount']],
     group: ['order','status'],
+    order: [['order','DESC']],
     raw:true
   })
   .then(order => {

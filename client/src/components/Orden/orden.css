@@ -22,13 +22,20 @@
 
 .columns{
     display: flex;
-    justify-content: space-between;
+    /* margin : 0 20px 0 5px; */
+    /* padding: 10px; */
+    /* width: 40px; */
 }
-
+th{
+    display: flex;
+    margin : 0 15px 0 0;
+    width: 40px;
+}
 td{
     display: flex;
-    margin : 0 20px 0 10px;
-    width: 50px;
+    margin : 0 15px 0 0;
+    width: 40px;
+    
 }
 
 .fecha{

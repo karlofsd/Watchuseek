@@ -7,19 +7,10 @@ import Product from '../Admin_product_category/product.js';
 import Orders from '../OrdersAdmin/ordersAdmin.js';
 import axios from "axios";
 
+
 const Admin = () => {
-
-	const [orders, setOrders] = useState([])
-
-	useEffect(()=> {
-		const fetchData = async () =>{
-			const {data} = await axios.get(`http://localhost:3001/user/order/ordersAdmin`)
-			console.log(data)
-			setOrders(data)
-		}
-		fetchData();
-	},[])
-
+	
+	
  return(
 	 <Router>
 		<div className='mayor_content'>
@@ -53,7 +44,7 @@ const Admin = () => {
 					exact path='/admin/orders'
 					render={() =>
 						<div>
-								<Orders orders={orders}/>
+								<Orders />
 						</div>
 					}
 				/>

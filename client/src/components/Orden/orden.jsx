@@ -1,20 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './orden.css'
 import axios from "axios";
 import './orden.css'
 
 const Orden = ({order,total,userData}) => {
   let date = (fecha)=> order[0][fecha].split('T')[0]
-  console.log(order)
+
   const vender = async()=>{
-    const { data } = await axios.get(`http://localhost:3001/user/${order[0].order}/orders`);
-    console.log(data)
-    data.orders.map( async () => {
-        await axios.put(`http://localhost:3001/orders/${order[0].order}/changeStatus/`)
+    /* const { data } = await axios.get(`http://localhost:3001/user/${order[0].order}/orders`); */
+    order.map( async (e) => {
+        await axios.put(`http://localhost:3001/orders/${order[0].order}/changeStatus/${e.status}`)
     })
 }
-
-    
     return (
        <div className="card text-center shadow col-7 p-0 mx-auto" >
       <div className="orden-header">
@@ -29,14 +26,15 @@ const Orden = ({order,total,userData}) => {
             <tr className='columns'>
               <th>Name</th>
               <th>Price</th>
+              <th>Total</th>
               <th>Quantity</th>
             </tr>
             {order.map(o => 
               <tr className='columns'>
                 <td>{o.name}</td>
-                       
+                
                 <td>${o.price}</td>
-                       
+                <td>${o.price*o.quantity}</td>       
                 <td>{o.quantity}</td>
               </tr>
             )}

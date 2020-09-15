@@ -55,26 +55,27 @@ server.put('/:id', (req, res)=>{
 })
 
 // ACTUALIZAR ESTADO DE ORDEN
-server.put('/:order/changeStatus/',(req,res) => {
+server.put('/:order/changeStatus/:stat',(req,res) => {
   const cancel = req.query.cancel
-  Carrito.findAll({where:{order:req.params.order}})
+  const stat = req.params.stat
+  /* Carrito.findAll({where:{order:req.params.order}})
     .then(productos => {
-      console.log(productos)
-      if(productos[0].status === 'carrito'){
-        return Carrito.update({status:'creada'},{where:{order:req.params.order}})
+      console.log(productos) */
+      if(stat === 'carrito'){
+        return Carrito.update({status:'creada'},{where:{order:req.params.order, status:stat}})
         .then(() => res.status(201).send('orden creada'))
-      } else if(productos[0].status === 'creada'){
-        return Carrito.update({status:'procesando'},{where:{order:req.params.order}})
+      } else if(stat === 'creada'){
+        return Carrito.update({status:'procesando'},{where:{order:req.params.order, status:stat}})
         .then(() => res.status(201).send('orden procesada'))
-      }else if(productos[0].status === 'procesando'){
+      }else if(stat === 'procesando'){
         /* if(cancel){
           return Carrito.update({status:'cancelado'},{where:{order:req.params.order}})
           .then(() => res.status(201).send('orden cancelada'))
         }
-        else  */return Carrito.update({status:'completa'},{where:{order:req.params.order}})
+        else  */return Carrito.update({status:'completa'},{where:{order:req.params.order, status:stat}})
         .then(() => res.status(201).send('orden completada'))
       }else return res.status(201).send('no hay ordenes pendientes')
-    }).catch(err => res.status(404).send(err))
+    /* .catch(err => res.status(404).send(err)) */
 })
 
 

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import Orden from '../Orden/orden';
 import Axios from 'axios';
 import './ordersAdmin.css'
 
-const OrdersAdmin = ({orders}) => {
-    
+
+const OrdersAdmin = () => {
+    const [orders, setOrders] = useState([])
+        
     const [order,setOrder] = useState([]);
     const [totalPrice,setTotalPrice] = useState();
     const [userData,setUserData] = useState({})
@@ -14,12 +16,25 @@ const OrdersAdmin = ({orders}) => {
         for(var product in arg){
             total = total + arg[product].price;
         }
-        return total;
+        return total*arg[product].quantity;
     };
+    
+	useEffect(()=> {
+		const fetchData = async () =>{
+			const {data} = await Axios.get(`http://localhost:3001/user/order/ordersAdmin`)
+			console.log(data)
+			setOrders(data)
+		}
+		fetchData();
+    
+	},[order])
+
 
     const handleSearch = async(e) => {
+        
         const stat = e.status
         const {data} = await Axios.get(`http://localhost:3001/user/${e.order}/admin/${stat}`)
+        console.log(stat+ ' + ' +data[0])
         const user = await Axios.get(`http://localhost:3001/user/get/${data[0].userId}`)
         const total = getTotal(data);
         setUserData(user.data)
