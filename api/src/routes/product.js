@@ -127,13 +127,14 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
 
 //----------------------> REVIEWS <--------------------------
 
-server.post('/:id/review', (req,res)=>{
+server.post('/:id/review/:userId', (req,res)=>{
     const id = req.params.id
-
+    const iduser = req.params.userId
 	const {comentarios, stars } = req.body
 
     Reviews.findOrCreate({where:{
 		productId:id,
+		userId: iduser,
 		comentarios, 
 		stars
     }})
