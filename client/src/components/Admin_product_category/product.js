@@ -7,7 +7,7 @@ import {getProducts, getProduct} from '../../Redux/products/products.js';
 import category from './category';
 
 const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
-    
+
     const [input, setInput] = useState({
         id: null,
         name: "",
@@ -15,7 +15,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         price: null,
         stock: null,
         image: "",
-        category: null
+        category: []
     });
 
         useEffect(() => {
@@ -26,11 +26,30 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
          setInput(product)
     };
 
+
+
+
     const handleInputChange = function (e) {
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value
-        });
+        let array = []
+
+
+        if(e.target.name !== "category"){
+            setInput({
+          
+                ...input,
+                [e.target.name]: e.target.value
+            });
+        }else{
+
+          if (!input.category.includes(e.target.value)) {
+                setInput({
+                    ...input,
+                    category: input.category.concat([e.target.value])
+                });
+            }
+
+        }
+     
     };
 
     const handleSubmit = (e) => {
@@ -48,19 +67,32 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             price: input.price,
             stock: input.stock,
             image: input.image,
+     
         };
         await axios.put(urlApi, dataPost);
         if(!input.category){
                 setProducts();
          return setInput(currentProduct);
         }
-        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`);
+
+        input.category.map(async(e)=>{
+
+         const dataValue = {
+             categoryId: e,
+             productId: input.id
+         } 
+
+            await axios.post(`http://localhost:3001/products/categoria`, dataValue);
+
+        })
+
+   
         setProducts();
         setInput(currentProduct);
     };
 
     const handlePost = async () => {
-        if(!input.name||!input.description||!input.price||!input.stock||!input.image){
+        if(!input.name||!input.description||!input.price||!input.stock||!input.image || !input.category){
             return alert("Debe completar todos los campos para agregar un producto");
         };
         const urlApi = `http://localhost:3001/products/`;
@@ -70,9 +102,18 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             price: input.price,
             stock: input.stock,
             image: input.image,
+
         };
         const {data} = await axios.post(urlApi, dataPost);
-        await axios.post(`http://localhost:3001/products/${data[0].id}/category/${input.category}`);
+        input.category.map(async (e)=>{
+
+            const dataPost = {
+              categoryId: e,
+              productId: data[0].id
+            }
+
+            await axios.post(`http://localhost:3001/products/categoria`, dataPost);
+        })
         setProducts();
         setInput(currentProduct);
     };
