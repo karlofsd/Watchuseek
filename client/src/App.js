@@ -85,7 +85,7 @@ function App() {
        exact path="/carrito"
        render = {() => <Carrito user = {user} products= {products}/>}
        />
-
+  
        
     </Router>
   );
