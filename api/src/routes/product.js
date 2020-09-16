@@ -143,7 +143,11 @@ server.post('/categoria', (req, res)=>{
 	})
 })
 
+// update prueba
 
+server.post('/prueba/category',(req,res) => {
+	Product.bulkCreate()
+})
 
 module.exports = server;
 

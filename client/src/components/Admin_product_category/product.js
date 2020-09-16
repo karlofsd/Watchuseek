@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, Fragment} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './product.css';
@@ -7,7 +7,6 @@ import {getProducts, getProduct} from '../../Redux/products/products.js';
 import category from './category';
 
 const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
-
     const [input, setInput] = useState({
         id: null,
         name: "",
@@ -27,29 +26,30 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     };
 
 
-
+    const setCategory = (e) => {
+        console.log(e.target.value)
+        if(!input.category){
+            setInput({
+                ...input,
+                category: [e.target.value]
+        })} else{
+        setInput({
+            ...input,
+            category: [...input.category,e.target.value]
+        })}
+    }
 //-------------------------------------------------
     const handleInputChange = function (e) {
-  
-        if(e.target.name !== "category"){
+        
             setInput({
           
                 ...input,
                 [e.target.name]: e.target.value
             });
-        }else{
-
-          if (!input.category.includes(e.target.value)) {
-                setInput({
-                    ...input,
-                    category: input.category.concat([e.target.value])
-                });
-            }
-
-        }
      
     };
 //-----------------------------------------------------------
+
     const handleSubmit = (e) => {
         e.preventDefault();
     };
@@ -161,10 +161,18 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                             <input className = "input" type="text" name="image" onChange={(e) => handleInputChange(e)} value={input["image"]} />
                         </div>
                         <div>
-                            <select name='category' id='cate' value={input.category} onChange={(e) => handleInputChange(e)}>
+                            {/* <select name='category' id='cate' value={input.category} onChange={(e) => handleInputChange(e)}>
                                 <option value="" selected disabled>Seleccione la categoria</option>
                                 {allCategories && allCategories.map(p => <option value={p.id}>{p.name}</option>)}
-                            </select>
+                            </select> */}
+                          {allCategories && allCategories.map((e)=>(
+                              <Fragment>
+                              <label for={e.name} >{e.name}</label>
+                              <input type='checkbox' value={e.id} name='category' id={e.name} onClick={(e) => setCategory(e)} u/>
+                              </Fragment>
+                          ))}
+
+
                         </div>
                         <div className = "divbutton">
                         <button className='buttonAdd' onClick={() => handlePost()} >Add</button><br />
