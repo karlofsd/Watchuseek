@@ -1,13 +1,16 @@
 const server = require('express').Router();
+const bcrypt = require('bcrypt');
 const { Users } = require('../db.js');
 const { Carrito } = require('../db.js');
-const { Sequelize: { Op,fn,col },Sequelize } = require('sequelize');
-
+const { Sequelize: { Op, fn, col }, Sequelize } = require('sequelize');
 
 server.post("/", (req, res) => {
   const { email, password } = req.body;
   Users.create(
-    { email, password }
+    {
+      email,
+      password: bcrypt.hashSync(password, 10)
+    }
   )
     .then(user => {
       return res.status(201).send(user)
@@ -31,9 +34,9 @@ server.get("/", (req, res) => {
 server.get("/:email", (req, res) => {
   const email = req.params.email;
   const password = req.body.password
-  Users.findOne({where:{email:email}})
-    .then(user => 
-       res.status(201).send(user)
+  Users.findOne({ where: { email: email } })
+    .then(user =>
+      res.status(201).send(user)
     )
     .catch(err => {
       return res.status(404).send(err)
@@ -41,9 +44,9 @@ server.get("/:email", (req, res) => {
 })
 
 server.get('/get/:id',(req,res) => {
-   Users.findByPk(req.params.id)
-   .then(user => res.status(201).json(user))
-   .catch(err => res.status(404).send('No se encontro usuario'))
+  Users.findByPk(req.params.id)
+    .then(user => res.status(201).json(user))
+    .catch(err => res.status(404).send('No se encontro usuario'))
 })
 
 server.put("/:id", (req, res) => {
@@ -108,24 +111,25 @@ server.get("/:UserId/carrito", (req, res) => {
 
 
 server.get("/:orderId/admin/:stat", (req, res) => {
-   var id = req.params.orderId;
-   var {stat} = req.params
+  var id = req.params.orderId;
+  var { stat } = req.params
   Carrito.findAll(stat ? {
-     where: {
-        order: id,
-        status:stat
-      }
-    }: {where: {
-      order: id
+    where: {
+      order: id,
+      status: stat
     }
-  } )
-      .then(orden => {
-        res.status(201).send(orden)
-      })
-      .catch(err => {
-        res.status(404).send('No se encontraron pedidos o hubo un error!')
-      })
-  })
+  } : {
+      where: {
+        order: id
+      }
+    })
+    .then(orden => {
+      res.status(201).send(orden)
+    })
+    .catch(err => {
+      res.status(404).send('No se encontraron pedidos o hubo un error!')
+    })
+})
 
 
 server.delete('/:UserId/carrito', (req, res) => {
@@ -151,7 +155,9 @@ server.delete('/:UserId/carrito/:id', (req, res) => {
 
   Carrito.destroy({
     where: {
-      userId, id}})
+      userId, id
+    }
+  })
     .then(orden => {
       res.status(201).send('Se ha vaciado el carrito')
     })
@@ -228,17 +234,19 @@ server.put('/:UserId/cantidad/:id', (req, res) => {
 
 
 
-server.get('/:id/ordenes', (req,res)=>{
-  const {id} = req.params
-  Carrito.findAll({where:{
-    userId:id 
-  }})
-  .then(orden=>{
-    res.status(201).send(orden)
+server.get('/:id/ordenes', (req, res) => {
+  const { id } = req.params
+  Carrito.findAll({
+    where: {
+      userId: id
+    }
   })
-  .catch(err=>{
-    res.status(404).send(err)
-  })
+    .then(orden => {
+      res.status(201).send(orden)
+    })
+    .catch(err => {
+      res.status(404).send(err)
+    })
 })
 
 
@@ -263,20 +271,20 @@ server.get('/:id/orders', async (request, response) => {
 
 });
 
-server.get("/order/ordersAdmin", (req,res) => {
+server.get("/order/ordersAdmin", (req, res) => {
   Carrito.findAll({
-    attributes: ['order','status',
-    [Sequelize.fn('count',Sequelize.col('id')),'idCount']],
-    group: ['order','status'],
-    order: [['order','DESC']],
-    raw:true
+    attributes: ['order', 'status',
+      [Sequelize.fn('count', Sequelize.col('id')), 'idCount']],
+    group: ['order', 'status'],
+    order: [['order', 'DESC']],
+    raw: true
   })
-  .then(order => {
-    res.status(200).send(order);
-  })
-  .catch(err => {
-    res.status(400).send(err);
-  })
+    .then(order => {
+      res.status(200).send(order);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
 })
 
 // Location.findAll({
@@ -289,15 +297,15 @@ server.get("/order/ordersAdmin", (req,res) => {
 //   group: ['Location.id']
 // })
 
-server.get("/order/allOrders/:orderId", (req,res) => {
+server.get("/order/allOrders/:orderId", (req, res) => {
   const orderId = req.params.orderId;
-  Carrito.findAll({where: {order: orderId}})
-  .then(order => {
-    res.status(200).send(order);
-  })
-  .catch(err => {
-    res.status(400).send(err);
-  })
+  Carrito.findAll({ where: { order: orderId } })
+    .then(order => {
+      res.status(200).send(order);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    })
 })
 
 // server.put("/:userId/order", (req, res)=>{
