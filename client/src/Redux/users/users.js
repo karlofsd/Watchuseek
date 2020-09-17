@@ -104,7 +104,6 @@ export const loginUser = (user) => (dispatch,getState) => {
     axios.post('http://localhost:3001/auth/login',user)
     .then(user =>{
       localStorage.setItem("token", user.data.token);
-      localStorage.setItem("user", user);
       dispatch({
         type: SET_USER,
         payload: user.data

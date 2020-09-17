@@ -37,8 +37,12 @@ export default function ordenReducer (state = initialState,action) {
 //---- ACTION -----
 export const getCarrito = (userId) => async (dispatch,getState) => {
     try {
-        const {data} = await axios.get(`http://localhost:3001/user/${userId}/carrito`)
-        console.log(data);
+        let {data} = await axios.get(`http://localhost:3001/user/${userId}/carrito`)
+        if(localStorage.carrito){
+            console.log("en la condicional");
+            let {carrito} = JSON.parse(localStorage.getItem("carrito"));
+            data =  data.concat(carrito);
+        }
         dispatch({
             type: GET_CARRITO,
             payload: data,
@@ -66,6 +70,7 @@ export const newOrden = (userId,carrito) => async(dispatch,getState) => {
             
         })
         dispatch({type:SET_NUMORDEN})
+        dispatch({type: GET_CARRITO, payload: []})
     }
     catch(error){
         console.log(error)

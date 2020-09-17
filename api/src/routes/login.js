@@ -60,6 +60,7 @@ server.post('/login', (request, response) => {
 
 });
 
+
 server.get('/me', verifyToken, (request, response) => {
 
   const {id_user} = request.user;
@@ -82,5 +83,6 @@ server.get('/me', verifyToken, (request, response) => {
   })
 
 });
+
 
 module.exports = server;
