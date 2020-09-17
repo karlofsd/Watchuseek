@@ -23,7 +23,8 @@ const verifyToken = (request, response, next) => {
         });
       }
 
-      request.user = payload;
+      request.user = payload.user;
+      // console.log(payload);
       next();
 
     });

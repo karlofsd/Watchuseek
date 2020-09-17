@@ -38,7 +38,6 @@ const { Carrito } = sequelize.models;
 const {Ordenfinal} = sequelize.models;
 const {Reviews} = sequelize.models
 
-
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 Categories.hasMany(Product, {as: "product" });

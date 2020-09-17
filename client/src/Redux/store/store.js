@@ -12,9 +12,13 @@ const rootReducer = combineReducers({
     carrito: ordenReducer,
 })
 
+/* const persistedState = {
+    users:[{token:localStorage.getItem('token')}]
+} */
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function generateStore(){
-    const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+    const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)))
     return store;
 }

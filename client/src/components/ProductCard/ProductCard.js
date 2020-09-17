@@ -16,6 +16,15 @@ const Card = ({ name, price, image, id, stock }) => {
       status: "carrito",
       productId: id
     };
+    
+    if(!localStorage.token){
+      if(!localStorage.carrito){
+        return localStorage.setItem("carrito", JSON.stringify({carrito: [dataValue]}));
+      }
+      const data = JSON.parse(localStorage.getItem("carrito"));
+      data.carrito.push(dataValue);
+      localStorage.setItem("carrito", JSON.stringify(data));
+    };
 
     const { data } = await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
 

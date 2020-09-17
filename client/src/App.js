@@ -5,6 +5,7 @@ import Nav from './components/Nav/Nav';
 import Product from './components/Products/product.js';
 import './app.css';
 import Admin from './components/Admin/Admin';
+import {validation} from './Redux/users/users';
 import {getCategories} from './Redux/categories/categories.js';
 import {getProducts} from './Redux/products/products.js';
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,6 +14,8 @@ import User from './components/User/user.js';
 import Activity from './components/Activity/activity.js';
 import Login from './components/LogIn/Login.js';
 import Index from './components/Index/index.js'
+
+
 function App() {
   const dispatch = useDispatch()
   const user = useSelector(store => store.users.user)
@@ -24,6 +27,7 @@ function App() {
   });
 
   useEffect(() => {
+    dispatch(validation());
     dispatch(getCategories());
     dispatch(getProducts());
   },[])

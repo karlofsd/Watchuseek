@@ -3,22 +3,23 @@ const server = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { SIGNATURE } = process.env;
+const {verifyToken} = require('../middlewares/authentication.js')
 // Modelo user
 const { Users } = require('../db');
 
 // Login: Normal
 server.post('/login', (request, response) => {
 
-  const { email, password } = request.body;
+  const { username, password } = request.body;
 
   // Buscar usuario
   Users.findOne({
     where: {
-      email
+      username
     }
   })
     .then(user => {
-
+      
       // Verifico que el usuario existe en la BD
       if (!user) {
         return response.status(400).json({
@@ -40,9 +41,11 @@ server.post('/login', (request, response) => {
           mail: user.email
         }
       }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 });
-
+      
       // Devolver el token
       return response.status(200).json({
+        id: user.id,
+        email: user.email,
         mensaje: 'Token generado',
         token
       });
@@ -54,6 +57,29 @@ server.post('/login', (request, response) => {
         mensaje: error
       });
     })
+
+});
+
+server.get('/me', verifyToken, (request, response) => {
+
+  const {id_user} = request.user;
+  console.log(id_user);
+
+  Users.findOne({
+    where: {
+      id: id_user      
+    }
+  })
+  .then(user => {
+    return response.json({
+      user
+    });
+  })
+  .catch(error => {
+    return response.status(400).json({
+      error
+    });
+  })
 
 });
 

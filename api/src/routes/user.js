@@ -2,24 +2,34 @@ const server = require('express').Router();
 const bcrypt = require('bcrypt');
 const { Users } = require('../db.js');
 const { Carrito } = require('../db.js');
+const {verifyToken} = require('../middlewares/authentication.js')
 const { Sequelize: { Op, fn, col }, Sequelize } = require('sequelize');
 
 server.post("/", (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, username} = req.body;
   Users.create(
-    {
+    { 
+      username,
       email,
       password: bcrypt.hashSync(password, 10)
     }
   )
-    .then(user => {
+  .then(user => {
       return res.status(201).send(user)
     })
-    .catch(error => {
+  .catch(error => {
       return res.status(404).json(error)
     })
-
 });
+
+// ruta updateAdmin
+
+server.post('/auth/promote/:id',verifyToken,(req,res) =>{
+  const id = req.params.id
+  Users.update({isAdmin:true},{where:{id:id}})
+  .then(user => res.status(201).send('usuario updateado!'))
+  .catch(error => res.status(400).send(error))
+})
 
 server.get("/", (req, res) => {
   Users.findAll()
@@ -77,8 +87,6 @@ server.delete('/:id', async (request, response) => {
   });
 
 });
-
-
 server.post("/:UserId/carrito", (req, res) => {
   var id = req.params.UserId
   const { name, price, quantity, status, productId } = req.body;
