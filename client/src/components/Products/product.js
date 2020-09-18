@@ -36,6 +36,7 @@ const Product = ({ user, data }) => {
       <div className="card-footer text-muted">
         {data[0].stock} stock.
       </div>
+    
       <Review user={user} product={data[0].id} />
     </div>
   );

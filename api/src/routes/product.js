@@ -1,6 +1,7 @@
 const server = require('express').Router();
-const { Product, Reviews } = require('../db.js');
+const { Product, Reviews, Users } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
+
 
 
 server.get('/', (req, res, next) => {
@@ -144,7 +145,7 @@ server.post('/:id/review/:userId', (req,res)=>{
     .catch(err=>{
 		console.log(err)
         res.status(404).send(err)
-    })
+    }) 
 })
 
 //GET /product/:id/review/
@@ -153,16 +154,40 @@ server.get('/:id/review/', (req, res) => {
 
 	Reviews.findAll({where:{
 		productId: id
-	}})
+	}},{
+		include:[{
+			association: Users,
+			as: 'user',
+			through: {
+				attributes: [["username"]]
+			  }
+		}]
+	})  
 	.then(response => {
 		res.status(201).send(response)
-	})
+	}) 
 	.catch(err => {
 		console.log(err)
 		res.status(404).send("No se ha encontrado el producto", err)
 	})
-})
+}) 
 
+
+// const Categories = Product.hasMany(Tag, { as: 'categories' });
+
+// Product.create({
+//   id: 1,
+//   title: 'Chair',
+//   categories: [
+//     { id: 1, name: 'Alpha' },
+//     { id: 2, name: 'Beta' }
+//   ]
+// }, {
+//   include: [{
+//     association: Categories,
+//     as: 'categories'
+//   }]
+// })
 //DELETE /product/:id/review/:idReview
 server.delete('/review/:idReview', (req, res) => {
 	let idReview = req.params.idReview
