@@ -37,12 +37,8 @@ export default function ordenReducer (state = initialState,action) {
 //---- ACTION -----
 export const getCarrito = (userId) => async (dispatch,getState) => {
     try {
-        let {data} = await axios.get(`http://localhost:3001/user/${userId}/carrito`)
-        if(localStorage.carrito){
-            console.log("en la condicional");
-            let {carrito} = JSON.parse(localStorage.getItem("carrito"));
-            data =  data.concat(carrito);
-        }
+        
+        const {data} = await axios.get(`http://localhost:3001/user/${userId}/carrito`)
         dispatch({
             type: GET_CARRITO,
             payload: data,
@@ -58,19 +54,18 @@ export const newOrden = (userId,carrito) => async(dispatch,getState) => {
         await axios.post("http://localhost:3001/orders/counter");
         const {data} = await axios.get("http://localhost:3001/orders/counter/count")
         carrito.map( async (e) => {
-            console.log("esto es e");
-            console.log(e);
             let producto = await axios.get(`http://localhost:3001/products/${e.productId}`)
-            console.log("esto es el producto");
-            console.log(producto);
             producto.data.stock = producto.data.stock - e.quantity;
             await axios.put(`http://localhost:3001/user/${userId}/cantidad/${e.id}`, e)
             await axios.put(`http://localhost:3001/products/${e.productId}`, producto.data);
             await axios.put(`http://localhost:3001/user/${userId}/creada/${data[0].id}`)
             
         })
-        dispatch({type:SET_NUMORDEN})
-        dispatch({type: GET_CARRITO, payload: []})
+        dispatch({type:SET_NUMORDEN});
+        dispatch({
+            type: GET_CARRITO,
+            payload: [],
+        })
     }
     catch(error){
         console.log(error)

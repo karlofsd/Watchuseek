@@ -7,7 +7,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useDispatch} from "react-redux";
 import {getCarrito} from "../../Redux/carrito/carrito.js";
-import {logoutUser} from "../../Redux/users/users"
+import {logoutUser} from "../../Redux/users/users";
+import axios from "axios";
 
 const Nav = ({setSearchApp, categories,user}) => {
     const dispatch = useDispatch()
@@ -20,6 +21,18 @@ const Nav = ({setSearchApp, categories,user}) => {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const handleCarrito = () => {
+      if (localStorage.token && localStorage.carrito) {
+                let { carrito } = JSON.parse(localStorage.getItem("carrito"));
+                carrito.map(async (p) => {
+                    await axios.post(`http://localhost:3001/user/${user.id}/carrito`, p);
+                })
+                localStorage.removeItem("carrito");
+            }
+            dispatch(getCarrito(user.id))
+        }
+
     return (
         <div className = "content">
             <div className="categorias">
@@ -61,7 +74,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                 {user.id && <Link to='/login' onClick={()=> dispatch(logoutUser())}>Cerrar sesión</Link>}
                 <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>
             </div>
-            <Link onClick={()=> dispatch(getCarrito(user.id))} to='/carrito'> 
+            <Link onClick={()=> handleCarrito()} to='/carrito'> 
                 <div className='cart'>
                     <ShoppingCartIcon/>
                 </div>

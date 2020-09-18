@@ -12,7 +12,7 @@ const Login = ({history}) => {
         username:'',
         password: ""
   });
- 
+ console.log(user)
   useEffect(()=>{
     if(user.token){
       history.push('/')

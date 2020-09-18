@@ -4,12 +4,14 @@ import categoryReducer from '../categories/categories'
 import productReducer from '../products/products'
 import userReducer from "../users/users.js";
 import ordenReducer from "../carrito/carrito.js";
+import ordersReducer from "../orders/orders.js";
 
 const rootReducer = combineReducers({
     categories: categoryReducer,
     products: productReducer,
     users: userReducer,
     carrito: ordenReducer,
+    orders: ordersReducer
 })
 
 /* const persistedState = {

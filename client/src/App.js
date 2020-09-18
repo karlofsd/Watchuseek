@@ -13,7 +13,8 @@ import Carrito from './components/Carrito/carrito.js';
 import User from './components/User/user.js';
 import Activity from './components/Activity/activity.js';
 import Login from './components/LogIn/Login.js';
-import Index from './components/Index/index.js'
+import Index from './components/Index/index.js';
+import {getOrders} from "./Redux/orders/orders.js";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
   });
 
   useEffect(() => {
+    dispatch(getOrders());
     dispatch(validation());
     dispatch(getCategories());
     dispatch(getProducts());
@@ -44,9 +46,7 @@ function App() {
        
         <Route
         exact path="/products/search"
-        render={()=> <Catalogo products = {
-          search.array
-        }/>}
+        render={()=> <Catalogo products = {search.array}/>}
         />
         
         <Route

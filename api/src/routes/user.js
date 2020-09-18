@@ -6,12 +6,13 @@ const {verifyToken} = require('../middlewares/authentication.js')
 const { Sequelize: { Op, fn, col }, Sequelize } = require('sequelize');
 
 server.post("/", (req, res) => {
-  const { email, password, username} = req.body;
+  const { email, password, username, isAdmin} = req.body;
   Users.create(
     { 
       username,
       email,
-      password: bcrypt.hashSync(password, 10)
+      password: bcrypt.hashSync(password, 10),
+      isAdmin
     }
   )
   .then(user => {
@@ -145,7 +146,8 @@ server.delete('/:UserId/carrito', (req, res) => {
 
   Carrito.destroy({
     where: {
-      userId: id
+      userId: id,
+      status:'carrito'
     }
   })
     .then(orden => {
@@ -159,15 +161,15 @@ server.delete('/:UserId/carrito', (req, res) => {
 
 server.delete('/:UserId/carrito/:id', (req, res) => {
   let userId = req.params.UserId
-  let id = req.params.id
+  let productId = req.params.id
 
   Carrito.destroy({
     where: {
-      userId, id
+      userId, productId, status:'carrito'
     }
   })
     .then(orden => {
-      res.status(201).send('Se ha vaciado el carrito')
+      res.status(201).send('Se elimino el producto')
     })
     .catch(err => {
       console.log(err)

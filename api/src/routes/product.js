@@ -1,7 +1,7 @@
 const server = require('express').Router();
 const { Product, Reviews } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
-
+const { verifyToken, verifyAdmin } = require ('../middlewares/authentication');
 
 server.get('/', (req, res, next) => {
 	
@@ -46,7 +46,7 @@ server.get('/search',(req,res) => {
 	})
 })
 
-server.post('/',(req,res)=>{
+server.post('/', [verifyToken, verifyAdmin],(req,res)=>{
 	const {name,description,price,stock,image} = req.body;
 	Product.findOrCreate({
 		where:{name,description,price,stock,image}

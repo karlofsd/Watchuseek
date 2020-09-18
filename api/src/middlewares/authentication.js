@@ -33,4 +33,29 @@ const verifyToken = (request, response, next) => {
 
 }
 
-module.exports = { verifyToken };
+// request.user
+// user: {
+//   id_user: user.id,
+//   mail: user.email,
+//   admin: user.isAdmin
+// }
+
+const verifyAdmin = (request, response, next) => {
+
+  let admin = request.user.admin;
+
+  if (admin) {
+
+    next();
+
+  } else {
+
+    return response.status(400).json({
+      mensaje: "Este usuario no es administrador."
+    }
+    );
+  }
+
+}
+
+module.exports = { verifyToken, verifyAdmin };

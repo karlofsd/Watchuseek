@@ -38,9 +38,10 @@ server.post('/login', (request, response) => {
       const token = jwt.sign({
         user: {
           id_user: user.id,
-          mail: user.email
+          mail: user.email,
+          admin: user.isAdmin
         }
-      }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 });
+      }, SIGNATURE, { expiresIn: 60 * 60 * 24  });
       
       // Devolver el token
       return response.status(200).json({
@@ -60,11 +61,10 @@ server.post('/login', (request, response) => {
 
 });
 
-
 server.get('/me', verifyToken, (request, response) => {
 
   const {id_user} = request.user;
-  console.log(id_user);
+  console.log(request.user);
 
   Users.findOne({
     where: {
@@ -83,6 +83,5 @@ server.get('/me', verifyToken, (request, response) => {
   })
 
 });
-
 
 module.exports = server;

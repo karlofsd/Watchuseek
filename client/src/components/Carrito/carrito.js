@@ -11,19 +11,9 @@ const Carrito = ({ user, products }) => {
     const carrito = useSelector(store => store.carrito.carrito)
 
     useEffect(() => {
-        if (!localStorage.token) {
-            if (localStorage.carrito) {
+        if (!localStorage.token && localStorage.carrito) {
                 let data = JSON.parse(localStorage.getItem("carrito"));
                 return setProduct(data.carrito);
-            }
-        } else {
-            if (localStorage.carrito) {
-                let { carrito } = JSON.parse(localStorage.getItem("carrito"));
-                carrito.map(async (p) => {
-                    await axios.post(`http://localhost:3001/user/${user.id}/carrito`, p);
-                })
-                localStorage.removeItem("carrito");
-            }
         }
         setProduct(carrito);
     }, [carrito])
@@ -55,13 +45,14 @@ const Carrito = ({ user, products }) => {
             if (localStorage.carrito) {
                 console.log("esta entrando")
                 let data = JSON.parse(localStorage.getItem("carrito"));
-                let otradata = data.carrito.filter(p => p.productId !== e);
+                let otradata = data.carrito.filter(p => p.productId !== e.productId);
                 localStorage.setItem("carrito", JSON.stringify({ carrito: otradata }))
                 return setProduct(otradata);
             }
 
         }
-        await axios.delete(`http://localhost:3001/user/${user.id}/carrito/${e}`)
+        await axios.delete(`http://localhost:3001/user/${user.id}/carrito/${e.productId}`)
+        dispatch(getCarrito(e.userId))
     }
 
     return (
@@ -69,10 +60,10 @@ const Carrito = ({ user, products }) => {
             <h1 className="titleCarrito">Carrito del usuario</h1>
             <div className="contentCarrito">
                 <div className="divcontentItems">
-                    {product[0] && product.map((e, index) => {
+                    {product && product.map((e, index) => {
                         return (
                             <div className="bordecarrito">
-                                <button className='botonx' onClick={() => eliminar(e.productId, index)}>X</button>
+                                <button className='botonx' onClick={() => eliminar(e, index)}>X</button>
                                 <div className="divLabel">
                                     <label className='titlelableCarrito'>{e.name}</label><br />
                                     <label className='labelcarrito'>$USD{e.price}</label>
