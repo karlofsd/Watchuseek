@@ -61,10 +61,10 @@ server.post('/login', (request, response) => {
 
 });
 
+// VALIDATE  LOGUED USER
 server.get('/me', verifyToken, (request, response) => {
 
   const {id_user} = request.user;
-  console.log(request.user);
 
   Users.findOne({
     where: {

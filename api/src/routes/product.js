@@ -3,6 +3,7 @@ const { Product, Reviews } = require('../db.js');
 const { Sequelize:{Op}} = require('sequelize');
 const { verifyToken, verifyAdmin } = require ('../middlewares/authentication');
 
+// GET ALL PRODUCTS
 server.get('/', (req, res, next) => {
 	
 	Product.findAll()
@@ -17,6 +18,7 @@ server.get('/', (req, res, next) => {
 		
 });
 
+// GET PRODUCTS BY CATEGORY 
 server.get('/category/:category',(req,res) => {
 	Product.findAll({
 		where:{categoryId:Number(req.params.category)} //El atributo category(foreing Key) depende del asignado a los modelos de BD o si esta asociado(belongsto)
@@ -27,6 +29,7 @@ server.get('/category/:category',(req,res) => {
 	})
 })
 
+// GET PRODUCTS BY TEXT (SEARCHBAR)
 server.get('/search',(req,res) => {
 	Product.findAll({
 		where: {
@@ -46,6 +49,7 @@ server.get('/search',(req,res) => {
 	})
 })
 
+// CREATE PRODUCT (ADMIN)
 server.post('/', [verifyToken, verifyAdmin],(req,res)=>{
 	const {name,description,price,stock,image} = req.body;
 	Product.findOrCreate({
@@ -64,15 +68,16 @@ server.get('/:id',(req,res) => {
 	})
 })
 
-server.delete('/:id',(req,res)=>{
+// DELETE PRODUCT (ADMIN)
+server.delete('/:id',[verifyToken, verifyAdmin],(req,res)=>{
 	let id=req.params.id;
 	Product.destroy({where:{id}})
 	.then(()=>res.status(201).send('Eliminado'))
 	.catch(error=>res.status(400).send(error))
 })
 
-
-server.put('/:id',(req,res)=>{
+// UPDATE PRODUCT (ADMIN)
+server.put('/:id',[verifyToken, verifyAdmin],(req,res)=>{
 	let id=req.params.id;
 	const {name,description,price,stock,image} = req.body;
 	Product.update({name,description,price,stock,image},{where:{id}})
@@ -88,7 +93,8 @@ server.put('/mod/:id',(req,res)=>{
 	.catch(error=>res.status(400).send(error))
 })
 
-server.delete('/:idProducto/category/:idCategoria', (req, res) => {
+
+server.delete('/:idProducto/category/:idCategoria',(req, res) => {
 	  var idProducto = req.params.idProducto;
 	  var idCategoria = req.params.idCategoria;
 	  if(!idProducto){
@@ -110,7 +116,9 @@ server.delete('/:idProducto/category/:idCategoria', (req, res) => {
 
 	  });
 
-server.post('/:idProducto/category/:idCategoria', (req, res) => {
+
+// ADD/UPDATE CATEGORY TO PRODUCT (ADMIN)
+server.post('/:idProducto/category/:idCategoria',[verifyToken, verifyAdmin],(req, res) => {
 	var idProducto = req.params.idProducto;
 	var idCategoria = req.params.idCategoria;
 	Product.update (

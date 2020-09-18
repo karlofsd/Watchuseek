@@ -17,6 +17,7 @@ const initialState = {
         id:"",
         email: "",
         password: "",
+        isAdmin: false
     },
   };
 

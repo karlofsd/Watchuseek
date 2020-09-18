@@ -5,8 +5,9 @@ import { Link, BrowserRouter as Router, Route} from "react-router-dom";
 import Category from '../Admin_product_category/category.js';
 import Product from '../Admin_product_category/product.js';
 import Orders from '../OrdersAdmin/ordersAdmin.js';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {getOrders} from '../../Redux/orders/orders'
+import { Redirect } from 'react-router-dom';
 
 
 const Admin = () => {
@@ -14,8 +15,10 @@ const Admin = () => {
 	useEffect(() => {
 		dispatch(getOrders())
 	},[])
+
+const {isAdmin} = useSelector(store => store.users.user); 
 	
- return(
+ return /* isAdmin ?  */(
 	 <Router>
 		<div className='mayor_content'>
         	<div className='panel'>
@@ -55,7 +58,9 @@ const Admin = () => {
 			</div>
 		</div>
 	  </Router>
- );
+ ) /* : (
+	 <Redirect to={{pathname: '/'}} />
+ ) */
 }
 
 export default Admin;

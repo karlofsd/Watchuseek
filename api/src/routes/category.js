@@ -1,6 +1,8 @@
 const server = require('express').Router();
 const { Categories } = require('../db.js');
+const {verifyToken,verifyAdmin} = require('../middlewares/authentication')
 
+// CREATE CATEGORY (ADMIN)
 server.post('/create', async (request, response) => {
   const { name, description } = request.body;
   let newCategory;
@@ -24,6 +26,7 @@ try {
 
 });
 
+// DELETE CATEGORY (ADMIN)
 server.delete('/:id', async (request, response) => {
   const { id } = request.params;
   // Eliminar categoria por ID
@@ -42,29 +45,8 @@ server.delete('/:id', async (request, response) => {
   })
 });
 
-server.get('/', (req, res) => {
-  Categories.findAll()
-      .then(categories => {
-          res.json(categories);
-      })
-      .catch(err => {
-        res.status(400).send(err);
-      });
-});
-
-server.get("/:id", (req,res) => {
-  const id = req.params.id;
-
-  Categories.findByPk(id)
-  .then(e => {
-    res.send(e);
-  })
-  .catch(err => {
-    res.status(404).send(err);
-  })
-});
-
-server.put('/:id', (req, res) => {
+// UPDATE CATEGORY
+server.put('/:id',[verifyToken, verifyAdmin],(req, res) => {
   let id = req.params.id;
   Categories.update ({
     name: req.body.name, description: req.body.description
@@ -79,4 +61,28 @@ server.put('/:id', (req, res) => {
       })
     });
 
+// GET ALL CATEGORIES    
+server.get('/', (req, res) => {
+  Categories.findAll()
+      .then(categories => {
+          res.json(categories);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+});
+
+// GET CATEGORY BY ID
+server.get("/:id", (req,res) => {
+  const id = req.params.id;
+
+  Categories.findByPk(id)
+  .then(e => {
+    res.send(e);
+  })
+  .catch(err => {
+    res.status(404).send(err);
+  })
+});
+    
 module.exports = server;
