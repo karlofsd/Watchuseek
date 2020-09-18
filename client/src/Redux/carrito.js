@@ -57,7 +57,7 @@ export const newOrden = (userId,carrito) => async(dispatch,getState) => {
             let producto = await axios.get(`http://localhost:3001/products/${e.productId}`)
             producto.data.stock = producto.data.stock - e.quantity;
             await axios.put(`http://localhost:3001/user/${userId}/cantidad/${e.id}`, e)
-            await axios.put(`http://localhost:3001/products/${e.productId}`, producto.data);
+            await axios.put(`http://localhost:3001/products/mod/${e.productId}`, producto.data.stock);
             await axios.put(`http://localhost:3001/user/${userId}/creada/${data[0].id}`)
             
         })
