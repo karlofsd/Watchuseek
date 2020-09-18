@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import axios from "axios";
 import "./user.css";
 import {useDispatch, useSelector} from 'react-redux'
-import {signUp} from '../../Redux/users/users'
+import {signUp} from '../../Redux/users'
 
 const User =({history})=>{
     const message = useSelector(store => store.users.message)

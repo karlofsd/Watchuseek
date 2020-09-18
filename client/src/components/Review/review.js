@@ -17,8 +17,8 @@ const Review = ({user, product})=>{
             comentarios: value.comentarios,
             stars: value.stars,
         }
-      console.log(product[0].id)  
-     await axios.post(`http://localhost:3001/products/${product[0].id}/review/${user.id}`, dataValue)
+        console.log(product)
+     await axios.post(`http://localhost:3001/reviews/${product}/user/${user.id}`, dataValue)
     }
 
 

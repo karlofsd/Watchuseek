@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './ProductCard.css';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
@@ -26,7 +26,7 @@ const Card = ({ name, price, image, id, stock }) => {
       localStorage.setItem("carrito", JSON.stringify(data));
     };
 
-    const { data } = await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
+     await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
 
 
   }

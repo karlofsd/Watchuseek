@@ -5,245 +5,132 @@ const { Carrito } = require('../db.js');
 const {verifyToken} = require('../middlewares/authentication.js')
 const { Sequelize: { Op, fn, col }, Sequelize } = require('sequelize');
 
+// CREATE USER
 server.post("/", (req, res) => {
   const { email, password, username, isAdmin} = req.body;
-  Users.create(
-    { 
+  Users.create({ 
       username,
       email,
       password: bcrypt.hashSync(password, 10),
       isAdmin
-    }
-  )
-  .then(user => {
-      return res.status(201).send(user)
     })
-  .catch(error => {
-      return res.status(404).json(error)
-    })
+  .then(user => {return res.status(201).json(user)})
+  .catch(error => {return res.status(404).json(error)})
 });
 
-// ruta updateAdmin
-
-server.post('/auth/promote/:id',verifyToken,(req,res) =>{
-  const id = req.params.id
-  Users.update({isAdmin:true},{where:{id:id}})
-  .then(user => res.status(201).send('usuario updateado!'))
-  .catch(error => res.status(400).send(error))
-})
-
+// GET ALL USERS
 server.get("/", (req, res) => {
   Users.findAll()
-    .then(users => {
-      return res.status(201).send(users)
-    })
-    .catch(err => {
-      return res.status(404).send(err)
-    })
+    .then(users => {return res.status(200).json(users)})
+    .catch(err => {return res.status(404).json(err)})
 });
+
 
 server.get("/:email", (req, res) => {
   const email = req.params.email;
   const password = req.body.password
-  Users.findOne({ where: { email: email } })
-    .then(user =>
-      res.status(201).send(user)
-    )
-    .catch(err => {
-      return res.status(404).send(err)
-    })
+  Users.findOne({ where:{email:email}})
+    .then(user =>res.status(200).json(user))
+    .catch(err => {return res.status(404).json(err)})
 })
+
 
 server.get('/get/:id',(req,res) => {
   Users.findByPk(req.params.id)
     .then(user => res.status(201).json(user))
-    .catch(err => res.status(404).send('No se encontro usuario'))
+    .catch(err => res.status(404).json('No se encontro usuario'))
 })
+
 
 server.put("/:id", (req, res) => {
   let id = req.params.id
-  const { email, password } = req.body
-  Users.update({ email, password }, { where: { id } })
-    .then(users => {
-      return res.status(201).send(users)
-    })
-    .catch(err => {
-      return res.status(404).send(err)
-    })
+  const {email, password} = req.body
+  Users.update({email, password}, {where:{id}})
+    .then(users => {return res.status(201).send(users)})
+    .catch(err => {return res.status(404).send(err)})
 })
 
+// DELETE USER
 server.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const userEliminated = await Users.destroy({
-    where: { id }
-  });
+  const userEliminated = await Users.destroy({where:{id}});
   if (!userEliminated) {
-    return response.status(404).json({
-      message: `The user with id: ${id} doesn't exist.`
-    });
+    return response.status(404).json({message: `El usuario con el id: ${id} no existe.`});
   }
-  return response.status(200).json({
-    message: 'User deleted.'
-  });
-
+    return response.status(200).json({message: 'User deleted.'});
 });
+
+//------------------CARRITO-------------------
+// ADD TO CART
 server.post("/:UserId/carrito", (req, res) => {
   var id = req.params.UserId
   const { name, price, quantity, status, productId } = req.body;
   Carrito.findOrCreate({ where: { userId: id, name, price, quantity, status, productId } })
-    .then(order => {
-      res.status(201).json(order)
-    })
-    .catch(err => {
-      res.status(404).json('No se pudo agregar')
-    })
+    .then(order => {res.status(201).json(order)})
+    .catch(err => {res.status(404).json('No se pudo agregar')})
 })
 
-
+// GET CART
 server.get("/:UserId/carrito", (req, res) => {
   var id = req.params.UserId
-
   Carrito.findAll({
-    where: {
-      userId: id,
-      status: { [Op.or]: ["carrito"] }
-    }
+    where: {userId: id,status: { [Op.or]: ["carrito"] }}
   })
-    .then(orden => {
-      res.status(201).send(orden)
-    })
-    .catch(err => {
-      res.status(404).send('No se encontraron pedidos o hubo un error!')
-    })
+    .then(orden => {res.status(200).send(orden)})
+    .catch(err => {res.status(404).send('No se encontraron pedidos o hubo un error!')})
 })
 
-
-server.get("/:orderId/admin/:stat", (req, res) => {
-  var id = req.params.orderId;
-  var { stat } = req.params
-  Carrito.findAll(stat ? {
-    where: {
-      order: id,
-      status: stat
-    }
-  } : {
-      where: {
-        order: id
-      }
-    })
-    .then(orden => {
-      res.status(201).send(orden)
-    })
-    .catch(err => {
-      res.status(404).send('No se encontraron pedidos o hubo un error!')
-    })
-})
-
-
+// CLEAR CART
 server.delete('/:UserId/carrito', (req, res) => {
   let id = req.params.UserId
 
   Carrito.destroy({
-    where: {
-      userId: id,
-      status:'carrito'
-    }
+    where: {userId: id, status:'carrito'}
   })
-    .then(orden => {
-      res.status(201).send('Se ha vaciado el carrito')
-    })
-    .catch(err => {
-      res.status(404).send('Hubo un error')
-    })
+    .then(orden=>{res.status(200).send('Se ha vaciado el carrito')})
+    .catch(err=>{res.status(404).send('Hubo un error')})
 })
 
-
+// REMOVE PRODUCT
 server.delete('/:UserId/carrito/:id', (req, res) => {
   let userId = req.params.UserId
   let productId = req.params.id
 
   Carrito.destroy({
-    where: {
-      userId, productId, status:'carrito'
-    }
+    where: {userId, productId, status:'carrito'}
   })
-    .then(orden => {
-      res.status(201).send('Se elimino el producto')
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(404).send('Hubo un error')
+    .then(orden=>{res.status(200).send('Se elimino el producto')})
+    .catch(err=>{res.status(404).send('Hubo un error')
     })
 })
 
-
-// server.put('/:UserId/completa/:id', (req, res) => {
-
-//   let userId = req.params.UserId
-//   let id = req.params.id
-
-//   Carrito.update({ status: "carrito" ? "procesando" : "completa"}, { where: { userId, id } })
-//     .then(orden => {
-//       res.status(201).send(orden)
-//     })
-//     .catch(err => {
-//       console.log(err)
-//       res.status(404).send(err)
-//     })
-// })
-
-
+// ------------------ ORDENES ----------------
+// CREATE ORDER
 server.put('/:UserId/creada/:order', (req, res) => {
-
   let userId = req.params.UserId;
   let order = req.params.order;
-
-  Carrito.update({ status: "creada", order: order }, { where: { userId, status: "carrito" } })
-    .then(orden => {
-      res.status(201).send(orden)
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(404).send(err)
-    })
+  console.log(`numero de orden: ${order}`)
+  
+  Carrito.update({status: "creada", order: order }, 
+    {where:{userId, status: "carrito"} 
+  })
+    .then(orden=>{res.status(204).send(orden)})
+    .catch(err=> {res.status(404).send(err)})
 })
 
-
+// CANCEL ORDER PRODUCT
 server.put('/:UserId/cancelada/:id', (req, res) => {
-
   let userId = req.params.UserId
   let id = req.params.id
   const { status } = req.body
 
   Carrito.update({ status: "cancelada" }, { where: { userId, id } })
-    .then(orden => {
-      res.status(201).send(orden)
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(404).send(err)
-    })
+    .then(orden=>{res.status(204).send(orden)})
+    .catch(err=>{res.status(404).send(err)})
 })
 
-
-server.put('/:UserId/cantidad/:id', (req, res) => {
-  let userId = req.params.UserId
-  let id = req.params.id
-  const { quantity } = req.body
-
-  Carrito.update({ quantity }, { where: { userId, id } })
-    .then(orden => {
-      res.status(201).send(orden)
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(404).send(err)
-    })
-})
-
-
-
+// GET ORDER PRODUCTS BY ID
 server.get('/:id/ordenes', (req, res) => {
   const { id } = req.params
   Carrito.findAll({
@@ -251,36 +138,39 @@ server.get('/:id/ordenes', (req, res) => {
       userId: id
     }
   })
-    .then(orden => {
-      res.status(201).send(orden)
-    })
-    .catch(err => {
-      res.status(404).send(err)
-    })
+    .then(orden=>res.status(201).send(orden))
+    .catch(err=>res.status(404).send(err))
 })
 
-
+// GET ORDER BY ID
 server.get('/:id/orders', async (request, response) => {
   const { id } = request.params;
 
   const orders = await Carrito.findAll({
-    where: {
-      order: id
-    }
+    where: {order: id}
   });
 
   if (!orders) {
-    return response.status(400).json({
-      message: 'Orders not found.'
-    });
+    return response.status(404).json({message: 'Orders not found.'});
   }
 
-  return response.status(200).json({
-    orders
-  });
-
+  return response.status(200).json({orders});
 });
 
+// GET ORDER BY ID/STATUS
+server.get("/:orderId/admin/:stat", (req, res) => {
+  var id = req.params.orderId;
+  var { stat } = req.params
+  Carrito.findAll(stat ? {
+    where: {order: id, status: stat}
+  } : {
+      where: {order: id}
+    })
+    .then(orden=>{res.status(200).send(orden)})
+    .catch(err=>{res.status(404).send('No se encontraron pedidos o hubo un error!')})
+})
+
+// GET ORDERS
 server.get("/order/ordersAdmin", (req, res) => {
   Carrito.findAll({
     attributes: ['order', 'status',
@@ -289,13 +179,10 @@ server.get("/order/ordersAdmin", (req, res) => {
     order: [['order', 'DESC']],
     raw: true
   })
-    .then(order => {
-      res.status(200).send(order);
-    })
-    .catch(err => {
-      res.status(400).send(err);
-    })
+    .then(order=>{res.status(200).send(order)})
+    .catch(err=>{res.status(400).send(err)});
 })
+
 
 // Location.findAll({
 //   attributes: { 
@@ -307,16 +194,14 @@ server.get("/order/ordersAdmin", (req, res) => {
 //   group: ['Location.id']
 // })
 
+
 server.get("/order/allOrders/:orderId", (req, res) => {
   const orderId = req.params.orderId;
   Carrito.findAll({ where: { order: orderId } })
-    .then(order => {
-      res.status(200).send(order);
-    })
-    .catch(err => {
-      res.status(400).send(err);
-    })
+    .then(order=>{res.status(200).send(order)})
+    .catch(err=>{res.status(400).send(err)});
 })
+
 
 // server.put("/:userId/order", (req, res)=>{
 //   let userId = req.params.userId
@@ -330,5 +215,17 @@ server.get("/order/allOrders/:orderId", (req, res) => {
 //   })
 // })
 
+//-----------FUNCIONES-----------
+// SET QUANTITY
+server.put('/:UserId/cantidad/:id', (req, res) => {
+  let userId = req.params.UserId
+  let id = req.params.id
+  const { quantity } = req.body
+
+  Carrito.update({ quantity }, { where: { userId, id } })
+    .then(orden=>{res.status(201).send(orden)})
+    .catch(err=>{res.status(404).send(err)
+    })
+})
 
 module.exports = server;

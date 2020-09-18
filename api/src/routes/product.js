@@ -4,28 +4,34 @@ const { Sequelize:{Op}} = require('sequelize');
 const { verifyToken, verifyAdmin } = require ('../middlewares/authentication');
 
 // GET ALL PRODUCTS
-server.get('/', (req, res, next) => {
-	
+server.get('/', (req, res) => {
 	Product.findAll()
 		.then(products => {
-			res.send(products);
+			res.status(200).json(products);
 		})
 		.catch(error => {
-			res.status(400).json({
-				error
-			});
-		});
-		
+			res.status(404).json(error);
+		});	
 });
+
+// GET PRODUCT BY ID
+server.get('/:id',(req,res) => {
+	Product.findByPk(req.params.id)
+	.then(product => {
+		res.status(200).json(product)
+	}).catch(error => {
+		res.status(404).send(error)
+	})
+})
 
 // GET PRODUCTS BY CATEGORY 
 server.get('/category/:category',(req,res) => {
 	Product.findAll({
 		where:{categoryId:Number(req.params.category)} //El atributo category(foreing Key) depende del asignado a los modelos de BD o si esta asociado(belongsto)
 	}).then(products => {
-		res.json(products)
+		res.status(200).json(products)
 	}).catch(error => {
-		res.status(400).send(error)
+		res.status(404).send(error)
 	})
 })
 
@@ -42,59 +48,61 @@ server.get('/search',(req,res) => {
 			  }
 			}
 		  }
-	}).then(products => {
+	}).then(products => 
 		res.json(products)
-	}).catch(error => {
+	).catch(error => 
 		res.status(400).send(error)
-	})
+	)
 })
 
 // CREATE PRODUCT (ADMIN)
-server.post('/', [verifyToken, verifyAdmin],(req,res)=>{
+server.post('/', [verifyToken, verifyAdmin],(req,res) => {
 	const {name,description,price,stock,image} = req.body;
-	Product.findOrCreate({
-		where:{name,description,price,stock,image}
-	})
+	Product.create({name,description,price,stock,image})
 	.then(product=>res.status(201).json(product))
 	.catch(error=>res.status(400).json(error))
 })
 
-server.get('/:id',(req,res) => {
-	Product.findByPk(req.params.id)
-	.then(product => {
-		res.json(product)
-	}).catch(error => {
-		res.status(400).send(error)
-	})
-})
-
 // DELETE PRODUCT (ADMIN)
 server.delete('/:id',[verifyToken, verifyAdmin],(req,res)=>{
-	let id=req.params.id;
+	const {id} = req.params;
 	Product.destroy({where:{id}})
-	.then(()=>res.status(201).send('Eliminado'))
+	.then(()=>res.status(204).send('Eliminado'))
 	.catch(error=>res.status(400).send(error))
 })
 
 // UPDATE PRODUCT (ADMIN)
-server.put('/:id',[verifyToken, verifyAdmin],(req,res)=>{
-	let id=req.params.id;
+server.put('/:id',[verifyToken, verifyAdmin],(req,res) => {
+	const {id} = req.params;
 	const {name,description,price,stock,image} = req.body;
 	Product.update({name,description,price,stock,image},{where:{id}})
-	.then(product=>res.status(200).send(product))
+	.then(product=>res.status(204).send(product))
 	.catch(error=>res.status(400).send(error))
 })
 
+// ADD/UPDATE CATEGORY TO PRODUCT (ADMIN)
+server.post('/:productId/category/:categoryId',[verifyToken, verifyAdmin],(req, res) => {
+	const {categoryId,id} = req.params;
+	Product.update ({categoryId},{where: {id}})
+	.then(() =>{
+		res.status(201).send('La categoria fue modificada');
+	})
+	.catch((err)=>{
+      res.status(400).send(err)
+	})
+});
+
+// UPDATE STOCK TO PRODUCT
 server.put('/mod/:id',(req,res)=>{
-	let id=req.params.id;
+	const {id}=req.params;
 	const {stock} = req.body;
 	Product.update({stock},{where:{id}})
-	.then(product=>res.status(200).send(product))
+	.then(product=>res.status(204).send(product))
 	.catch(error=>res.status(400).send(error))
 })
 
 
-server.delete('/:idProducto/category/:idCategoria',(req, res) => {
+/* server.delete('/:idProducto/category/:idCategoria',(req, res) => {
 	  var idProducto = req.params.idProducto;
 	  var idCategoria = req.params.idCategoria;
 	  if(!idProducto){
@@ -115,77 +123,6 @@ server.delete('/:idProducto/category/:idCategoria',(req, res) => {
 		  })
 
 	  });
-
-
-// ADD/UPDATE CATEGORY TO PRODUCT (ADMIN)
-server.post('/:idProducto/category/:idCategoria',[verifyToken, verifyAdmin],(req, res) => {
-	var idProducto = req.params.idProducto;
-	var idCategoria = req.params.idCategoria;
-	Product.update (
-		{categoryId: idCategoria},
-		{where: {id:idProducto}}
-	)
-	.then(() =>{
-		res.status(201).send('La categoria fue modificada');
-	})
-	.catch((err)=>{
-      res.status(400).send(err)
-	})
-});
-
-//----------------------> REVIEWS <--------------------------
-
-server.post('/:id/review/:userId', (req,res)=>{
-    const id = req.params.id
-    const iduser = req.params.userId
-	const {comentarios, stars } = req.body
-
-    Reviews.findOrCreate({where:{
-		productId:id,
-		userId: iduser,
-		comentarios, 
-		stars
-    }})
-    .then(response=>{
-        res.status(201).send(response)
-    })
-    .catch(err=>{
-		console.log(err)
-        res.status(404).send(err)
-    })
-})
-
-//GET /product/:id/review/
-server.get('/:id/review/', (req, res) => {
-	let id = req.params.id
-
-	Reviews.findAll({where:{
-		productId: id
-	}})
-	.then(response => {
-		res.status(201).send(response)
-	})
-	.catch(err => {
-		console.log(err)
-		res.status(404).send("No se ha encontrado el producto", err)
-	})
-})
-
-//DELETE /product/:id/review/:idReview
-server.delete('/review/:idReview', (req, res) => {
-	let idReview = req.params.idReview
-
-	  Reviews.destroy ({where:{
-		id: idReview
-	}})
-	.then (response => {
-		res.status(201).send("La review fue eliminada")
-	})
-	.catch (err => {
-		res.status(404).send(err)
-	})
-})
-
-
+ */
 
 module.exports = server;

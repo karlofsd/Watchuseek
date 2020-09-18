@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React,{ useEffect} from "react";
 import Profile from "../Profile/Profile.js";
 import "./Admin.css";
 import { Link, BrowserRouter as Router, Route} from "react-router-dom";
@@ -6,7 +6,7 @@ import Category from '../Admin_product_category/category.js';
 import Product from '../Admin_product_category/product.js';
 import Orders from '../OrdersAdmin/ordersAdmin.js';
 import {useDispatch, useSelector} from 'react-redux'
-import {getOrders} from '../../Redux/orders/orders'
+import {getOrders} from '../../Redux/orders'
 import { Redirect } from 'react-router-dom';
 
 
@@ -18,7 +18,7 @@ const Admin = () => {
 
 const {isAdmin} = useSelector(store => store.users.user); 
 	
- return /* isAdmin ?  */(
+ return  isAdmin ?  (
 	 <Router>
 		<div className='mayor_content'>
         	<div className='panel'>
@@ -58,9 +58,9 @@ const {isAdmin} = useSelector(store => store.users.user);
 			</div>
 		</div>
 	  </Router>
- ) /* : (
+ ) : (
 	 <Redirect to={{pathname: '/'}} />
- ) */
+ ) 
 }
 
 export default Admin;

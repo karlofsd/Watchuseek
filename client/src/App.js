@@ -1,20 +1,20 @@
 import React,{useState, useEffect} from 'react';
 import Catalogo from './components/Catalogo/Catalogo';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
+import './app.css';
 import Nav from './components/Nav/Nav';
 import Product from './components/Products/product.js';
-import './app.css';
 import Admin from './components/Admin/Admin';
-import {validation} from './Redux/users/users';
-import {getCategories} from './Redux/categories/categories.js';
-import {getProducts} from './Redux/products/products.js';
-import {useDispatch, useSelector} from 'react-redux';
 import Carrito from './components/Carrito/carrito.js';
 import User from './components/User/user.js';
 import Activity from './components/Activity/activity.js';
 import Login from './components/LogIn/Login.js';
 import Index from './components/Index/index.js';
-import {getOrders} from "./Redux/orders/orders.js";
+import {validation} from './Redux/users';
+import {getCategories} from './Redux/categories.js';
+import {getProducts} from './Redux/products.js';
+import {getOrders} from "./Redux/orders.js";
+import {useDispatch, useSelector} from 'react-redux';
 
 
 function App() {
@@ -38,12 +38,10 @@ function App() {
   return (
     <Router>
         <Nav user={user} categories={categories} setSearchApp = {setSearchApp}/>
- 
         <Route
        exact path='/'
        component={Index}
        />
-       
         <Route
         exact path="/products/search"
         render={()=> <Catalogo products = {search.array}/>}

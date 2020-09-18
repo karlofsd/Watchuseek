@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './product.css';
 import { connect} from "react-redux";
-import {getProducts, getProduct} from '../../Redux/products/products.js';
-import category from './category';
+import {getProducts, getProduct} from '../../Redux/products.js';
 
 const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     

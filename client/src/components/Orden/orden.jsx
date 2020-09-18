@@ -3,7 +3,7 @@ import './orden.css'
 import axios from "axios";
 import './orden.css'
 import {useDispatch,useSelector} from "react-redux";
-import {getOrders,getOrder} from "../../Redux/orders/orders.js";
+import {getOrders,getOrder} from "../../Redux/orders.js";
 
 const Orden = ({order,numOrder}) => {
   const orden = useSelector(store => store.orders.order)

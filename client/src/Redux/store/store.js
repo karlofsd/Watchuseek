@@ -1,10 +1,10 @@
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import categoryReducer from '../categories/categories'
-import productReducer from '../products/products'
-import userReducer from "../users/users.js";
-import ordenReducer from "../carrito/carrito.js";
-import ordersReducer from "../orders/orders.js";
+import categoryReducer from '../categories'
+import productReducer from '../products'
+import userReducer from "../users.js";
+import ordenReducer from "../carrito.js";
+import ordersReducer from "../orders.js";
 
 const rootReducer = combineReducers({
     categories: categoryReducer,
@@ -13,10 +13,6 @@ const rootReducer = combineReducers({
     carrito: ordenReducer,
     orders: ordersReducer
 })
-
-/* const persistedState = {
-    users:[{token:localStorage.getItem('token')}]
-} */
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

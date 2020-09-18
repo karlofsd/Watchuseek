@@ -1,18 +1,16 @@
 import React,{useEffect, useState} from "react";
 import {useDispatch,useSelector} from "react-redux";
-import {loginUser} from "../../Redux/users/users.js";
+import {loginUser} from "../../Redux/users.js";
 import "./Login.css";
 
 const Login = ({history}) => {
     const user = useSelector(store => store.users.user)
     const error = useSelector(store => store.users.error)
     const dispatch = useDispatch()
-    const name = (mail) => mail.split('@')[0]
     const [input, setInput] = useState({
         username:'',
         password: ""
   });
- console.log(user)
   useEffect(()=>{
     if(user.token){
       history.push('/')
@@ -43,10 +41,6 @@ const Login = ({history}) => {
               <label className='emaillogin' >Username</label>
               <input placeholder='Ej. nombre123' className='inputlogin' type="text" autoComplete = "off" name = "username" onChange={(e) =>handleInputChange(e)} value = {input["username"]}  />
             </div>
-            {/* <div className = "divLogin">
-           <label className='emaillogin' >User Email</label><br/>        
-     <input placeholder='  email@mail.com' className='inputlogin' type="email" autoComplete = "off" name = "email" onChange={(e) =>handleInputChange(e)} value = {input["email"]} />
-            </div> */}
             <div>
             <label className='emaillogin' >User Password</label><br/>{error&&<span>{error}</span>}
      <input  placeholder='  your_password' className='inputlogin' type = "password" autoComplete = "off" name = "password" onChange={(e) =>handleInputChange(e)} value = {input["password"]} />

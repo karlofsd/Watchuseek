@@ -3,7 +3,7 @@ const server = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { SIGNATURE } = process.env;
-const {verifyToken} = require('../middlewares/authentication.js')
+const {verifyToken , verifyAdmin} = require('../middlewares/authentication.js')
 // Modelo user
 const { Users } = require('../db');
 
@@ -47,6 +47,7 @@ server.post('/login', (request, response) => {
       return response.status(200).json({
         id: user.id,
         email: user.email,
+        isAdmin: user.isAdmin,
         mensaje: 'Token generado',
         token
       });
@@ -83,5 +84,15 @@ server.get('/me', verifyToken, (request, response) => {
   })
 
 });
+
+// CONVERT NORMAL USER TO ADMIN. 
+server.put('/promote/:id',[verifyToken, verifyAdmin],(req,res) =>{
+  const {id} = req.params;
+  Users.update({isAdmin:true},{where:{id:id}})
+  .then(user => res.status(204).json('usuario updateado!'))
+  .catch(error => res.status(400).json(error))
+});
+
+
 
 module.exports = server;

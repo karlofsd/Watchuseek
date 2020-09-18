@@ -6,8 +6,8 @@ import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useDispatch} from "react-redux";
-import {getCarrito} from "../../Redux/carrito/carrito.js";
-import {logoutUser} from "../../Redux/users/users";
+import {getCarrito} from "../../Redux/carrito.js";
+import {logoutUser} from "../../Redux/users";
 import axios from "axios";
 
 const Nav = ({setSearchApp, categories,user}) => {
@@ -61,7 +61,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                 />
             </div>
             <div className = "logoconteiner" >
-               <Link to='/' > <img className = "logo" src = "https://images.squarespace-cdn.com/content/v1/5b12409c7e3c3aefa533dc9b/1541399363634-4X65VEBY9Y6L21BB877G/ke17ZwdGBToddI8pDm48kAH-rRb1vQpTziZIFTqQBctZw-zPPgdn4jUwVcJE1ZvWEtT5uBSRWt4vQZAgTJucoTqqXjS3CfNDSuuf31e0tVG5RzxJlIkHE-djMTvjefB_XwQ_QLa2-1fn_ftyfanSTjqWIIaSPh2v08GbKqpiV54/watchuseek-logo.png" /></Link>
+            <Link to='/' > <img className = "logo" src = "https://images.squarespace-cdn.com/content/v1/5b12409c7e3c3aefa533dc9b/1541399363634-4X65VEBY9Y6L21BB877G/ke17ZwdGBToddI8pDm48kAH-rRb1vQpTziZIFTqQBctZw-zPPgdn4jUwVcJE1ZvWEtT5uBSRWt4vQZAgTJucoTqqXjS3CfNDSuuf31e0tVG5RzxJlIkHE-djMTvjefB_XwQ_QLa2-1fn_ftyfanSTjqWIIaSPh2v08GbKqpiV54/watchuseek-logo.png" /></Link>
             </div>
             {user.id &&
             <div>
@@ -72,7 +72,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                 {!user.id && <Link to='/user'>Registrate</Link> }
                 {!user.id && <Link to='/login'>Iniciar sesión</Link>}
                 {user.id && <Link to='/login' onClick={()=> dispatch(logoutUser())}>Cerrar sesión</Link>}
-                <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>
+                {user.id && <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>}
             </div>
             <Link onClick={()=> handleCarrito()} to='/carrito'> 
                 <div className='cart'>

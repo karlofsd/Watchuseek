@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import "./category.css";
-import {getCategories, getCategory} from '../../Redux/categories/categories.js';
+import {getCategories, getCategory} from '../../Redux/categories.js';
 import {connect} from 'react-redux'
 
 const Category =({allCategories,currentCategory,setCategories})=>{

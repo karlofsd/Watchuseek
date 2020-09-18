@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { getCarrito, newOrden } from '../../Redux/carrito/carrito'
+import { getCarrito, newOrden } from '../../Redux/carrito.js'
 import { useSelector, useDispatch } from 'react-redux'
 import "./carrito.css";
 
 const Carrito = ({ user, products }) => {
     const [product, setProduct] = useState([]);
     const dispatch = useDispatch()
-    const orden = useSelector(store => store.carrito.numeroOrden)
+    // const orden = useSelector(store => store.carrito.numeroOrden)
     const carrito = useSelector(store => store.carrito.carrito)
 
     useEffect(() => {
@@ -61,12 +61,14 @@ const Carrito = ({ user, products }) => {
             <div className="contentCarrito">
                 <div className="divcontentItems">
                     {product && product.map((e, index) => {
+                        console.log(products)
                         return (
                             <div className="bordecarrito">
                                 <button className='botonx' onClick={() => eliminar(e, index)}>X</button>
                                 <div className="divLabel">
                                     <label className='titlelableCarrito'>{e.name}</label><br />
                                     <label className='labelcarrito'>$USD{e.price}</label>
+                                    <label>stock: {products[index].stock}</label>
                                     <div>
                                         <label className='labelcarrito'>Cantidad:</label><br />
                                         <input className="inputItem" type="number" min='1' max={products[index].stock} name={e.quantity} onChange={(e) => handleInputChange(e, index)} />

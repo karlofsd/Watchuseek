@@ -1,9 +1,6 @@
 import React from 'react';
 import ProductCard from "../ProductCard/ProductCard.js";
 import './Catalogo.css'
-import {Link} from "react-router-dom"
-import {useDispatch, useSelector} from 'react-redux'
-import {getProducts} from '../../Redux/products/products.js'
 
 
 const Catalogo = ({products}) => {

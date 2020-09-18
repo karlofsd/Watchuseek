@@ -4,7 +4,7 @@ import Orden from '../Orden/orden';
 import Axios from 'axios';
 import './ordersAdmin.css'
 import {useSelector, useDispatch} from 'react-redux'
-import {getOrders,getOrder} from '../../Redux/orders/orders'
+import {getOrders,getOrder} from '../../Redux/orders'
 
 const OrdersAdmin = () => {
     const [orders, setOrders] = useState([]);
