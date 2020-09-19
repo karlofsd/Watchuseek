@@ -48,7 +48,7 @@ Users.hasMany(Carrito,{as: "user_orden"})
 Product.hasMany(Reviews, {as: "review"})
 Users.hasMany(Reviews, {as: "user"})
     
- 
+  
 //https://sequelize.org/master/manual/advanced-many-to-many.html
 
 
