@@ -7,7 +7,6 @@ const Catalogo = ({products}) => {
     products = products.filter(e => e.stock > 0); 
     return (
          <div className='general'>
-        
              <section className='cont-productos'>
                 {products && products.map(p=>(
                  <ProductCard

@@ -36,7 +36,7 @@ server.get('/category/:category',(req,res) => {
 })
 
 // GET PRODUCTS BY TEXT (SEARCHBAR)
-server.get('/search',(req,res) => {
+server.get('/find/search',(req,res) => {
 	Product.findAll({
 		where: {
 			[Op.or]: {
@@ -48,11 +48,11 @@ server.get('/search',(req,res) => {
 			  }
 			}
 		  }
-	}).then(products => 
-		res.json(products)
-	).catch(error => 
-		res.status(400).send(error)
-	)
+	}).then(products => {
+		res.status(200).send(products)}
+	).catch(error =>{ 
+		res.status(404).send(error)
+	})
 })
 
 // CREATE PRODUCT (ADMIN)

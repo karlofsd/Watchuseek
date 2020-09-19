@@ -42,7 +42,7 @@ const verifyToken = (request, response, next) => {
 
 const verifyAdmin = (request, response, next) => {
 
-  let admin = request.user.admin;
+  const admin = request.user.admin;
 
   if (admin) {
 
@@ -52,8 +52,8 @@ const verifyAdmin = (request, response, next) => {
 
     return response.status(400).json({
       mensaje: "Este usuario no es administrador."
-    }
-    );
+    });
+
   }
 
 }

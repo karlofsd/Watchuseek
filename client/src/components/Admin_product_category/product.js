@@ -48,7 +48,14 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             stock: input.stock,
             image: input.image,
         };
-        await axios.put(urlApi, dataPost);
+        const token = localStorage.getItem('token')
+        
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        await axios.put(urlApi, dataPost,config);
         if(!input.category){
                 setProducts();
          return setInput(currentProduct);
@@ -70,10 +77,22 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             stock: input.stock,
             image: input.image,
         };
-        const {data} = await axios.post(urlApi, dataPost);
-        await axios.post(`http://localhost:3001/products/${data[0].id}/category/${input.category}`);
-        setProducts();
-        setInput(currentProduct);
+        const token = localStorage.getItem('token')
+        
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        
+        if(token){
+            const {data} = await axios.post(urlApi, dataPost,config);
+            
+            await axios.post(`http://localhost:3001/products/${data.id}/category/${input.category}`);
+            setProducts();
+            setInput(currentProduct);
+        }
+        
     };
 
 
@@ -81,7 +100,14 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         if(!input.id){
             return alert("Debe seleccionar un producto");
         }
-        await axios.delete(`http://localhost:3001/products/${input.id}`);
+        const token = localStorage.getItem('token')
+        console.log('token: '+token);
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        await axios.delete(`http://localhost:3001/products/${input.id}`,config);
         alert('Se ha eliminado correctamente');
         setProducts();
         setInput(currentProduct);

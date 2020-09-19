@@ -44,7 +44,7 @@ export const getOrders = () => async (dispatch,getState) => {
         })
         
     } catch (error) {
-        console.log(error);
+        console.log(error)
     };
 };
 
