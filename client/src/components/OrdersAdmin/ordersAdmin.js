@@ -27,7 +27,7 @@ const OrdersAdmin = () => {
                      {ordenes.map(function (p) {
                         /* let date = ()=> p.createdAt.split('T')[0]
                         console.log(date) */
-                     return <Link onClick={() => handleSearch(p)} >  {"->"}  Orden N°{p.order}______({p.status})</Link>
+                     return <Link onClick={() => handleSearch(p)} >  {" >"}  Orden N°{p.order}______({p.status})</Link>
                     })}<br /> 
             </div>
             {orden[0] && <div className='ordenes'><Orden order={orden}/></div>}

@@ -1,23 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import "./activity.css";
+import {useDispatch,useSelector} from "react-redux";
+import {getOrdersUser} from "../../Redux/orders.js";
 
 const Activity =({user})=>{
   const [ordenes, setOrden] = useState([]);
+  
+  const dispatch = useDispatch();
+  const orders = useSelector(store => store.orders.ordersUser);
+  
   const name = (mail) => mail.split('@')[0]
-  const Cancelar = (e)=>{
-      console.log('---- cancelar ----')
-      console.log(e)
-     axios.put(`http://localhost:3001/user/${user.id}/cancelada/${e}`)
+  
+  const Cancelar = async (e)=>{
+    console.log('---- cancelar ----')
+    console.log(e)
+    await axios.put(`http://localhost:3001/user/${user.id}/cancelada/${e}`);
+    dispatch(getOrdersUser(user));
   }
 
  useEffect(()=>{
-  const fetchData = async ()=>{ 
-  const {data} = await axios.get(`http://localhost:3001/user/${user.id}/ordenes`);
-  setOrden(data);
-};
-  fetchData();
- },[]);
+  setOrden(orders);
+ },[ordenes]);
+ console.log(ordenes);
 
     return(
         <div className = "contentActivity">
@@ -28,7 +33,8 @@ const Activity =({user})=>{
           </div>
           <div className = "divHistory">
           <h1 className = "titleHistory">Actividad del usuario</h1>
-        {ordenes && ordenes.map(e=>{
+        {orders && orders.map(e=>{
+          console.log(e);
             return(
             <div className = "divItemHistory">
          <label>Name: {e.name}</label><br/> 

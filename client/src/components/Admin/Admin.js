@@ -5,6 +5,7 @@ import { Link, BrowserRouter as Router, Route} from "react-router-dom";
 import Category from '../Admin_product_category/category.js';
 import Product from '../Admin_product_category/product.js';
 import Orders from '../OrdersAdmin/ordersAdmin.js';
+import Users from '../UsersAdmin/usersAdmin.js';
 import {useDispatch, useSelector} from 'react-redux'
 import {getOrders} from '../../Redux/orders'
 import { Redirect } from 'react-router-dom';
@@ -27,6 +28,7 @@ const {isAdmin} = useSelector(store => store.users.user);
 				<Link to='/admin/orders'>Ordenes</Link>
 				<Link to='/admin/products'>Productos</Link>
 				<Link to='/admin/categories'>Categorias</Link>
+				<Link to= '/admin/users'>Usuarios</Link>
 			</div>
 			<div className='content_admin'>
 				<Route
@@ -52,6 +54,14 @@ const {isAdmin} = useSelector(store => store.users.user);
 					render={() =>
 						<div>
 								<Orders />
+						</div>
+					}
+				/>
+				<Route
+					exact path='/admin/users'
+					render={() =>
+						<div>
+								<Users />
 						</div>
 					}
 				/>

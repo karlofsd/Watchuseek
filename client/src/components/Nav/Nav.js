@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useDispatch} from "react-redux";
 import {getCarrito} from "../../Redux/carrito.js";
+import {getOrdersUser} from "../../Redux/orders.js";
 import {logoutUser} from "../../Redux/users";
 import axios from "axios";
 
@@ -72,7 +73,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                 {!user.id && <Link to='/user'>Registrate</Link> }
                 {!user.id && <Link to='/login'>Iniciar sesión</Link>}
                 {user.id && <Link to='/login' onClick={()=> dispatch(logoutUser())}>Cerrar sesión</Link>}
-                {user.id && <Link to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>}
+                {user.id && <Link onClick = {() => dispatch(getOrdersUser(user))} to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>}
             </div>
             <Link onClick={()=> handleCarrito()} to='/carrito'> 
                 <div className='cart'>

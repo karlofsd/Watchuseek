@@ -72,11 +72,11 @@ function App() {
           <Route
         exact path = '/user'
         component={User}
-        />
+        />mOrder(e)
         <Route
           exact path = '/login'
           component ={Login}
-        />
+        />mOrder(e)
 
         <Route
         exact path ='/user/activity' 

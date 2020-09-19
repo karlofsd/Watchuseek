@@ -2,9 +2,16 @@ import React from 'react'
 import './product.css'
 import axios from 'axios'
 import Review from '../Review/review'
-
+import {useState,useEffect} from "react";
 
 const Product = ({ user, data }) => {
+  const [product, setProduct] = useState();
+
+  useEffect(() => {
+    setProduct(data);
+  },[product])
+  console.log(data);
+
   const handleClick = async () => {
     const dataValue = {
       name: data[0].name,
