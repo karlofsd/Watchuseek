@@ -11,7 +11,7 @@
 }
 
 .divInfo{
-    border-radius: 30px;
+    border-radius: 5px;
     padding-left: 20px;
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@
 
 .divHistory{
     width: 600px;
-    border-radius: 15px;
+    border-radius: 5px;
     background-color: #FFA62B;
     margin-left: 15px;
 }

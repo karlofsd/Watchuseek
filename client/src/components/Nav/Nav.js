@@ -64,7 +64,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                      return <MenuItem key={e.id} onClick={handleClose}><Link className='itemList'to={`/catalogo/${e.id}`}>{e.name}</Link></MenuItem>
                     })}
                 </Menu>
-                <Link to='/catalogo'>Inicio</Link>
+                <Link to='/'>Inicio</Link>
             </div>
             <div>
                 <SearchBar
@@ -74,14 +74,16 @@ const Nav = ({setSearchApp, categories,user}) => {
             <div className = "logoconteiner" >
             <Link to='/' > <img className = "logo" src = "https://images.squarespace-cdn.com/content/v1/5b12409c7e3c3aefa533dc9b/1541399363634-4X65VEBY9Y6L21BB877G/ke17ZwdGBToddI8pDm48kAH-rRb1vQpTziZIFTqQBctZw-zPPgdn4jUwVcJE1ZvWEtT5uBSRWt4vQZAgTJucoTqqXjS3CfNDSuuf31e0tVG5RzxJlIkHE-djMTvjefB_XwQ_QLa2-1fn_ftyfanSTjqWIIaSPh2v08GbKqpiV54/watchuseek-logo.png" /></Link>
             </div>
-            {user.id &&
-            <div>
-                <Link to='/admin'>Admin</Link>
-            </div>}
-
-            <div className = "login">
+            <div className='left-nav'>
+            <div className='links' style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                {user.isAdmin && <Link to='/admin'>Admin</Link>}
                 {!user.id && <Link to='/user'>Registrate</Link> }
                 {!user.id && <Link to='/login'>Iniciar sesión</Link>}
+                {user.id && <label style={{margin:0,color:'white'}}>¡Hola,  {user.email.split('@')[0]}!</label>}
+            </div>
+
+            <div className = "login">
+                
                 {/* {user.id && <Link to='/login' onClick={()=> dispatch(logoutUser())}>Cerrar sesión</Link>} */}
                {user.id && <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e)=> handleClock(e)} >
                 <Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" />
@@ -96,9 +98,9 @@ const Nav = ({setSearchApp, categories,user}) => {
                   onClose={handleCloser}
                 >
 
-               <MenuItem onClick={handleCloser} ><Link onClick = {() => dispatch(getOrdersUser(user))} className='itemLista' to='/user/activity'>Activity</Link></MenuItem>
+               <MenuItem onClick={handleCloser} ><Link onClick = {() => dispatch(getOrdersUser(user))} className='itemList' to='/user/activity'>Activity</Link></MenuItem>
                {/* <MenuItem onClick={handleCloser} ><Link className='itemLista' to='/'>Profile</Link></MenuItem> */}
-               <MenuItem onClick={handleCloser} ><Link to='/login' onClick={()=> dispatch(logoutUser())}>Log Out</Link></MenuItem>
+               <MenuItem onClick={handleCloser} ><Link to='/login' onClick={()=> dispatch(logoutUser())} className='itemList'>Log Out</Link></MenuItem>
 
                </Menu>
                 {/* {user.id && <Link onClick = {() => dispatch(getOrdersUser(user))} to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>} */}
@@ -108,6 +110,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                     <ShoppingCartIcon/>
                 </div>
             </Link> 
+            </div>
         </div>
     );
 };
