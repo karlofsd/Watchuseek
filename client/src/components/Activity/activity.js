@@ -33,18 +33,39 @@ const Activity =({user})=>{
           </div>
           <div className = "divHistory">
           <h1 className = "titleHistory">Actividad del usuario</h1>
-        {orders && orders.map(e=>{
-          console.log(e);
-            return(
-            <div className = "divItemHistory">
-         <label>Name: {e.name}</label><br/> 
-        <label>Price:{e.price}</label><br/> 
-            <label>Quantity: {e.quantity}</label><br/> 
-        <label>Status:{e.status}</label><br/> 
-        { e.status === "creada"  || e.status === "procesando" ? <button className='btoncancelar' onClick={()=> Cancelar(e.id)} >Cancelar pedido</button> : null}
-            </div>)
-            
-        })}
+          <div className = 'card-bodyact'>
+          <table>
+            <tr className='columns-act col-10'>
+              <th className='th1 col-5' >Name</th>
+              <th className='th1 col-2' >Price</th>
+              <th className='th1 col-2' >Quantity</th>
+              <th className='th1 col-2' >Status</th>
+            </tr>
+            {orders && orders.map(o => 
+              <tr className='columns-act col-10'>
+                <td className='td1 col-5'>{o.name}</td>
+                
+                <td className='td1 col-2' >${o.price}</td>
+                <td className='td1 col-2' >{o.quantity}</td>
+                <td className='td1 col-2' >{o.status}</td>
+                { o.status === "creada"  || o.status === "procesando" ? 
+                <button className='btoncancelar' onClick={()=> Cancelar(o.id)} >Cancelar</button> : null}       
+              </tr>
+            )}
+          </table>
+          </div>
+          {/* {orders && orders.map(e=>{
+            console.log(e);
+              return(
+              <div className = "divItemHistory">
+                <label>Name: {e.name}</label><br/> 
+                <label>Price:{e.price}</label><br/> 
+                <label>Quantity: {e.quantity}</label><br/> 
+                <label>Status:{e.status}</label><br/> 
+                { e.status === "creada"  || e.status === "procesando" ? <button className='btoncancelar' onClick={()=> Cancelar(e.id)} >Cancelar pedido</button> : null}
+              </div>)
+              
+          })} */}
         </div>
         </div>
     );

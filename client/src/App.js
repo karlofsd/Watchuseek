@@ -49,7 +49,7 @@ function App() {
         
         <Route
         path='/admin'
-        render={() => <Admin products={products} categories={categories}/>}
+        render={() => <Admin user={user} products={products} categories={categories}/>}
         />
 
         <Route 
@@ -64,7 +64,8 @@ function App() {
 
         <Route
            path='/catalogo/product/:id'
-          render={({match}) => 
+          render={({match}) =>
+           
           <div className='product'>
             <Product user={user} data={products.filter(p => p.id === Number(match.params.id))}/>
           </div>}
@@ -72,11 +73,11 @@ function App() {
           <Route
         exact path = '/user'
         component={User}
-        />mOrder(e)
+        />
         <Route
           exact path = '/login'
           component ={Login}
-        />mOrder(e)
+        />
 
         <Route
         exact path ='/user/activity' 
@@ -87,8 +88,6 @@ function App() {
        exact path="/carrito"
        render = {() => <Carrito user = {user} products= {products}/>}
        />
-  
-       
     </Router>
   );
 }

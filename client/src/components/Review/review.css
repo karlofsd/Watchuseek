@@ -1,0 +1,21 @@
+.stars{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.comment{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.comentarios{
+    display: flex;
+    flex-direction: column;
+    background-color:white;
+    padding: 5px;
+}
+.rev{
+    background-color: whitesmoke;
+    margin-bottom: 5px;
+    padding: 5px 10px
+}

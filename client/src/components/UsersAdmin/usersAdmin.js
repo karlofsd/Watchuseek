@@ -1,41 +1,44 @@
-// import React, {useState, useEffect} from 'react';
-// import {Link} from 'react-router-dom';
-// import {useSelector, useDispatch} from 'react-redux';
-// import './usersAdmin.css';
-// import {getUser} from '../../Redux/users.js';
-// //import Orden from '../Orden/orden';
+import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import {useSelector, useDispatch,connect} from 'react-redux';
+import './usersAdmin.css';
+import {getUser,getUsers} from '../../Redux/users.js';
 
-// const usersAdmin = () => {
-//     const [users, setUsers] = useState([]);
-//     const dispatch = useDispatch();
-//     const usuarios = useSelector(store => store.users.users);
-//     const usuario = useSelector(store => store.users.user);
 
-//     useEffect( () => {
-//         setUsers(usuarios);
-//     }, [users, usuario])
+const UsersAdmin = (usuarios) => {
 
-//     const handleSearch = async (e) => {
-//         dispatch(getUser(e));
-//     }
+    const dispatch = useDispatch();
+   /*  const usuarios = useSelector(store => store.users.users); */
+    const usuario = useSelector(store => store.users.user);
+    console.log(usuarios)
+     useEffect( () => {
+        dispatch(getUsers())
+    }, [])
 
-//     return (
-//         <div className = "recuadro">
-//             <div className = "tablaUsuarios">
-//                 <h1 className = "tituloTabla"> Usuarios </h1>
-
-//                 {/* {usuarios.map( (p) => {
-//                     return <Link onClick={() => handleSearch (p)} > 
-//                 })} */}
-
-//             </div>
+    const handleSearch = async (e) => {
+        dispatch(getUser(e));
+    }
+ 
+    return (
+        <div className = "recuadro">
+            <div className = "tablaUsuarios">
+                <h1 className = "tituloTabla"> Usuarios </h1>
+                <div className='user-list'>
+                {usuarios.usuarios && usuarios.usuarios.map( (p) =>
+                    <Link onClick={() => handleSearch (p)}>
+                        <li>{p.username}</li>
+                    </Link>
+                )}
+                </div>
+            </div>
             
-//         </div>
+        </div>
             
-//     )
+    )
+};
 
+const mapStateToProps = (state) =>({
+    usuarios : state.users.users
+})
 
-// };
-
-
-// export default usersAdmin; 
+export default connect(mapStateToProps,null)(UsersAdmin); 

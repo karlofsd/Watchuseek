@@ -51,18 +51,18 @@ return (
         <div>
           <table>
             <tr className='columns'>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Total</th>
-              <th>Quantity</th>
+              <th className='th1' >Name</th>
+              <th className='th1' >Price</th>
+              <th className='th1' >Total</th>
+              <th className='th1' >Quantity</th>
             </tr>
             {order.map(o => 
               <tr className='columns'>
                 <td>{o.name}</td>
                 
-                <td>${o.price}</td>
-                <td>${o.price*o.quantity}</td>       
-                <td>{o.quantity}</td>
+                <td className='td1' >${o.price}</td>
+                <td className='td1' >${o.price*o.quantity}</td>       
+                <td className='td1' >{o.quantity}</td>
               </tr>
             )}
           </table>

@@ -72,7 +72,9 @@ export const getOrder = (e) => async (dispatch,getState) => {
 
 export const getOrdersUser = (user) => async (dispatch) => {
     try {
+        console.log(user)
         const {data} = await axios.get(`http://localhost:3001/user/${user.id}/ordenes`);
+        console.log(data);
         dispatch({
             type: GET_ORDERS_USER,
             payload: data,

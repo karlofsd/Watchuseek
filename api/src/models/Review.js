@@ -5,6 +5,12 @@ const {Users} = require('../db')
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('reviews', {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        unique:true
+      },
       comentarios: {
         type: DataTypes.TEXT,
         allowNull: true
@@ -12,17 +18,6 @@ module.exports = (sequelize) => {
       stars:{
           type: DataTypes.INTEGER,
           allowNull: true
-      }, 
-      username:{
-        type: DataTypes.STRING,
-        references: Users,
-        referenceskey: "username"
-        }
+      }
   });
 };
-
-// addressId: {
-//   type: DataTypes.INTEGER,
-//   references: 'addresses',
-//   referencesKey: 'id'
-// }

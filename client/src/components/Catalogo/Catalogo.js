@@ -1,9 +1,18 @@
 import React from 'react';
 import ProductCard from "../ProductCard/ProductCard.js";
 import './Catalogo.css'
+import {useState,useEffect} from "react";
 
 
 const Catalogo = ({products}) => {
+
+    const [productscatalogo, setProductscatalogo] = useState();
+
+    useEffect(() => {
+        setProductscatalogo(products);
+    },[products])
+
+
     products = products.filter(e => e.stock > 0); 
     return (
          <div className='general'>

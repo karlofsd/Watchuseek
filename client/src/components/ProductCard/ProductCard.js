@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import './ProductCard.css';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
@@ -6,37 +6,56 @@ import {useSelector} from "react-redux";
 
 const Card = ({ name, price, image, id, stock }) => {
 
-  const user = useSelector(store => store.users.user)
+  const user = useSelector(store => store.users.user);
+  const [addProduct, setAddProduct] = useState(false);
 
   const handleClick = async (e) => {
+
+    setAddProduct(true);
+
     const dataValue = {
       name: name,
       price: price,
       quantity: 1,
-      status: "carrito",
-      productId: id
+      productId: id,
     };
     
     if(!localStorage.token){
       if(!localStorage.carrito){
-        return localStorage.setItem("carrito", JSON.stringify({carrito: [dataValue]}));
+        localStorage.setItem("carrito", JSON.stringify({carrito: [dataValue]}));
+        setAddProduct(false);
+        return;
       }
       const data = JSON.parse(localStorage.getItem("carrito"));
       data.carrito.push(dataValue);
       localStorage.setItem("carrito", JSON.stringify(data));
+      setAddProduct(false)
     };
 
-     await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
 
+     await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
+      setAddProduct(false);
 
   }
   
   return (
-    <div className="wrapper">
+    <div className={`wrapper ${addProduct ? 'card-waiting': ''}`}>
       <div className="container">
         <div className="top">
           <Link to={`/catalogo/product/${id}`}>
             <img src={image} className='reloj-img' alt="reloj" />
+            {
+              addProduct ? 
+              <div className='message-waiting-card p-3 rounded-lg'>
+              <h5 className="text-center">Agregando al carrito</h5>
+              <div className="d-flex justify-content-center">
+              <div className="spinner-border spinner-bg" role="status">
+                <span className="sr-only"></span>
+              </div>
+              </div>
+              </div>
+            : ''
+            }
           </Link>
 
         </div>

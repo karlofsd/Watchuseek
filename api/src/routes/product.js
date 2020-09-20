@@ -96,6 +96,10 @@ server.post('/:productId/category/:categoryId',[verifyToken, verifyAdmin],(req, 
 server.put('/mod/:id',(req,res)=>{
 	const {id}=req.params;
 	const {stock} = req.body;
+	console.log("----------------------------------")
+	console.log("id:" +id + "-" + " stock:" + stock )
+	console.log(req.body);
+	console.log("-------------------------------")
 	Product.update({stock},{where:{id}})
 	.then(product=>res.status(204).send(product))
 	.catch(error=>res.status(400).send(error))

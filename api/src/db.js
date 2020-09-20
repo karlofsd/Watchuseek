@@ -2,7 +2,6 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const Review = require('./models/Review');
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -45,9 +44,12 @@ Product.belongsTo(Categories, {as: "category" });
 Product.hasMany(Carrito, {as: "producto_carrito"})
 Product.belongsToMany(Carrito, {through: "orden"})
 Users.hasMany(Carrito,{as: "user_orden"})
-Product.hasMany(Reviews, {as: "review"})
-Users.hasMany(Reviews, {as: "user"})
-    
+Product.belongsToMany(Users,{through:Reviews,foreignKey:{model:Users,unique:false,primaryKey:false}} )
+Users.belongsToMany(Product, {through:Reviews,foreignKey:{model:Product,unique:false,primaryKey:false}})
+Product.hasMany(Reviews)
+/* Reviews.belongsTo(Product) */
+Users.hasMany(Reviews) 
+Reviews.belongsTo(Users)
   
 //https://sequelize.org/master/manual/advanced-many-to-many.html
 

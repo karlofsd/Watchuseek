@@ -11,7 +11,7 @@ import {getOrders} from '../../Redux/orders'
 import { Redirect } from 'react-router-dom';
 
 
-const Admin = () => {
+const Admin = ({user}) => {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(getOrders())
@@ -33,7 +33,11 @@ const {isAdmin} = useSelector(store => store.users.user);
 			<div className='content_admin'>
 				<Route
 					exact path='/admin'
-					component={Profile}
+					render={()=>
+						<div>
+						<Profile user={user} />
+						</div>
+					}
 				/>
 				<Route
 					exact path='/admin/products'

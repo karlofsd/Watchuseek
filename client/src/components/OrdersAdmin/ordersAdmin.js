@@ -4,6 +4,7 @@ import Orden from '../Orden/orden';
 import './ordersAdmin.css'
 import {useSelector, useDispatch} from 'react-redux'
 import {getOrder} from '../../Redux/orders'
+import Axios from 'axios';
 
 const OrdersAdmin = () => {
     const [orders, setOrders] = useState([]);
@@ -12,23 +13,37 @@ const OrdersAdmin = () => {
     const orden = useSelector(store => store.orders.order);
     
 	useEffect(()=> {
-        setOrders(ordenes);
+        if(!orders[0]) return setOrders(ordenes);
     },[orders,orden])
     
     const handleSearch = async(e) => {
         dispatch(getOrder(e));
     }
+
+    const handleOrder = async () => {
+        const {data} = await Axios.get(`http://localhost:3001/user/${'order'}/ordersAdmin`)
+        setOrders(data)
+    };
+
+    const handleStatus = async () => {
+        const {data} = await Axios.get(`http://localhost:3001/user/${'status'}/ordersAdmin`)
+        setOrders(data)
+    };
     return(
     
         <div className = "crud_content">
             <div className = "tableOrders">
-                    <h1 className='h11'>Orders</h1>
+                <div className = "divbutton">
+                    <button className='buttonAdd' onClick={() => handleOrder()} >N° Orden</button><br />
+                    <button className='buttonDelete' onClick={(e) => handleStatus(e)} >Status</button><br />
+                </div>
+                <h1 className='h11'>Orders</h1>
 
-                     {ordenes.map(function (p) {
-                        /* let date = ()=> p.createdAt.split('T')[0]
-                        console.log(date) */
-                     return <Link onClick={() => handleSearch(p)} >  {" >"}  Orden N°{p.order}______({p.status})</Link>
-                    })}<br /> 
+                    {orders.map(function (p) {
+                    /* let date = ()=> p.createdAt.split('T')[0]
+                    console.log(date) */
+                    return <Link onClick={() => handleSearch(p)} >  {" >"}  Orden N°{p.order}______({p.status})</Link>
+                })}<br /> 
             </div>
             {orden[0] && <div className='ordenes'><Orden order={orden}/></div>}
         </div>  

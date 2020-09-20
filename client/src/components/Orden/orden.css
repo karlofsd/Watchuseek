@@ -26,12 +26,12 @@
     /* padding: 10px; */
     /* width: 40px; */
 }
-th{
+.th1{
     display: flex;
     margin : 0 15px 0 0;
     width: 40px;
 }
-td{
+.td1{
     display: flex;
     margin : 0 15px 0 0;
     width: 40px;
