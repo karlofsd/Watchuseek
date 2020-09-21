@@ -4,7 +4,6 @@ import axios from 'axios'
 const GET_USERS = 'GET_USERS'
 const GET_USER = 'GET_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
-const LOGIN_USER = 'LOGIN_USER'
 const SET_USER = 'SET_USER'
 const ERROR_LOGIN= 'ERROR_LOGIN'
 const SIGN_UP = 'SIGN_UP'
@@ -19,6 +18,7 @@ const initialState = {
         password: "",
         isAdmin: false
     },
+    userSelected:{}
   };
 
 // --- REDUCER ---
@@ -33,7 +33,7 @@ export default function userReducer(state = initialState, action) {
       case GET_USER: 
        return {
          ...state,
-         user: action.payload
+         userSelected: action.payload
        }
 
       case SET_USER:
@@ -82,7 +82,6 @@ export const getUsers = () => async(dispatch, getState) => {
   catch(error){
     console.log(error)
   }
-  
 }
 
 export const getUser = (email) => async(dispatch, getState) => {
@@ -95,7 +94,6 @@ export const getUser = (email) => async(dispatch, getState) => {
   }
   catch(error){
     console.log(error)
-  
  }
 }
 

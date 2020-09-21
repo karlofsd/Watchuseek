@@ -24,6 +24,8 @@ const OrdersAdmin = () => {
     },[orden,ordenes])
     
     const handleSearch = async(e) => {
+        console.log('---order---')
+        console.log(e)
         dispatch(getOrder(e)); 
     }
 

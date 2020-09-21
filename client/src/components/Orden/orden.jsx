@@ -5,8 +5,8 @@ import {useDispatch,useSelector} from "react-redux";
 import {getOrders,getOrder} from "../../Redux/orders.js";
 
 const Orden = ({order,num}) => {
+  const ordenes = useSelector(store => store.orders.orders)
   const orden = useSelector(store => store.orders.order)
-  
   const dispatch = useDispatch();
   const [userData,setUserData] = useState({})
   const [totalPrice,setTotalPrice] = useState();
@@ -28,14 +28,14 @@ const Orden = ({order,num}) => {
       setTotalPrice(total)
     }
     fetchData()
-  },[])
+  },[ordenes])
 
-  const vender = async()=>{
+  const vender = ()=>{
     order.map( async (e) => {
         await axios.put(`http://localhost:3001/orders/${order[0].order}/changeStatus/${e.status}`)
     })
     dispatch(getOrders());
-    
+    dispatch(getOrder(order))
 }
    
 return (

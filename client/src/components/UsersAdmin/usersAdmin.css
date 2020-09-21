@@ -1,3 +1,10 @@
+
+.users-content{
+    display: flex;
+    width: 80vw;
+    justify-content: flex-start;
+}
+
 .recuadro{
     display: flex;
     flex-direction: column;

@@ -19,7 +19,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
 
         useEffect(() => {
             setProducts();
-        },[])
+        },[input])
 
     const handleSearch = async(product) => {
          setInput(product)
@@ -34,6 +34,15 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setInput({
+            id: null,
+            name: "",
+            description: "",
+            price: null,
+            stock: null,
+            image: "",
+            category: null
+        })
     };
 
     const handleUpdate = async () => {

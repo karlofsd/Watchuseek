@@ -69,7 +69,7 @@ const Card = ({ name, price, image, id, stock }) => {
         <div className="bottom">
           <div className="left">
             <div className="details">
-              <h1>{name = name.substring(0, 1).toUpperCase() + name.substring(1)}</h1>
+              <h4>{name = name.substring(0, 1).toUpperCase() + name.substring(1)}</h4>
               <p>$USD {price}</p>
             </div>
             <button onClick={() => handleClick()} className="buy" ><i className="fas fa-shopping-cart"></i></button>

@@ -88,7 +88,8 @@ server.get('/me', verifyToken, (request, response) => {
 // CONVERT NORMAL USER TO ADMIN. 
 server.put('/promote/:id',[verifyToken, verifyAdmin],(req,res) =>{
   const {id} = req.params;
-  Users.update({isAdmin:true},{where:{id:id}})
+  const {status} = req.body;
+  Users.update({isAdmin: !status ? true : false},{where:{id:id}})
   .then(user => res.status(204).json('usuario updateado!'))
   .catch(error => res.status(400).json(error))
 });
