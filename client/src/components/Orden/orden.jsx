@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './orden.css'
 import axios from "axios";
-import './orden.css'
 import {useDispatch,useSelector} from "react-redux";
 import {getOrders,getOrder} from "../../Redux/orders.js";
 
@@ -58,7 +57,7 @@ return (
             </tr>
             {order.map(o => 
               <tr className='columns'>
-                <td>{o.name}</td>
+                <td className='td1'>{o.name}</td>
                 
                 <td className='td1' >${o.price}</td>
                 <td className='td1' >${o.price*o.quantity}</td>       

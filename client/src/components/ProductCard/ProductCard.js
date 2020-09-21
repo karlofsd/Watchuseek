@@ -32,13 +32,14 @@ const Card = ({ name, price, image, id, stock }) => {
         return effectAddingToCart();
       }
       const data = JSON.parse(localStorage.getItem("carrito"));
-      data.carrito.push(dataValue);
-      localStorage.setItem("carrito", JSON.stringify(data));
-      setAddProduct(false);
-        return effectAddingToCart();
+      if(!data.carrito.some(p => p.productId === id )){
+        data.carrito.push(dataValue);
+        localStorage.setItem("carrito", JSON.stringify(data));
+      };
+
+      // setAddProduct(false);
+      return effectAddingToCart();
     };
-
-
     await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
     
     return effectAddingToCart();

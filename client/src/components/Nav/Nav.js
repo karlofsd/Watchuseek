@@ -64,7 +64,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                      return <MenuItem key={e.id} onClick={handleClose}><Link className='itemList'to={`/catalogo/${e.id}`}>{e.name}</Link></MenuItem>
                     })}
                 </Menu>
-                <Link to='/'>Inicio</Link>
+                <Link to='/catalogo'>Catalogo</Link>
             </div>
             <div>
                 <SearchBar
@@ -75,7 +75,7 @@ const Nav = ({setSearchApp, categories,user}) => {
             <Link to='/' > <img className = "logo" src = "https://images.squarespace-cdn.com/content/v1/5b12409c7e3c3aefa533dc9b/1541399363634-4X65VEBY9Y6L21BB877G/ke17ZwdGBToddI8pDm48kAH-rRb1vQpTziZIFTqQBctZw-zPPgdn4jUwVcJE1ZvWEtT5uBSRWt4vQZAgTJucoTqqXjS3CfNDSuuf31e0tVG5RzxJlIkHE-djMTvjefB_XwQ_QLa2-1fn_ftyfanSTjqWIIaSPh2v08GbKqpiV54/watchuseek-logo.png" /></Link>
             </div>
             <div className='left-nav'>
-            <div className='links' style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+            <div className='links' style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly',alignItems:'center',width:'250px',margin:0,padding:0}}>
                 {user.isAdmin && <Link to='/admin'>Admin</Link>}
                 {!user.id && <Link to='/user'>Registrate</Link> }
                 {!user.id && <Link to='/login'>Iniciar sesión</Link>}

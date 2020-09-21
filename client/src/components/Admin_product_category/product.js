@@ -92,7 +92,6 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             setProducts();
             setInput(currentProduct);
         }
-        
     };
 
 

@@ -24,7 +24,6 @@ export default function ordenReducer(state = initialState, action) {
 
         case GET_CARRITO:
             const data = action.payload.map((product, index) => {
-                // console.log(product)
                 const quantity = state.carrito[index] ? state.carrito[index].quantity : product.quantity;
                 product.quantity = quantity;
                 console.log(quantity)

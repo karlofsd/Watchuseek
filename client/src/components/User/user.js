@@ -49,8 +49,8 @@ const User =({history})=>{
     return(
       <div className='divmayor'>
         <div className = "contentUser">
+            <h1 className='titulo'>Crear usuario</h1>
             <form className = "formUser" onSubmit={(e)=>handleSubmit(e)}>
-              <h1 className='titulo'>Crear usuario</h1>
               <div className = "divLogin" >
               <label className='labelemail' >Username</label><br/>
               <input placeholder='Ej. nombre123' className='inputemail' type="text" autoComplete = "off" name = "username" onChange={(e) =>handleInputChange(e)} value = {input["username"]}  />

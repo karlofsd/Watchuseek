@@ -13,14 +13,22 @@ const OrdersAdmin = () => {
     const orden = useSelector(store => store.orders.order);
     
 	useEffect(()=> {
-        if(!orders[0]) return setOrders(ordenes);
-    },[orders,orden])
+        
+        /* const fetchData = async() => {
+            if(sort === 'order') return await handleOrder()
+            else if(sort === 'status')return await handleStatus();
+            else return setOrders(ordenes)
+        }
+        fetchData() */
+        return setOrders(ordenes)
+    },[orden,ordenes])
     
     const handleSearch = async(e) => {
-        dispatch(getOrder(e));
+        dispatch(getOrder(e)); 
     }
 
-    const handleOrder = async () => {
+    /* const handleOrder = async () => {
+        
         const {data} = await Axios.get(`http://localhost:3001/user/${'order'}/ordersAdmin`)
         setOrders(data)
     };
@@ -28,15 +36,15 @@ const OrdersAdmin = () => {
     const handleStatus = async () => {
         const {data} = await Axios.get(`http://localhost:3001/user/${'status'}/ordersAdmin`)
         setOrders(data)
-    };
+    }; */
     return(
     
         <div className = "crud_content">
             <div className = "tableOrders">
-                <div className = "divbutton">
+                {/* <div className = "divbutton">
                     <button className='buttonAdd' onClick={() => handleOrder()} >N° Orden</button><br />
                     <button className='buttonDelete' onClick={(e) => handleStatus(e)} >Status</button><br />
-                </div>
+                </div> */}
                 <h1 className='h11'>Orders</h1>
 
                     {orders.map(function (p) {

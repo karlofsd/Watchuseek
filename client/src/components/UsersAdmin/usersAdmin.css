@@ -7,12 +7,18 @@
     height: 72vh;
     width: 300px;
     margin: 0 50px 0 50px;
+    padding-left: 10px;
     
 }
 
 .tituloTabla{
     color:#FFA62B
+}
 
+.subtituloTabla{
+    color:#FFA62B;
+    text-decoration-line: underline;
+    margin-left: 2px;
 }
 
 .user-list{

@@ -11,7 +11,6 @@ const Review = ({user, product,review,getReview})=>{
         comentarios:"",
         stars: parseInt(null),
     })
-    
     useEffect(() => {
        getReview(product)
     },[])
@@ -37,14 +36,19 @@ const Review = ({user, product,review,getReview})=>{
   }
     return(
         <div className='reviews'>
+         
             <div>
-                <div className='stars'>
+                <div >
+                    <div className='stars' >
                     <Rating name="stars" value={value["stars"]} size="large" onChange={(e)=> Onchange(e)} />
+                    </div>
+                    <div>
                     <h4 style={{fontSize: 'large'}}>{user.email.split('@')[0]}</h4>   
+                    </div>
                 </div>
                 <div className='comment'>
-                    <input placeholder='Comente algo...' type="text" name='comentarios' value={value["comentarios"]} onChange={(e)=> Onchange(e)}/>
-                    <button onClick={()=>enviar()} >Enviar</button>
+                    <input className='coment' placeholder='Comente algo...' type="text" name='comentarios' value={value["comentarios"]} onChange={(e)=> Onchange(e)}/>
+                    <button type="button" class="btn btn-secondary" onClick={()=>enviar()} >Enviar</button>
                 </div>
             </div>
             <div className='comentarios'>
@@ -53,7 +57,8 @@ const Review = ({user, product,review,getReview})=>{
                     let date =  r.createdAt.split('T')[0]
                     let time =  r.createdAt.split('T')[1].slice(0,5)
                     return <div className='rev'>
-                        <label>{r.user.username}___(<span>{`${date}  ${time}`}</span>)</label>
+                        <label>{r.user.username}</label><br/>
+                        <span>Date: {date} </span> <span>Hour: {time}</span>
                         <p><i>"{r.comentarios}"</i></p>
                     </div>
                 })}

@@ -36,18 +36,18 @@ const Activity =({user})=>{
           <div className = 'card-bodyact'>
           <table>
             <tr className='columns-act col-10'>
-              <th className='th1 col-5' >Name</th>
-              <th className='th1 col-2' >Price</th>
-              <th className='th1 col-2' >Quantity</th>
-              <th className='th1 col-2' >Status</th>
+              <th className='th1-act col-5' >Name</th>
+              <th className='th1-act col-2' >Price</th>
+              <th className='th1-act col-2' >Quantity</th>
+              <th className='th1-act col-2' >Status</th>
             </tr>
             {orders && orders.map(o => 
               <tr className='columns-act col-10'>
-                <td className='td1 col-5'>{o.name}</td>
+                <td className='td1-act col-5'>{o.name}</td>
                 
-                <td className='td1 col-2' >${o.price}</td>
-                <td className='td1 col-2' >{o.quantity}</td>
-                <td className='td1 col-2' >{o.status}</td>
+                <td className='td1-act col-2' >${o.price}</td>
+                <td className='td1-act col-2' >{o.quantity}</td>
+                <td className='td1-act col-2' >{o.status}</td>
                 { o.status === "creada"  || o.status === "procesando" ? 
                 <button className='btoncancelar' onClick={()=> Cancelar(o.id)} >Cancelar</button> : null}       
               </tr>

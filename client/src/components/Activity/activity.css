@@ -76,12 +76,12 @@
     /* width: 40px; */
 }
 
-.th1{
+.th1-act{
     display: flex;
     margin : 0 15px 0 0;
     width: 40px;
 }
-.td1{
+.td1-act{
     display: flex;
     margin : 0 15px 0 0;
     width: 40px;
