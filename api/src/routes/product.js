@@ -81,16 +81,19 @@ server.put('/:id',[verifyToken, verifyAdmin],(req,res) => {
 })
 
 // ADD/UPDATE CATEGORY TO PRODUCT (ADMIN)
-server.post('/:productId/category/:categoryId',[verifyToken, verifyAdmin],(req, res) => {
-	const {categoryId,id} = req.params;
+server.post('/:id/category/:categoryId',[verifyToken, verifyAdmin],(req, res) => {
+	const {id,categoryId} = req.params;
+	console.log(id)
+	console.log(`id ruta : ${categoryId}`)
 	Product.update ({categoryId},{where: {id}})
 	.then(() =>{
+		console.log(`respuesta`)
 		res.status(201).send('La categoria fue modificada');
 	})
 	.catch((err)=>{
       res.status(400).send(err)
 	})
-});
+}); 
 
 // UPDATE STOCK TO PRODUCT
 server.put('/mod/:id',(req,res)=>{

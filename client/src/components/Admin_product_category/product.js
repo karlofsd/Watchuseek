@@ -8,15 +8,15 @@ import {getProducts, getProduct} from '../../Redux/products.js';
 const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     
     const [input, setInput] = useState({
-        id: null,
+        id: "",
         name: "",
         description: "",
-        price: null,
-        stock: null,
+        price: "",
+        stock: "",
         image: "",
-        category: null
+        category: ""
     });
-
+    console.log(input)
         useEffect(() => {
             setProducts();
         },[input])
@@ -35,13 +35,13 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setInput({
-            id: null,
+            id: "",
             name: "",
             description: "",
-            price: null,
-            stock: null,
+            price: "",
+            stock: "",
             image: "",
-            category: null
+            category: ""
         })
     };
 
@@ -69,7 +69,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                 setProducts();
          return setInput(currentProduct);
         }
-        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`);
+        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`,null,config);
         setProducts();
         setInput(currentProduct);
     };
@@ -97,7 +97,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         if(token){
             const {data} = await axios.post(urlApi, dataPost,config);
             
-            await axios.post(`http://localhost:3001/products/${data.id}/category/${input.category}`);
+            await axios.post(`http://localhost:3001/products/${data.id}/category/${input.category}`,null,config);
             setProducts();
             setInput(currentProduct);
         }

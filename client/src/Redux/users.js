@@ -94,8 +94,8 @@ export const getUser = (email) => async(dispatch, getState) => {
   }
   catch(error){
     console.log(error)
+  }
  }
-}
 
 export const loginUser = (user) => (dispatch,getState) => {
   try{
