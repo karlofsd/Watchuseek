@@ -14,20 +14,38 @@ const Product = ({ user, data,review,getReview}) => {
     /* dispatch(getReviews(data[0].id)) */
   },[])
 
-  console.log(data);
-  console.log(data[0])
+  const [addProduct, setAddProduct] = useState(false);
+
+  const effectAddingToCart = () => {
+    return setTimeout(() => {
+      setAddProduct(false);
+    }, 1000);
+  }
 
   const handleClick = async () => {
+    
+    setAddProduct(true);
     const dataValue = {
       name: data[0].name,
       price: data[0].price,
       quantity: 1,
-      status: "carrito",
       productId: data[0].id
     };
-    console.log(dataValue);
-    await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
 
+    if (!localStorage.token) {
+      if (!localStorage.carrito) {
+        localStorage.setItem("carrito", JSON.stringify({ carrito: [dataValue] }));
+        return effectAddingToCart();
+      }
+      const data = JSON.parse(localStorage.getItem("carrito"));
+      data.carrito.push(dataValue);
+      localStorage.setItem("carrito", JSON.stringify(data));
+      setAddProduct(false);
+        return effectAddingToCart();
+    };
+
+    await axios.post(`http://localhost:3001/user/${user.id}/carrito`, dataValue);
+    return effectAddingToCart();
   }
 
   return (

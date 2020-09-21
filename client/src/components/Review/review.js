@@ -7,7 +7,6 @@ import './review.css'
 
 const Review = ({user, product,review,getReview})=>{
     
-    console.log(review)
     const [value, setValue] = useState({
         comentarios:"",
         stars: parseInt(null),
@@ -15,7 +14,7 @@ const Review = ({user, product,review,getReview})=>{
     
     useEffect(() => {
        getReview(product)
-    },[review])
+    },[])
 
     const enviar = async()=>{
         const dataValue = {
@@ -27,6 +26,7 @@ const Review = ({user, product,review,getReview})=>{
         comentarios:"",
         stars: parseInt(null)
      })
+     getReview(product)
     }
   const Onchange = (e)=>{
       setValue({
