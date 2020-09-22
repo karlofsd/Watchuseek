@@ -40,8 +40,16 @@ a:hover{
     border-radius: 300px;
     margin-left: 20% 
 }
+
+.left-nav{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 30%;
+}
+
 .login{
-    width: 300px;
+    /* width: 300px; */
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -49,7 +57,7 @@ a:hover{
 
 .user {
     padding: 0 0 0 15px;
-    width: 70px;
+   /*  width: 70px; */
     height: 35px; 
     border-radius: 50%;
 
@@ -64,6 +72,7 @@ a:hover{
     align-items: center;
     border: 2px solid;
     border-color: #FFA62B;
+    margin:0 10px;
     
 }
 /* MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded */

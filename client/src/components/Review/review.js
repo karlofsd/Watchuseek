@@ -1,28 +1,32 @@
-import React, {Fragment, useState} from 'react'
+import React, {Fragment, useState, useEffect} from 'react'
 import Rating from '@material-ui/lab/Rating';
 import axios from 'axios';
+import {useDispatch, useSelector,connect} from 'react-redux'
+import {getReviews} from '../../Redux/reviews'
+import './review.css'
 
-
-
-const Review = ({user, product})=>{
-
+const Review = ({user, product,review,getReview})=>{
+    
     const [value, setValue] = useState({
         comentarios:"",
         stars: parseInt(null),
     })
-    
-    const enviar = async()=>{
+    useEffect(() => {
+       getReview(product)
+    },[])
 
+    const enviar = async()=>{
         const dataValue = {
             comentarios: value.comentarios,
             stars: value.stars,
         }
-      console.log(product[0].id)  
-     await axios.post(`http://localhost:3001/products/${product[0].id}/review/${user.id}`, dataValue)
+     await axios.post(`http://localhost:3001/reviews/${product}/user/${user.id}`, dataValue)
+     setValue({
+        comentarios:"",
+        stars: parseInt(null)
+     })
+     getReview(product)
     }
-
-
-
   const Onchange = (e)=>{
       setValue({
          ...value, 
@@ -30,17 +34,45 @@ const Review = ({user, product})=>{
       })
    
   }
-
-
     return(
-        <Fragment>
-         <h4>{user.email}</h4>   
-        <Rating name="stars" value={value["stars"]} size="large" onChange={(e)=> Onchange(e)} />
-        <label>Comentarios</label>
-        <input placeholder='Comente algo...' type="text" name='comentarios' value={value["comentarios"]} onChange={(e)=> Onchange(e)}/>
-        <button onClick={()=>enviar()} >Enviar</button>
-        </Fragment>
-       
+        <div className='reviews'>
+         
+            <div>
+                <div >
+                    <div className='stars' >
+                    <Rating name="stars" value={value["stars"]} size="large" onChange={(e)=> Onchange(e)} />
+                    </div>
+                    <div>
+                    <h4 style={{fontSize: 'large'}}>{user.email.split('@')[0]}</h4>   
+                    </div>
+                </div>
+                <div className='comment'>
+                    <input className='coment' placeholder='Comente algo...' type="text" name='comentarios' value={value["comentarios"]} onChange={(e)=> Onchange(e)}/>
+                    <button type="button" class="btn btn-secondary" onClick={()=>enviar()} >Enviar</button>
+                </div>
+            </div>
+            <div className='comentarios'>
+                <label>Comentarios</label>
+                {review && review.map(r =>{
+                    let date =  r.createdAt.split('T')[0]
+                    let time =  r.createdAt.split('T')[1].slice(0,5)
+                    return <div className='rev'>
+                        <label>{r.user.username}</label><br/>
+                        <span>Date: {date} </span> <span>Hour: {time}</span>
+                        <p><i>"{r.comentarios}"</i></p>
+                    </div>
+                })}
+            </div>
+       </div>
     )
 }
-export default Review
+
+const mapDispatchToProps = (dispatch) => ({
+    getReview : (e) => dispatch(getReviews(e))
+})
+
+const mapStateToProps = (state) => ({
+    review : state.reviews.allReviews
+})
+export default connect(mapStateToProps,mapDispatchToProps)(Review)
+

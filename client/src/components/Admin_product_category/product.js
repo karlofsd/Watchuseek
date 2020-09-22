@@ -3,24 +3,23 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './product.css';
 import { connect} from "react-redux";
-import {getProducts, getProduct} from '../../Redux/products/products.js';
-import category from './category';
+import {getProducts, getProduct} from '../../Redux/products.js';
 
 const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     
     const [input, setInput] = useState({
-        id: null,
+        id: "",
         name: "",
         description: "",
-        price: null,
-        stock: null,
+        price: "",
+        stock: "",
         image: "",
-        category: null
+        category: ""
     });
-
+    console.log(input)
         useEffect(() => {
             setProducts();
-        },[])
+        },[input])
 
     const handleSearch = async(product) => {
          setInput(product)
@@ -35,6 +34,15 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setInput({
+            id: "",
+            name: "",
+            description: "",
+            price: "",
+            stock: "",
+            image: "",
+            category: ""
+        })
     };
 
     const handleUpdate = async () => {
@@ -49,12 +57,19 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             stock: input.stock,
             image: input.image,
         };
-        await axios.put(urlApi, dataPost);
+        const token = localStorage.getItem('token')
+        
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        await axios.put(urlApi, dataPost,config);
         if(!input.category){
                 setProducts();
          return setInput(currentProduct);
         }
-        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`);
+        await axios.post(`http://localhost:3001/products/${input.id}/category/${input.category}`,null,config);
         setProducts();
         setInput(currentProduct);
     };
@@ -71,10 +86,21 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             stock: input.stock,
             image: input.image,
         };
-        const {data} = await axios.post(urlApi, dataPost);
-        await axios.post(`http://localhost:3001/products/${data[0].id}/category/${input.category}`);
-        setProducts();
-        setInput(currentProduct);
+        const token = localStorage.getItem('token')
+        
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        
+        if(token){
+            const {data} = await axios.post(urlApi, dataPost,config);
+            
+            await axios.post(`http://localhost:3001/products/${data.id}/category/${input.category}`,null,config);
+            setProducts();
+            setInput(currentProduct);
+        }
     };
 
 
@@ -82,7 +108,14 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         if(!input.id){
             return alert("Debe seleccionar un producto");
         }
-        await axios.delete(`http://localhost:3001/products/${input.id}`);
+        const token = localStorage.getItem('token')
+        console.log('token: '+token);
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        await axios.delete(`http://localhost:3001/products/${input.id}`,config);
         alert('Se ha eliminado correctamente');
         setProducts();
         setInput(currentProduct);

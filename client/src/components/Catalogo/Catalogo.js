@@ -1,16 +1,21 @@
 import React from 'react';
 import ProductCard from "../ProductCard/ProductCard.js";
 import './Catalogo.css'
-import {Link} from "react-router-dom"
-import {useDispatch, useSelector} from 'react-redux'
-import {getProducts} from '../../Redux/products/products.js'
+import {useState,useEffect} from "react";
 
 
 const Catalogo = ({products}) => {
+
+    const [productscatalogo, setProductscatalogo] = useState();
+
+    useEffect(() => {
+        setProductscatalogo(products);
+    },[products])
+
+
     products = products.filter(e => e.stock > 0); 
     return (
          <div className='general'>
-        
              <section className='cont-productos'>
                 {products && products.map(p=>(
                  <ProductCard

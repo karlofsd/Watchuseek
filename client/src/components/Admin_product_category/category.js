@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import "./category.css";
-import {getCategories, getCategory} from '../../Redux/categories/categories.js';
+import {getCategories, getCategory} from '../../Redux/categories.js';
 import {connect} from 'react-redux'
 
 const Category =({allCategories,currentCategory,setCategories})=>{
@@ -40,7 +40,13 @@ const Category =({allCategories,currentCategory,setCategories})=>{
           name: input.name,
           description: input.description
         };
-        await axios.put(urlApi , dataPost);
+        const token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        await axios.put(urlApi , dataPost, config);
         setCategories();
         setInput(currentCategory);
       }
@@ -55,14 +61,31 @@ const Category =({allCategories,currentCategory,setCategories})=>{
           description: input.description
         };
 
-        await axios.post(urlApi , dataPost);
-        alert('Agregado correctamente');
-        setCategories();
-        setInput(currentCategory);
+        const token = localStorage.getItem('token');
+
+        const config = {
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        }
+
+        if (token) {
+          await axios.post(urlApi , dataPost, config);
+          alert('Agregado correctamente');
+          setCategories();
+          setInput(currentCategory);
+        }
+
      }
 
      const handleDelete = async  () => {
-        await axios.delete (`http://localhost:3001/category/${input.id}`);
+        const token = localStorage.getItem('token')
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+        await axios.delete (`http://localhost:3001/category/${input.id}`,config);
         alert('Se ha eliminado correctamente');
         setCategories();
         setInput(currentCategory);

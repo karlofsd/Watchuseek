@@ -1,0 +1,43 @@
+
+.users-content{
+    display: flex;
+    width: 80vw;
+    justify-content: flex-start;
+}
+
+.recuadro{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    border-radius: 5px;
+    overflow: scroll;
+    height: 72vh;
+    width: 300px;
+    margin: 0 50px 0 50px;
+    padding-left: 10px;
+    
+}
+
+.tituloTabla{
+    color:#FFA62B
+}
+
+.subtituloTabla{
+    color:#FFA62B;
+    text-decoration-line: underline;
+    margin-left: 2px;
+}
+
+.user-list{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.ordenes{
+    display: flex;
+    justify-content: center;
+    border-radius: 5%;
+    padding: 0;
+    width: 500px;
+}

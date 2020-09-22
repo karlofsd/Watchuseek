@@ -1,50 +1,44 @@
 const server = require('express').Router();
 const { Carrito, Ordenfinal } = require('../db.js');
 
-server.get('/', async (request, response) => {
-  const { status } = request.query;
+// GET ALL ORDERS
+server.get('/', (req, res) => {
+  const { status } = req.query;
   let condition = {
     where: {
       status
     }
   };
 
-  const orders = await Carrito.findAll(status && condition);
-
-  if(!orders) {
-    return response.status(400).json({
-      message: 'Orders not found' 
-
-    });
-  }
-
-  return response.status(200).json(
+  Carrito.findAll(status && condition)
+  .then(orders => res.status(200).json({
     orders
-  );
+  }))
+  .catch(error => res.status(400).json({
+    error
+  }))
 
 });
 
+// GET ONE ORDER
+server.get('/:id', (req, res) => {
+  const { id } = req.params;
 
-server.get('/:id', async (request, response) => {
-  const { id } = request.params;
-  const orderFound = await Carrito.findByPk(id);
-
-  if (!orderFound) {
-    return response.status(400).json({
-      message: `The order with id: ${id} doesn't exist.`
-    });
-  }
-
-  return response.status(200).json({
+  Carrito.findByPk(id)
+  .then(orderFound => response.status(200).json({
     orderFound
-  });
+  }))
+  .catch(error => res.status(400).json({
+    error
+  }))
   
 });
 
-
+// UPDATE ORDER
 server.put('/:id', (req, res)=>{
-  var id = req.params.id
-  const {name, price, quantity, status} = req.body
+  var id = req.params.id;
+  const {name, price, quantity, status} = req.body;
+
   Carrito.update({name, price, quantity, status}, {where: {id}})
   .then(respons=>{
     res.status(201).send(respons) 

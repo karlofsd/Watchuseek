@@ -15,11 +15,13 @@ const Search = ({setSearchApp}) => {
     };
 
     async function handleSubmit(){
+        console.log(search)
         if(!search){
             return alert("Ingrese una busqueda valida");
         };
         search.toLowerCase();
-        let {data} = await axios.get(`http://localhost:3001/products/search?name=${search}`)
+        const {data} = await axios.get(`http://localhost:3001/products/find/search?name=${search}`)
+        console.log(data)
         setSearchApp({
             array: data,
             word: search,

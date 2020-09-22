@@ -1,18 +1,22 @@
 import React,{useState, useEffect} from 'react';
 import Catalogo from './components/Catalogo/Catalogo';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
+import './app.css';
 import Nav from './components/Nav/Nav';
 import Product from './components/Products/product.js';
-import './app.css';
 import Admin from './components/Admin/Admin';
-import {getCategories} from './Redux/categories/categories.js';
-import {getProducts} from './Redux/products/products.js';
-import {useDispatch, useSelector} from 'react-redux';
 import Carrito from './components/Carrito/carrito.js';
 import User from './components/User/user.js';
 import Activity from './components/Activity/activity.js';
 import Login from './components/LogIn/Login.js';
-import Index from './components/Index/index.js'
+import Index from './components/Index/index.js';
+import {validation} from './Redux/users';
+import {getCategories} from './Redux/categories.js';
+import {getProducts} from './Redux/products.js';
+import {getOrders} from "./Redux/orders.js";
+import {useDispatch, useSelector} from 'react-redux';
+
+
 function App() {
   const dispatch = useDispatch()
   const user = useSelector(store => store.users.user)
@@ -24,6 +28,8 @@ function App() {
   });
 
   useEffect(() => {
+    dispatch(getOrders());
+    dispatch(validation());
     dispatch(getCategories());
     dispatch(getProducts());
   },[])
@@ -32,22 +38,18 @@ function App() {
   return (
     <Router>
         <Nav user={user} categories={categories} setSearchApp = {setSearchApp}/>
- 
         <Route
        exact path='/'
        component={Index}
        />
-       
         <Route
         exact path="/products/search"
-        render={()=> <Catalogo products = {
-          search.array
-        }/>}
+        render={()=> <Catalogo products = {search.array}/>}
         />
         
         <Route
         path='/admin'
-        render={() => <Admin products={products} categories={categories}/>}
+        render={() => <Admin user={user} products={products} categories={categories}/>}
         />
 
         <Route 
@@ -62,7 +64,8 @@ function App() {
 
         <Route
            path='/catalogo/product/:id'
-          render={({match}) => 
+          render={({match}) =>
+           
           <div className='product'>
             <Product user={user} data={products.filter(p => p.id === Number(match.params.id))}/>
           </div>}
@@ -85,8 +88,6 @@ function App() {
        exact path="/carrito"
        render = {() => <Carrito user = {user} products= {products}/>}
        />
-  
-       
     </Router>
   );
 }

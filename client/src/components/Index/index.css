@@ -11,14 +11,22 @@
     position: absolute;
     width: 100%;
 }
-
+.block-bg{
+    position:absolute;
+    width:70vw;
+    height: 80vh;
+    border-right: 500px solid transparent;
+    border-bottom: 637px solid rgba(0,0,0, 0.8);
+}
 .welcome{
+    /* background-color:rgba(0,0,0, 0.8); */
     padding-top: 100px;
-    text-align: center;
+    /* text-align: center; */
     color:white;
     position:relative;
-    font-size: xx-large
-
+    font-size: 35px;
+    padding:20px
+    
 
 }
 

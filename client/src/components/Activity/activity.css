@@ -11,7 +11,7 @@
 }
 
 .divInfo{
-    border-radius: 30px;
+    border-radius: 5px;
     padding-left: 20px;
     display: flex;
     flex-direction: column;
@@ -40,8 +40,8 @@
 }
 
 .divHistory{
-    width: 500px;
-    border-radius: 15px;
+    width: 600px;
+    border-radius: 5px;
     background-color: #FFA62B;
     margin-left: 15px;
 }
@@ -56,4 +56,34 @@
     margin-left: 5px;
     padding-left: 5px;
     width: 300px;
+}
+
+.card-bodyact{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+.columns-act{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    /* margin : 0 20px 0 5px; */
+    /* padding: 10px; */
+    /* width: 40px; */
+}
+
+.th1-act{
+    display: flex;
+    margin : 0 15px 0 0;
+    width: 40px;
+}
+.td1-act{
+    display: flex;
+    margin : 0 15px 0 0;
+    width: 40px;
+    
 }
