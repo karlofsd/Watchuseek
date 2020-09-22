@@ -3,20 +3,18 @@ import axios from 'axios'
 import { useSelector, useDispatch} from 'react-redux'
 import {  newOrden , getCarrito} from '../../Redux/carrito.js';
 import { getProducts } from '../../Redux/products.js';
-import {Link} from 'react-router-dom'
 import './Checkout.css'
 
 
 const Checkout =({ user})=>{
 
-const carrito = useSelector(store => store.carrito.carrito);
-const dispatch = useDispatch();
-
+    const carrito = useSelector(store => store.carrito.carrito);
+    const dispatch = useDispatch();
 
     const [input, setInput] = useState({
         provincia: "",
         departamento: "",
-        localidades:"",
+        localidad:"",
         direccion: "",
         email:"",
         telefono:"",
@@ -28,25 +26,6 @@ const dispatch = useDispatch();
         localidades:[]
     })
  
-    const handleBuy = () => {
-        /* const info = {
-            provincia: input.provincia,
-            departamento: input.departamento,
-            localidades: input.localidades,
-            direccion: input.direccion,
-            email: input.email,
-            telefono: input.telefono,
-            userId: user.id
-        } */
-        console.log('---input---')
-        console.log(input)
-        dispatch(newOrden(user.id, carrito,input));
-        dispatch(getProducts())
-        alert('comprado');
-        
-    }
-    
-    
     const getProvincias = async ()=>{
         const {data} = await axios.get(`https://apis.datos.gob.ar/georef/api/provincias`)
         console.log(data)
@@ -55,9 +34,9 @@ const dispatch = useDispatch();
             departamentos: [],
             localidades:[]
         })
-
+        
     }
-
+    
     const getDepartamentos = async() => {
         const {data} = await axios.get(`https://apis.datos.gob.ar/georef/api/departamentos?provincia=${input.provincia}`)
         console.log(data)
@@ -66,9 +45,8 @@ const dispatch = useDispatch();
             departamentos: data.departamentos,
             localidades: []
         })
-
     }
-
+    
     const getLocalidades = async() => {
         const {data} = await axios.get(`https://apis.datos.gob.ar/georef/api/localidades?provincia=${input.provincia}&departamento=${input.departamento}`)
         
@@ -76,9 +54,9 @@ const dispatch = useDispatch();
             ...location,
             localidades: data.localidades
         })
-
+        
     }
-
+    
     useEffect(()=>{
         
         if (!input.provincia) {
@@ -91,7 +69,15 @@ const dispatch = useDispatch();
         
     },[input]);
     
-    const Submit=(e)=>{
+    const handleBuy = () => {
+        
+        dispatch(newOrden(user.id, carrito,input));
+        dispatch(getProducts())
+        alert('comprado');
+        
+    }
+
+    const handleSubmit=(e)=>{
         e.preventDefault()
     }
 
@@ -110,10 +96,15 @@ const dispatch = useDispatch();
                 departamento: e.target.value,
                 localidad: ""
             })
-        } else if ('localidades' === e.target.name){
+        } else if ('localidad' === e.target.name){
             setInput({
                 ...input,
-                localidades: e.target.value
+                localidad: e.target.value
+            })
+        } else {
+            setInput({
+                ...input,
+                [e.target.name]:e.target.value
             })
         }
     }
@@ -121,7 +112,7 @@ const dispatch = useDispatch();
     return(
         
         <div className='checkform' >
-             <form  onSubmit={(e)=> Submit(e)} >
+             <form  onSubmit={(e)=> handleSubmit(e)} >
                 <label for='provincia'>Provincia</label>
                 <select id='provincia' name='provincia' onChange={(e)=> handleChange(e)}>
                    <option>--Seleccione su provincia--</option>
@@ -137,18 +128,18 @@ const dispatch = useDispatch();
                     )}
                 </select><br/>
                 <label for='localidad'>Localidad</label>
-                <select id='localidad' name='localidades' onChange={(e)=> handleChange(e)}>
+                <select id='localidad' name='localidad' onChange={(e)=> handleChange(e)}>
                     <option>--Seleccione su localidad--</option>
                     {location && location.localidades.map(e =>        
                         <option>{e.nombre}</option>
                     )}
                 </select><br/>
                 <label for='direccion'>Dirección</label>
-                <input id='direccion' type='text' name='direccion' placeholder='ingrese direccion de destino'/><br/>
+                <input id='direccion' type='text' name='direccion' placeholder='ingrese direccion de destino' onChange={(e)=> handleChange(e)}/><br/>
                 <label for='email'>Email</label>
-                <input id='email' type='text' name='email' placeholder='ingrese correo electrónico'/><br/>
+                <input id='email' type='text' name='email' placeholder='ingrese correo electrónico' onChange={(e)=> handleChange(e)}/><br/>
                 <label for='telefono'>Telefono</label>
-                <input id='telefono' type='text' name='telefono'/><br/>
+                <input id='telefono' type='text' name='telefono' onChange={(e)=> handleChange(e)}/><br/>
                 <button type="button" class="btn btn-success" onClick={()=> handleBuy() } >Confirmar compra</button>
                 <button type="button" class="btn btn-danger" >Cancelar</button>
             </form>

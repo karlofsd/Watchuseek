@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './orden.css'
 import axios from "axios";
-import {useDispatch,useSelector} from "react-redux";
+import {useDispatch,useSelector,connect} from "react-redux";
 import {getOrders,getOrder} from "../../Redux/orders.js";
 
-const Orden = ({order,num}) => {
+const Orden = ({order,orden}) => {
   const ordenes = useSelector(store => store.orders.orders)
-  const orden = useSelector(store => store.orders.order)
+  /* const orden = useSelector(store => store.orders.order) */
   const dispatch = useDispatch();
   const [userData,setUserData] = useState({})
   const [totalPrice,setTotalPrice] = useState();
@@ -16,19 +16,22 @@ const Orden = ({order,num}) => {
   const getTotal = (arg) => {
     let total = 0;
     for(var product in arg){
-        total = total + arg[product].price;
+        total = total + (arg[product].price*arg[product].quantity);
     }
-    return total*arg[product].quantity;
+    return total;
 };
+
   useEffect(() => {
     const fetchData = async () => {
       const user = await axios.get(`http://localhost:3001/user/get/${order[0].userId}`)
-      const total = getTotal(order);
+      const total = getTotal(orden);
+      console.log(total)
       setUserData(user.data)
       setTotalPrice(total)
+      
     }
     fetchData()
-  },[ordenes])
+  },[order])
 
   const vender = ()=>{
     order.map( async (e) => {
@@ -81,4 +84,9 @@ return (
     )
 }
 
-export default Orden;
+const mapStateToProps = (state) => ({
+  orden : state.orders.order
+})
+
+export default connect(mapStateToProps,null)(Orden);
+
