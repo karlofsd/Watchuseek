@@ -1,7 +1,6 @@
 const server = require('express').Router();
 const bcrypt = require('bcrypt');
-const { Users } = require('../db.js');
-const { Carrito } = require('../db.js');
+const { Users, Carrito, Checkout} = require('../db.js');
 const {verifyToken} = require('../middlewares/authentication.js')
 const { Sequelize: { Op, fn, col }, Sequelize } = require('sequelize');
 
@@ -103,6 +102,16 @@ server.delete('/:UserId/carrito/:id', (req, res) => {
     .then(orden=>{res.status(200).send('Se elimino el producto')})
     .catch(err=>{res.status(400).send('Hubo un error')
     })
+})
+
+// SAVE CHECKOUT INFO
+server.post('/carrito/checkout',(req,res) => {
+  let info = req.body
+  console.log('--info rutas---')   
+  console.log(info)                               
+  Checkout.findOrCreate({where: info})
+  .then(response => res.status(201).send(response))
+  .catch(err => res.status(404).send(err))
 })
 
 // ------------------ ORDENES ----------------

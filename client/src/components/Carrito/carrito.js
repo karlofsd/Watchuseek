@@ -3,16 +3,20 @@ import axios from 'axios'
 import { getCarrito, newOrden, updateCarrito } from '../../Redux/carrito.js';
 import { getProducts } from '../../Redux/products.js';
 import { useSelector, useDispatch } from 'react-redux'
+import Checkout from '../Checkout/Checkout'
 import "./carrito.css";
 
 const Carrito = ({ user, products }) => {
     const [product, setProduct] = useState([]);
     const [total, setTotal] = useState({});
+    const [check, setCheck] = useState(false)
+
     const dispatch = useDispatch();
-    // const orden = useSelector(store => store.carrito.numeroOrden)
+    
     const carrito = useSelector(store => store.carrito.carrito);
 
     useEffect(() => {
+        if (check){setCheck(false)}
         if (!localStorage.token && localStorage.carrito) {
             let data = JSON.parse(localStorage.getItem("carrito"));
             return setProduct(data.carrito);
@@ -23,14 +27,12 @@ const Carrito = ({ user, products }) => {
 
     }, [carrito]);
 
-    const handleBuy = () => {
+   const checkout = () => {
         if (!user.id) {
             return alert("Debes logearte primero");
         }
-        // console.log(product);
-        dispatch(newOrden(user.id, carrito));
-        dispatch(getProducts());
-    }
+       setCheck(check ? false : true)
+   }
 
     const handleInputChange = function (e, index, p) {
         let data = product;
@@ -76,7 +78,6 @@ const Carrito = ({ user, products }) => {
     return (
         <Fragment>
             {product[0] && <table class="table table-striped table-dark">
-
                 <thead >
                     <tr>
                         <th scope="col" >Name</th>
@@ -87,8 +88,6 @@ const Carrito = ({ user, products }) => {
                     </tr>
                 </thead>
                 {product && product.map((p, index) => {
-                    {console.log(p)}
-                    {console.log(products.find(product => product.name.toLowerCase() === p.name.toLowerCase()))}
                     return (
                         <tbody>
                             <tr>
@@ -104,9 +103,9 @@ const Carrito = ({ user, products }) => {
                 })}
             </table>}
             <div className="contentCarrito">
-                {product[0] && <div className='divcompras' >
+                {product[0] &&  <div className='divcompras' >
                     <div className='botonescomprar1'  >
-                        <button type="button" class="btn btn-success" onClick={() => handleBuy()} >COMPRAR</button><br />
+                        <button type="button" name='checkout' class="btn btn-success" onClick={()=>checkout()}  >COMPRAR</button><br />
                     </div>
                     <div className='botonescomprar' >
                         <button type="button" class="btn btn-danger" onClick={() => eliminarTodo()} >VACIAR CARRITO</button>
@@ -121,6 +120,7 @@ const Carrito = ({ user, products }) => {
                     <h2>¡Su carrito está vacío!</h2>
                     </div>
                 </div>}
+                {check && <Checkout user={user}/>}
             </div>
         </Fragment>
     )

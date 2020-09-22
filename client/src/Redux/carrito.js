@@ -64,10 +64,24 @@ export const getCarrito = (userId) => async (dispatch, getState) => {
     };
 };
 
-export const newOrden = (userId, carrito) => async (dispatch, getState) => {
+export const newOrden = (userId, carrito,body) => async (dispatch, getState) => {
     try {
+        console.log(body)
         await axios.post("http://localhost:3001/orders/counter");
         const { data } = await axios.get("http://localhost:3001/orders/counter/count")
+        let info = {
+            provincia: body.provincia,
+            departamento: body.departamento,
+            localidades: body.localidades,
+            direccion: body.direccion,
+            email: body.email,
+            telefono: body.telefono,
+            userId: userId,
+            ordenfinalId: data[0].id
+        }
+        await axios.post(`http://localhost:3001/user/carrito/checkout`,info)
+        console.log('info redux')
+        console.log(info)
         carrito.map(async (e) => {
             const data2 = await axios.get(`http://localhost:3001/products/${e.productId}`)
             let stock = data2.data.stock - e.quantity;
