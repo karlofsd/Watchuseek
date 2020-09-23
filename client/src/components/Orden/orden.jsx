@@ -10,7 +10,9 @@ const Orden = ({order,orden}) => {
   const dispatch = useDispatch();
   const [userData,setUserData] = useState({})
   const [totalPrice,setTotalPrice] = useState();
-  
+  const [check,setCheck] = useState(false)
+  const [checkin,setCheckin] = useState({})
+
   let date = (fecha)=> order[0][fecha].split('T')[0]
   
   const getTotal = (arg) => {
@@ -28,7 +30,9 @@ const Orden = ({order,orden}) => {
       console.log(total)
       setUserData(user.data)
       setTotalPrice(total)
-      
+      const {data} = await axios.get(`http://localhost:3001/user/carrito/checkout/${order[0].order}`)
+      setCheckin(data)
+      if(check) return setCheck(false)
     }
     fetchData()
   },[order])
@@ -39,10 +43,16 @@ const Orden = ({order,orden}) => {
     })
     dispatch(getOrders());
     dispatch(getOrder(order))
+  }
+
+  const checkout = () => {
+    
+    setCheck(check ? false : true)
 }
    
 return (
-       <div className="card text-center shadow col-7 p-0 mx-auto" >
+    <div className='row col-12'>
+      <div className="card text-center shadow col-7 p-0 mx-auto" >
       <div className="orden-header">
         <h2 className='title-orden'>Orden N°{order[0].order}</h2>
         <div>
@@ -77,10 +87,32 @@ return (
             }</button>}
       </div>
       <div className="card-footer text-muted">
-        ORDEN DE COMPRA
+        <button onClick = {() => checkout()} className="btn btn-primary rounded-pill">CHECKOUT</button>
       </div>
-
     </div>
+
+    {/* CARD CHECKOUT */}
+
+    {check && <div className="card  shadow col-5 p-0 mx-auto">
+      <div className="orden-header">
+        <h2 className='title-orden'>{date('updatedAt')}</h2>
+        <div>
+          <h3 className='userEmail'>User: {userData.email.split('@')[0]}</h3>
+        </div>
+      </div>
+      <div className="card-bodyOrden">
+        <ul>
+          <li>Provincia: {checkin.provincia}</li>
+          <li>Departamento: {checkin.departamento}</li>
+          <li>Localidad: {checkin.localidad}</li>
+          <li>Dirección: {checkin.direccion}</li>
+        </ul><br/>
+        <br/>
+        <h5 className="card-title">Email: {checkin.email}</h5><br/>
+        <p className="card-text">Telefono: {checkin.telefono}</p><br/>
+      </div>
+    </div>}
+  </div>
     )
 }
 

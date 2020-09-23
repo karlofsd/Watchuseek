@@ -114,6 +114,14 @@ server.post('/carrito/checkout',(req,res) => {
   .catch(err => res.status(404).send(err))
 })
 
+// GET CHECKOUT
+server.get('/carrito/checkout/:ordenfinalId',(req,res) => {
+  let {ordenfinalId} = req.params
+  Checkout.findOne({where:{ordenfinalId}})
+  .then(check => res.status(200).json(check))
+  .catch(err => res.status(404).send(err))
+})
+
 // ------------------ ORDENES ----------------
 // CREATE ORDER
 server.put('/:UserId/creada/:order', (req, res) => {
@@ -170,6 +178,7 @@ server.get('/:id/orders', async (request, response) => {
 server.get("/:orderId/admin/:stat", (req, res) => {
   var id = req.params.orderId;
   var { stat } = req.params
+  console.log(stat)
   Carrito.findAll(stat ? {
     where: {order: id, status: stat}
   } : {

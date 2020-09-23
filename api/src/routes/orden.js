@@ -94,5 +94,40 @@ server.post("/counter", (req,res) => {
   })
 });
 
+// SEND MESSAGE TO USER
+server.post('/mail' , (req,res) => {
+  console.log('--mail--')
+  const carrito = req.body;
+  console.log(carrito)
+  var API_KEY = "de6728a5c0b291cd820c7006da0cf946-cb3791c4-9f1bcf3b";
+  var DOMAIN = "sandboxd0643fda85494820831368bb152fa538.mailgun.org";
+  var mailgun = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
+
+  const data = {
+  from: 'Excited User <me@samples.mailgun.org>',
+  to: 'karf.x3@gmail.com',
+  subject: 'Example',
+  text: 'Mensaje enviado!',
+  template: "other-temp",
+  'h:X-Mailgun-Variables': {test:'test'}
+  
+  };
+
+mailgun.messages().send(data, (error, body) => {
+
+  if(error) {
+    return res.status(500).json({
+      error: error.message
+    })
+  }
+
+  return res.status(200).send(body)
+  // return res.json({
+  //   body
+  // });
+
+});
+
+})
 
 module.exports = server;

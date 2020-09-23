@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
-import { getCarrito, newOrden, updateCarrito } from '../../Redux/carrito.js';
+import { getCarrito, updateCarrito , getCheckout} from '../../Redux/carrito.js';
 import { getProducts } from '../../Redux/products.js';
 import { useSelector, useDispatch } from 'react-redux'
 import Checkout from '../Checkout/Checkout'
@@ -14,8 +14,9 @@ const Carrito = ({ user, products }) => {
     const dispatch = useDispatch();
     
     const carrito = useSelector(store => store.carrito.carrito);
-
+    
     useEffect(() => {
+        if (check){dispatch(getCheckout())}
         if (check){setCheck(false)}
         if (!localStorage.token && localStorage.carrito) {
             let data = JSON.parse(localStorage.getItem("carrito"));
@@ -76,7 +77,8 @@ const Carrito = ({ user, products }) => {
     // console.log(products);
 
     return (
-        <Fragment>
+        <div>
+            <div className='lista-carrito'>
             {product[0] && <table class="table table-striped table-dark">
                 <thead >
                     <tr>
@@ -120,10 +122,15 @@ const Carrito = ({ user, products }) => {
                     <h2>¡Su carrito está vacío!</h2>
                     </div>
                 </div>}
-                {check && <Checkout user={user}/>}
+                
             </div>
-        </Fragment>
+            </div>
+            {check && 
+            <div className='pop-up'>
+                <button type="button" class=" btn-x btn-danger"onClick={()=>checkout()} >X</button>
+                <Checkout user={user}/>
+            </div> }
+        </div>
     )
 }
-
 export default Carrito;

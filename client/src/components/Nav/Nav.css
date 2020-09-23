@@ -4,8 +4,12 @@
     padding: 0px 15px 0px 15px;
     align-items: center;
     justify-content: space-between;
-    background-color: #020300;
+    /* background-color: #020300; */
     height: 70px;
+}
+
+.nav-background-color {
+    background-image: linear-gradient(to top, #000000, #1a1a1a, #2d2c2c, #414040, #565555);
 }
 
 .categorias{

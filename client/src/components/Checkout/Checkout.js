@@ -19,7 +19,6 @@ const Checkout =({ user})=>{
         email:"",
         telefono:"",
     })
-    
     const [location,setLocation] = useState({
         provincias:[],
         departamentos:[],
@@ -34,7 +33,7 @@ const Checkout =({ user})=>{
             departamentos: [],
             localidades:[]
         })
-        
+
     }
     
     const getDepartamentos = async() => {
@@ -66,6 +65,7 @@ const Checkout =({ user})=>{
         } else if (!input.localidades) {
             getLocalidades();
         }
+
         
     },[input]);
     
@@ -73,8 +73,15 @@ const Checkout =({ user})=>{
         
         dispatch(newOrden(user.id, carrito,input));
         dispatch(getProducts())
+        setInput({
+            provincia: "",
+            departamento: "",
+            localidad:"",
+            direccion: "",
+            email:"",
+            telefono:""
+        })
         alert('comprado');
-        
     }
 
     const handleSubmit=(e)=>{
@@ -111,7 +118,7 @@ const Checkout =({ user})=>{
 
     return(
         
-        <div className='checkform' >
+        <div className='checkform col 12' >
              <form  onSubmit={(e)=> handleSubmit(e)} >
                 <label for='provincia'>Provincia</label>
                 <select id='provincia' name='provincia' onChange={(e)=> handleChange(e)}>
@@ -141,7 +148,6 @@ const Checkout =({ user})=>{
                 <label for='telefono'>Telefono</label>
                 <input id='telefono' type='text' name='telefono' onChange={(e)=> handleChange(e)}/><br/>
                 <button type="button" class="btn btn-success" onClick={()=> handleBuy() } >Confirmar compra</button>
-                <button type="button" class="btn btn-danger" >Cancelar</button>
             </form>
         </div>
     )

@@ -45,7 +45,7 @@ const Nav = ({setSearchApp, categories,user}) => {
         }
 
     return (
-        <div className = "content">
+        <div className = "content nav-background-color">
             <div className="categorias">
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e)=> handleClick(e)} >
                     <MenuIcon style={{color:'#FFA62B'}}/>
@@ -99,7 +99,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                 >
 
                {!user.isAdmin && <MenuItem onClick={handleCloser} ><Link onClick = {() => dispatch(getOrdersUser(user))} className='itemList' to='/user/activity'>Activity</Link></MenuItem>}
-               {user.isAdmin && <MenuItem onClick={handleCloser} ><Link to='/admin' >Admin</Link></MenuItem>}
+               {user.isAdmin && <MenuItem onClick={handleCloser} ><Link className='itemList' to='/admin' >Admin</Link></MenuItem>}
                <MenuItem onClick={handleCloser} ><Link to='/login' onClick={()=> dispatch(logoutUser())} className='itemList'>Log Out</Link></MenuItem>
 
                </Menu>
