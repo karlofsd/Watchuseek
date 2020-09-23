@@ -39,6 +39,7 @@ server.post('/login', (request, response) => {
         user: {
           id_user: user.id,
           mail: user.email,
+          username: user.username,
           admin: user.isAdmin
         }
       }, SIGNATURE, { expiresIn: 60 * 60 * 24  });

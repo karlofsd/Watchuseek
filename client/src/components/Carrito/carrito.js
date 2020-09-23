@@ -24,8 +24,6 @@ const Carrito = ({ user, products }) => {
         }
         setProduct(carrito);
 
-        console.log('Este es el state del carrito en el component: ',product);
-
     }, [carrito]);
 
    const checkout = () => {

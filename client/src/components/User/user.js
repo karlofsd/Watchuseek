@@ -39,7 +39,8 @@ const User =({history})=>{
         const dataPost = {
           username:input.username,
           email: input.email,
-          password: input.password
+          password: input.password,
+          isAdmin: true
         };
         dispatch(signUp(dataPost))
         alert('Agregado correctamente');
