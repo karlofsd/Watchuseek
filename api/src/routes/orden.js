@@ -103,7 +103,7 @@ server.post('/mail', verifyToken, (req, res) => {
   console.log('--mail--')
   // Obtener carrito y datos del usuario
   const carrito = req.body;
-  const { username } = req.user;
+  const { username, email } = req.user;
 
   // Agregar propiedad 'total' a los productos
   const cartData = carrito.map(product => {
@@ -124,7 +124,7 @@ server.post('/mail', verifyToken, (req, res) => {
   // Configuracion del mensaje y la plantilla
   const data = {
     from: 'Excited User <me@samples.mailgun.org>',
-    to: 'lucianooo222@gmail.com',
+    to: `${email}`,
     subject: 'Facturación de compra',
     template: "billing-details-ecommerce",
     'h:X-Mailgun-Variables': JSON.stringify({

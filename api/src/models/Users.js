@@ -28,6 +28,10 @@ module.exports = (sequelize) => {
       isAdmin:{
         type: DataTypes.BOOLEAN,
         defaultValue: false
+      },
+      resetLink: {
+        type: DataTypes.STRING,
+        allowNull: true
       }
     });
   };

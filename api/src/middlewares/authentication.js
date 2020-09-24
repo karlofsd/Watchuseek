@@ -16,15 +16,14 @@ const verifyToken = (request, response, next) => {
 
     jwt.verify(token, SIGNATURE, (error, payload) => {
 
-      // Si el token fue modificado
+      // Si el token fue modificado o expiró
       if (error) {
         return response.status(401).json({
-          mensaje: 'Token no valido.'
+          error: 'Token no valido o expirado.'
         });
       }
 
       request.user = payload.user;
-      // console.log(payload);
       next();
 
     });
@@ -33,25 +32,19 @@ const verifyToken = (request, response, next) => {
 
 }
 
-// request.user
-// user: {
-//   id_user: user.id,
-//   mail: user.email,
-//   admin: user.isAdmin
-// }
-
 const verifyAdmin = (request, response, next) => {
 
   const admin = request.user.admin;
 
+  // El usuario es admin
   if (admin) {
-
     next();
 
   } else {
 
-    return response.status(400).json({
-      mensaje: "Este usuario no es administrador."
+    // El usuario no es admin
+    return response.status(403).json({
+      error: "Este usuario no tiene permisos de administrador."
     });
 
   }

@@ -4,7 +4,7 @@ const productRouter = require('./product.js');
 const categoryRouter = require('./category');
 const userRouter = require('./user');
 const orderRouter = require('./orden');
-const authRouter = require('./login');
+const authRouter = require('./auth');
 const reviewRouter = require('./reviews')
 const router = Router();
 
