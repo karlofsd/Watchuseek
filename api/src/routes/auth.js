@@ -3,8 +3,10 @@ const server = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { verifyToken, verifyAdmin } = require('../middlewares/authentication.js')
-const { SIGNATURE, RESET_PASSWORD_KEY, APIKEY_MAILGUN, DOMAIN_MAILGUN, CLIENT_URL } = process.env;
+const { CLIENT_ID, SIGNATURE, RESET_PASSWORD_KEY, APIKEY_MAILGUN, DOMAIN_MAILGUN, CLIENT_URL } = process.env;
 const mailgun = require('mailgun-js')({ apiKey: APIKEY_MAILGUN, domain: DOMAIN_MAILGUN });
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(CLIENT_ID);
 
 // Modelo user
 const { Users } = require('../db');
@@ -221,6 +223,111 @@ server.put('/reset-password', (req, res) => {
   }
 
 });
+
+// Validar token de google
+async function verify(token) {
+
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: CLIENT_ID
+  });
+
+  const payload = ticket.getPayload();
+
+  // Nuevo user
+  return {
+    username: payload.name,
+    email: payload.email,
+    image: payload.picture,
+    google: true
+  }
+
+}
+
+// Login with Google
+server.post('/google', async (req, res) => {
+
+  const token = req.body.token;
+
+  const googleUser = await verify(token)
+    .catch(error => {
+      return res.status(403).json({
+        error: error.message
+      });
+    })
+
+
+  Users.findOne({
+    where: {
+      email: googleUser.email
+    }
+  })
+    .then(user => {
+
+      // Verificar que el usuario existe en la BD.
+      if (user) {
+
+        // Si el user se autentico con Login normal
+        if (!user.google) {
+
+          return res.status(400).json({
+            message: 'Debes usar su autenticacion normal.'
+          });
+
+        } else {
+          // Generar el token
+          const token = jwt.sign({
+            user: user
+          }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 })
+
+          // usuario logueado con google, retornar token
+          return res.status(200).json({
+            user: user,
+            token
+          });
+
+        }
+
+      } else {
+
+        // Si el usuario no existe en la BD agregarlo y devolver token
+        Users.create({
+          username: googleUser.username,
+          email: googleUser.email,
+          image: googleUser.image,
+          google: true,
+          password: 'random-password'
+        })
+          .then(userCreated => {
+
+            // Generar token del userGoogle
+            const token = jwt.sign({
+              user: userCreated
+            }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 });
+
+            // Usuario registrado 
+            return res.status(201).json({
+              user: userCreated,
+              token
+            });
+
+          })
+          .catch(error => {
+            return res.status(500).json({
+              error: error.message
+            });
+          })
+
+      }
+
+    })
+    .catch(error => {
+      return res.status(500).json({
+        error: error.message
+      });
+    })
+
+})
 
 // GET A LOGUED USER
 server.get('/me', verifyToken, (request, response) => {

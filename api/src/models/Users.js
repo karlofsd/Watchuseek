@@ -29,9 +29,13 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false
       },
-      resetLink: {
+      resetLink: { //token
         type: DataTypes.STRING,
         allowNull: true
+      },
+      google: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       }
     });
   };
