@@ -28,6 +28,14 @@ module.exports = (sequelize) => {
       isAdmin:{
         type: DataTypes.BOOLEAN,
         defaultValue: false
+      },
+      resetLink: { //token
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      google: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       }
     });
   };

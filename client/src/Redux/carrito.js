@@ -112,7 +112,7 @@ export const newOrden = (userId, carrito,body) => async (dispatch, getState) => 
         setTimeout(async() => {
             const {data: infoCart} = await axios.get(`http://localhost:3001/user/${data[0].id}/admin/creada`)
             newdata = infoCart
-        },1000)
+        },2000)
         // console.log(infoCart)
 
         // const {data: message} = await axios.post('http://localhost:3001/orders/mail' , {infoCart.carrito});
@@ -145,11 +145,16 @@ export const updateCarrito = (quantity, index) => async (dispatch, getState) => 
 export const getCheckout = (mail) => async (dispatch) => {
     try{
         
+        const config = {
+            headers : {
+                Authorization : 'Bearer ' + localStorage.getItem('token')
+            }
+        }
         /* const {data} = await axios.get(`http://localhost:3001/user/${numOrden}/admin/creada`) */
         setTimeout(async() => {
             console.log(newdata)
-            await axios.post('http://localhost:3001/orders/mail' , newdata)
-        },1000);
+            await axios.post('http://localhost:3001/orders/mail' , newdata, config)
+        },4000);
         dispatch({
             type: CHECKOUT
         })

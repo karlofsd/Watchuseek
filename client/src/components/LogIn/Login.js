@@ -32,11 +32,18 @@ const Login = ({ history }) => {
     })
   }
 
+ 
+
+  /* function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  } */
+
   return (
     <div className='divlogin'>
       <div className="contentLogin">
-        {!user.id && 
-        
         <form className="formLogin" onSubmit={(e) => handleSubmit(e)}>
           <h1 className='login1'>Iniciar Sesion</h1>
           <div className="divLogin" >
@@ -48,9 +55,14 @@ const Login = ({ history }) => {
             <input placeholder='  your_password' className='inputlogin' type="password" autoComplete="off" name="password" onChange={(e) => handleInputChange(e)} value={input["password"]} />
           </div>
           <button className="btnLogin" onClick={(e) => dispatch(loginUser(input))}>Iniciar sesión</button>
+          
         </form>
- 
-        }
+        <div>
+          <button type="button" className="g-signin2 btn btn-gplus" data-onsuccess="onSignIn"><i className="fab fa-google-plus-g pr-1"></i> Sing in</button>
+          {/* <button className={"g-signin2 btn-secondary btn"} data-onsuccess="onSignIn">Sign in</button> */}
+          
+          <a href="javascript:signOut()">Sign out</a>
+        </div>
       </div>
     </div>
   )
