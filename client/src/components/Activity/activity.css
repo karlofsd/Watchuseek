@@ -87,3 +87,8 @@
     width: 40px;
     
 }
+
+input:disabled {
+    color: black;
+    background: #dddddd;
+  }

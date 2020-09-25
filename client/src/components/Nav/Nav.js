@@ -77,7 +77,7 @@ const Nav = ({setSearchApp, categories,user}) => {
             <div className='left-nav'>
             <div className='links' style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly',alignItems:'center',width:'250px',margin:0,padding:0}}>
                 {/* {user.isAdmin && <Link to='/admin'>Admin</Link>} */}
-                {!user.id && <Link to='/user'>Registrate</Link> }
+                {!user.id && <Link to='/signup'>Registrate</Link> }
                 {!user.id && <Link to='/login'>Iniciar sesión</Link>}
                 {user.id && <label style={{margin:0,color:'white'}}>¡Hola,  {user.email.split('@')[0]}!</label>}
             </div>
@@ -98,7 +98,7 @@ const Nav = ({setSearchApp, categories,user}) => {
                   onClose={handleCloser}
                 >
 
-               {!user.isAdmin && <MenuItem onClick={handleCloser} ><Link onClick = {() => dispatch(getOrdersUser(user))} className='itemList' to='/user/activity'>Activity</Link></MenuItem>}
+               {!user.isAdmin && <MenuItem onClick={handleCloser} ><Link onClick = {() => dispatch(getOrdersUser(user))} className='itemList' to='/user'>Panel</Link></MenuItem>}
                {user.isAdmin && <MenuItem onClick={handleCloser} ><Link className='itemList' to='/admin' >Admin</Link></MenuItem>}
                <MenuItem onClick={handleCloser} ><Link to='/login' onClick={()=> dispatch(logoutUser())} className='itemList'>Log Out</Link></MenuItem>
 

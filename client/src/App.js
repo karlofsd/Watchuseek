@@ -71,7 +71,7 @@ function App() {
           </div>}
         />
           <Route
-        exact path = '/user'
+        exact path = '/signup'
         component={User}
         />
         <Route
@@ -80,7 +80,7 @@ function App() {
         />
 
         <Route
-        exact path ='/user/activity' 
+        exact path ='/user' 
         render = {() => <Activity user = {user}/>}
         />
 
