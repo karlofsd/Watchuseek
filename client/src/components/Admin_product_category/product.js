@@ -2,8 +2,9 @@ import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './product.css';
-import { connect} from "react-redux";
+import { connect } from "react-redux";
 import {getProducts, getProduct} from '../../Redux/products.js';
+const imageToBase64 = require ('image-to-base64');
 
 const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     
@@ -13,9 +14,10 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         description: "",
         price: "",
         stock: "",
-        image: "",
         category: ""
     });
+    const [image, setImage] = useState("") 
+
     console.log(input)
         useEffect(() => {
             setProducts();
@@ -75,7 +77,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     };
 
     const handlePost = async () => {
-        if(!input.name||!input.description||!input.price||!input.stock||!input.image){
+        if(!input.name||!input.description||!input.price||!input.stock||!image){
             return alert("Debe completar todos los campos para agregar un producto");
         };
         const urlApi = `http://localhost:3001/products/`;
@@ -84,8 +86,9 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             description: input.description.toLowerCase(),
             price: input.price,
             stock: input.stock,
-            image: input.image,
+            image: image,
         };
+        console.log(dataPost)
         const token = localStorage.getItem('token')
         
         const config = {
@@ -122,6 +125,31 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         
     };
 
+    const uploadImage = async (e) => {
+        
+        const file = e.target.files[0]
+        const base64 = await convertBase64(file)
+        console.log(base64)
+        console.log(input)
+        setImage(base64);
+        e.preventDefault();
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise ((resolve, reject) =>{
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+            
+            fileReader.onerror = (error) => {
+                reject(error);
+            }
+         })
+    };
+
     return (
         <div className = "crud_content">
             <div className = "products">
@@ -151,8 +179,8 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                             <input className = "input" type="number" name="stock" onChange={(e) => handleInputChange(e)} value={input["stock"]} />
                         </div>
                         <div className='img' >
-                            <label>Url-Imagen:</label><br />
-                            <input className = "input" type="text" name="image" onChange={(e) => handleInputChange(e)} value={input["image"]} />
+                            <label>Agregar foto-producto:</label><br />
+                            <input className = "input" type="file" name="image" onChange={uploadImage} value={input["image"]}/>                      
                         </div>
                         <div>
                             <select name='category' id='cate' value={input.category} onChange={(e) => handleInputChange(e)}>
