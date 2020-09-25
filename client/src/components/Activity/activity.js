@@ -5,6 +5,7 @@ import {useDispatch,useSelector} from "react-redux";
 import {getOrdersUser} from "../../Redux/orders.js";
 import {Route,BrowserRouter as Router, Link} from "react-router-dom"
 
+
 const Activity =({user})=>{
   const [ordenes, setOrden] = useState([]);
   const [usuario,setUsuario] = useState({})
@@ -31,7 +32,10 @@ const Activity =({user})=>{
  const updateProfile = () => {
    setUpdate(update ? false : true)
  }
-
+const cancelUpdate = () => {
+  setUsuario(user)
+  setUpdate(false)
+}
     return(
       <Router>
         <div className='mayor_content'>
@@ -67,6 +71,7 @@ const Activity =({user})=>{
                         </div>
                         <div className = "divbutton">
                         <button className='buttonAdd' onClick={()=>updateProfile()} >{update ? "Save" :"Modificar"}</button>
+                        <button className='buttonAdd' onClick={()=>cancelUpdate()}>Cancelar</button>
                         </div>
                     </div>
                 </form>
