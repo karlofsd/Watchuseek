@@ -60,7 +60,10 @@ server.post('/', [verifyToken, verifyAdmin],(req,res) => {
 	const {name,description,price,stock,image} = req.body;
 	Product.create({name,description,price,stock,image})
 	.then(product=>res.status(201).json(product))
-	.catch(error=>res.status(400).json(error))
+	.catch(error=>{
+		console.log(error.message)
+		res.status(400).json(error)
+	})
 })
 
 // DELETE PRODUCT (ADMIN)
