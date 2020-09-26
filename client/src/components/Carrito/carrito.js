@@ -34,6 +34,12 @@ const Carrito = ({ user, products }) => {
    }
 
     const handleInputChange = function (e, index, p) {
+        if(!localStorage.token){
+            let data1 = JSON.parse(localStorage.getItem("carrito"));
+            data1.carrito[index].quantity = e.target.value;
+            localStorage.setItem("carrito", JSON.stringify(data1))
+            return setProduct(data1.carrito);
+        }
         let data = product;
         console.log(data[index]);
         data[index].quantity = Number(e.target.value)

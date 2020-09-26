@@ -16,7 +16,7 @@ const Checkout =({ user})=>{
         departamento: "",
         localidad:"",
         direccion: "",
-        email:"",
+        email:user.email,
         telefono:"",
     })
     const [location,setLocation] = useState({
@@ -144,7 +144,7 @@ const Checkout =({ user})=>{
                 <label for='direccion'>Dirección</label>
                 <input id='direccion' type='text' name='direccion' placeholder='ingrese direccion de destino' onChange={(e)=> handleChange(e)}/><br/>
                 <label for='email'>Email</label>
-                <input id='email' type='text' name='email' placeholder='ingrese correo electrónico' onChange={(e)=> handleChange(e)}/><br/>
+                <input id='email' type='text' name='email' /* placeholder='ingrese correo electrónico' */ value={input.email}/><br/>
                 <label for='telefono'>Telefono</label>
                 <input id='telefono' type='text' name='telefono' onChange={(e)=> handleChange(e)}/><br/>
                 <button type="button" class="btn btn-success" onClick={()=> handleBuy() } >Confirmar compra</button>

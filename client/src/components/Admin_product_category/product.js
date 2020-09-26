@@ -42,7 +42,6 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             description: "",
             price: "",
             stock: "",
-            image: "",
             category: ""
         })
     };
@@ -180,7 +179,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                         </div>
                         <div className='img' >
                             <label>Agregar foto-producto:</label><br />
-                            <input className = "input" type="file" name="image" onChange={uploadImage} value={input["image"]}/>                      
+                            <input className = "input" type="file" name="image" onChange={uploadImage}/>                      
                         </div>
                         <div>
                             <select name='category' id='cate' value={input.category} onChange={(e) => handleInputChange(e)}>
@@ -196,7 +195,24 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                     </div>
                 </form>
             </div>
-        </div>
+           { input.id && <div className="card text-center shadow col-10 p-0 mx-auto m-3" >
+                <div className="card-header p-0">
+                    <h2 className='title'>{input.name = input.name.substring(0,1).toUpperCase() + input.name.substring(1)}</h2>
+                    <a href="javascript:history.back(1)" className='btn1' >
+                    <div >
+                    <button type="button" className="btn btn-danger">X</button>
+                </div></a>
+                </div>
+                <div className="card-body row">
+                    <div className='target-prod col-6'>
+                    <img className='card-img rounded-lg shadow w-50' src={input.image}/>
+                    <hr />
+                    <h5 className="card-title">Price: $USD {input.price}</h5>
+                    <p className="card-text">Description: {input.description = input.description.substring(0,1).toUpperCase() + input.description.substring(1)}</p>
+                </div>
+            </div>
+        </div>}
+    </div>
     );
 };
 

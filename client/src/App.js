@@ -10,7 +10,7 @@ import User from './components/User/user.js';
 import Activity from './components/Activity/activity.js';
 import Login from './components/LogIn/Login.js';
 import Index from './components/Index/index.js';
-import {validation} from './Redux/users';
+import {validation, loginGoogle} from './Redux/users';
 import {getCategories} from './Redux/categories.js';
 import {getProducts} from './Redux/products.js';
 import {getOrders} from "./Redux/orders.js";
@@ -28,13 +28,17 @@ function App() {
   });
 
   useEffect(() => {
+    if(localStorage.token){
+      dispatch(loginGoogle());
+    }
+    
     dispatch(getOrders());
     dispatch(validation());
     dispatch(getCategories());
     dispatch(getProducts());
   },[])
 
-  
+
   return (
     <Router>
         <Nav user={user} categories={categories} setSearchApp = {setSearchApp}/>

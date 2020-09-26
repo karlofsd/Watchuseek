@@ -142,7 +142,7 @@ export const updateCarrito = (quantity, index) => async (dispatch, getState) => 
     };
 };
 
-export const getCheckout = (mail) => async (dispatch) => {
+export const getCheckout = () => async (dispatch) => {
     try{
         
         const config = {

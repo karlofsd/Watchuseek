@@ -40,7 +40,7 @@ const User =({history})=>{
           username:input.username,
           email: input.email,
           password: input.password,
-          isAdmin: true
+          isAdmin: false
         };
         dispatch(signUp(dataPost))
         alert('Agregado correctamente');

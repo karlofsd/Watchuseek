@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './index.css'
+import {validation} from '../../Redux/users'
+import {useDispatch} from 'react-redux'
 
 const Index =()=>{
+    const dispatch = useDispatch();
+    
+    useEffect(()=>{
+        dispatch(validation())
+    },[])
 
     return(
         <div >

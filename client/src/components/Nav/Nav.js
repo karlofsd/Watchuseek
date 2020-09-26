@@ -79,14 +79,14 @@ const Nav = ({setSearchApp, categories,user}) => {
                 {/* {user.isAdmin && <Link to='/admin'>Admin</Link>} */}
                 {!user.id && <Link to='/signup'>Registrate</Link> }
                 {!user.id && <Link to='/login'>Iniciar sesión</Link>}
-                {user.id && <label style={{margin:0,color:'white'}}>¡Hola,  {user.email.split('@')[0]}!</label>}
+                {user.id && <label style={{margin:0,color:'white'}}>¡Hola,  {user.name || user.username}!</label>}
             </div>
 
             <div className = "login">
                 
                 {/* {user.id && <Link to='/login' onClick={()=> dispatch(logoutUser())}>Cerrar sesión</Link>} */}
                {user.id && <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e)=> handleClock(e)} >
-                <Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" />
+                <Avatar alt="Remy Sharp" src={user.image ? user.image : "https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg"} />
                </Button> 
                }
                 <Menu

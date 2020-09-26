@@ -20,7 +20,7 @@ const OrdersAdmin = () => {
             else return setOrders(ordenes)
         }
         fetchData() */
-        return setOrders(ordenes)
+        return setOrders(ordenes.filter((e) => e.status !== "carrito"));
     },[orden,ordenes])
     
     const handleSearch = async(e) => {

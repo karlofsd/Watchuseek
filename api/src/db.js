@@ -59,7 +59,6 @@ Ordenfinal.hasMany(Checkout, {as: 'order'})
 //https://sequelize.org/master/manual/advanced-many-to-many.html
 Users.findOrCreate({where:{username:'admin',email:'admin@mail.com',password:bcryp.hashSync('admin',10),isAdmin:true}})
 .then(admin => console.log('SU: ',admin))
-.catch(err => console.log(err))
 
 module.exports = {  
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

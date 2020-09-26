@@ -68,11 +68,12 @@
       gapi.auth2.getAuthInstance().signOut().then(function () {
         console.log('User signed out.');
         location.reload();
+        localStorage.removeItem("token");
       });
 
     }
 
-    function onSignIn(googleUser) {
+    async function onSignIn(googleUser) {
 
       const token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
       // console.log(token)
@@ -81,11 +82,14 @@
       axios.post('http://localhost:3001/auth/google', {token})
       .then( response => {
         localStorage.setItem('token',response.data.token);
+        localStorage.setItem('userGoogle', JSON.stringify(response.data))
+        console.log(response.data)
       })
       .catch(error => {
         console.log(error.message)
       })
-
+      /* const {data} = await axios.get("http://localhost:3001/user")
+      console.log('user: ',data) */
     }
   </script>
 </body>

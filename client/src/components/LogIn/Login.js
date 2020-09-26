@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../Redux/users.js";
+import { loginGoogle, loginUser, validation } from "../../Redux/users.js";
 import "./Login.css";
+import {axios} from "axios";
 
 const Login = ({ history }) => {
   const user = useSelector(store => store.users.user)
@@ -32,8 +33,6 @@ const Login = ({ history }) => {
     })
   }
 
- 
-
   /* function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
@@ -45,7 +44,7 @@ const Login = ({ history }) => {
     <div className='divlogin'>
       <div className="contentLogin">
         <form className="formLogin" onSubmit={(e) => handleSubmit(e)}>
-          <h1 className='login1'>Iniciar Sesion</h1>
+          <h1 className='login1'>Log In</h1>
           <div className="divLogin" >
             <label className='emaillogin' >Username</label>
             <input placeholder='Ej. nombre123' className='inputlogin' type="text" autoComplete="off" name="username" onChange={(e) => handleInputChange(e)} value={input["username"]} />
@@ -54,11 +53,11 @@ const Login = ({ history }) => {
             <label className='emaillogin' >User Password</label><br />{error && <span>{error}</span>}
             <input placeholder='  your_password' className='inputlogin' type="password" autoComplete="off" name="password" onChange={(e) => handleInputChange(e)} value={input["password"]} />
           </div>
-          <button className="btnLogin" onClick={(e) => dispatch(loginUser(input))}>Iniciar sesión</button>
+          <button className="btnLogin" onClick={(e) => dispatch(loginUser(input))}>Log In</button>
           
         </form>
         <div>
-          <button type="button" className="g-signin2 btn btn-gplus" data-onsuccess="onSignIn"><i className="fab fa-google-plus-g pr-1"></i> Sing in</button>
+          <button type="button" className="g-signin2 btn btn-gplus" data-onsuccess="onSignIn" ><i className="fab fa-google-plus-g pr-1"></i> Sign in</button>
           {/* <button className={"g-signin2 btn-secondary btn"} data-onsuccess="onSignIn">Sign in</button> */}
           
           <a href="javascript:signOut()">Sign out</a>

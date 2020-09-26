@@ -40,12 +40,12 @@ server.get('/get/:id',(req,res) => {
     .catch(err => res.status(400).json('No se encontro usuario'))
 })
 
-
+// UPDATE PROFILE
 server.put("/:id", (req, res) => {
   let id = req.params.id
-  const {email, password} = req.body
-  Users.update({email, password}, {where:{id}})
-    .then(users => {return res.status(201).send(users)})
+  const {name, email, image} = req.body
+  Users.update({name, email, image}, {where:{id}})
+    .then(user => {return res.status(201).send(user)})
     .catch(err => {return res.status(404).send(err)})
 })
 
