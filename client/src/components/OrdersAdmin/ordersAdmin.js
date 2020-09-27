@@ -20,7 +20,7 @@ const OrdersAdmin = () => {
             else return setOrders(ordenes)
         }
         fetchData() */
-        return setOrders(ordenes)
+        return setOrders(ordenes.filter((e) => e.status !== "carrito"));
     },[orden,ordenes])
     
     const handleSearch = async(e) => {
@@ -49,15 +49,34 @@ const OrdersAdmin = () => {
                 </div> */}
                 <h1 className='h11'>Orders</h1>
 
-                    {orders.map(function (p) {
-                    /* let date = ()=> p.createdAt.split('T')[0]
-                    console.log(date) */
-                    return <Link onClick={() => handleSearch(p)} >  {" >"}  Orden N°{p.order}______({p.status})</Link>
-                })}<br /> 
+                {/* {orders.map(function (p) {
+                let date = ()=> p.createdAt.split('T')[0]
+                console.log(date)
+                    return <Link onClick={() => handleSearch(p)} >  {" >"}  Order N°{p.order}______({p.status})</Link>
+                })} */}
+                <table class="table table-striped table-dark">
+                    <thead >
+                        <tr className='tr-order'>
+                            <th  >Order</th>
+                            <th >Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {orders.map((p, index) => {
+                        return (
+                        <a className='td-order' href='#' onClick={() => handleSearch(p)}>
+                            <tr className='tr-order'>
+                                <td>N° {p.order}</td>
+                                <td>{p.status}</td>
+                            </tr>
+                        </a>)
+                    })}
+                    </tbody>
+                </table>
             </div>
             {orden[0] && <div className='ordenes'><Orden order={orden}/></div>}
         </div>  
     );
 };
 
-export default OrdersAdmin; 
+export default OrdersAdmin;

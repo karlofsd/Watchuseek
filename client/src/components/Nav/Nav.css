@@ -4,27 +4,36 @@
     padding: 0px 15px 0px 15px;
     align-items: center;
     justify-content: space-between;
-    background-color: #020300;
+    /* background-color: #020300; */
     height: 70px;
+}
+
+.nav-background-color {
+    background-image: linear-gradient(to top, #000000, #1a1a1a, #2d2c2c, #414040, #565555);
 }
 
 .categorias{
     display: flex;
     justify-content: center;
-    align-items: center;
-   
+    align-items: center;  
 }
 
 
+.MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded{
+    background-color: #292828;
+    margin:54px 0 0 -10px;
+    border-radius: 0 0 10px 10px;
+    width:100px;
+    border-bottom: 3px solid #FFA62B 
+}
+
 .itemList:hover{
-    color:black;
+    color:white;
     text-decoration: none;
 }
 
 a{  display: inline-block;
     color: #FFA62B;
-    
-    
 }
 a:hover{
     color: white;
@@ -55,7 +64,12 @@ a:hover{
     align-items: center;
 }
 
+.avtar{
+    padding: 3px;
+    background-color: #FFA62B;
+}
 .user {
+
     padding: 0 0 0 15px;
    /*  width: 70px; */
     height: 35px; 
@@ -72,12 +86,15 @@ a:hover{
     align-items: center;
     border: 2px solid;
     border-color: #FFA62B;
-    margin:0 10px;
-    
+    margin:0 10px;   
+}
+.MuiBadge-anchorOriginTopRightRectangle {
+    top: 0;
+    right: 0;
+    transform: scale(1) translate(0%, -30%);
+    transform-origin: 100% 0%;
 }
 /* MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded */
 .cart:hover{
     border-color: white;
 }   
-
-

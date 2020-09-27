@@ -4,6 +4,10 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     // defino el modelo
     sequelize.define('users', {
+      name:{
+        type: DataTypes.STRING,
+        allowNull:true
+      },
       username: {
         type: DataTypes.STRING,
         unique: true,
@@ -22,10 +26,18 @@ module.exports = (sequelize) => {
         allowNull: false
       },
       image:{
-        type: DataTypes.BLOB,
+        type: DataTypes.TEXT,
         allowNull: true
       },
       isAdmin:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      resetLink: { //token
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      google: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
       }

@@ -1,20 +1,22 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import SearchBar from "../searchBar/searchBar.js";
 import "./Nav.css";
-import {Avatar,Button,MenuItem,Menu} from '@material-ui/core'
+import {Avatar,Button,MenuItem,Menu,Badge} from '@material-ui/core'
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuIcon from '@material-ui/icons/Menu';
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import {getCarrito} from "../../Redux/carrito.js";
 import {getOrdersUser} from "../../Redux/orders.js";
 import {logoutUser} from "../../Redux/users";
 import axios from "axios";
 
+
 const Nav = ({setSearchApp, categories,user}) => {
     const dispatch = useDispatch()
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchor, setAnchor] = useState(null)
+    const cart = useSelector(store => store.carrito.carrito)
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -45,7 +47,7 @@ const Nav = ({setSearchApp, categories,user}) => {
         }
 
     return (
-        <div className = "content">
+        <div className = "content nav-background-color">
             <div className="categorias">
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e)=> handleClick(e)} >
                     <MenuIcon style={{color:'#FFA62B'}}/>
@@ -59,12 +61,12 @@ const Nav = ({setSearchApp, categories,user}) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose} ><Link className='itemList' to='/catalogo/'>Todos</Link></MenuItem>
+                    <MenuItem onClick={handleClose} ><Link className='itemList' to='/catalogo/'>All</Link></MenuItem>
                     {categories && categories.map(function(e){
                      return <MenuItem key={e.id} onClick={handleClose}><Link className='itemList'to={`/catalogo/${e.id}`}>{e.name}</Link></MenuItem>
                     })}
                 </Menu>
-                <Link to='/catalogo'>Catalogo</Link>
+                <Link to='/catalogo'>Watches</Link>
             </div>
             <div>
                 <SearchBar
@@ -77,16 +79,16 @@ const Nav = ({setSearchApp, categories,user}) => {
             <div className='left-nav'>
             <div className='links' style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly',alignItems:'center',width:'250px',margin:0,padding:0}}>
                 {/* {user.isAdmin && <Link to='/admin'>Admin</Link>} */}
-                {!user.id && <Link to='/user'>Registrate</Link> }
-                {!user.id && <Link to='/login'>Iniciar sesión</Link>}
-                {user.id && <label style={{margin:0,color:'white'}}>¡Hola,  {user.email.split('@')[0]}!</label>}
+                {!user.id && <Link to='/signup'>Sign up</Link> }
+                {!user.id && <Link to='/login'>Log in</Link>}
+                {user.id && <label style={{margin:0,color:'white'}}>¡Hello,  {user.name || user.username}!</label>}
             </div>
 
             <div className = "login">
                 
                 {/* {user.id && <Link to='/login' onClick={()=> dispatch(logoutUser())}>Cerrar sesión</Link>} */}
                {user.id && <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e)=> handleClock(e)} >
-                <Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" />
+                <Avatar className='avtar' alt="Remy Sharp" src={user.image ? user.image : "https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg"} />
                </Button> 
                }
                 <Menu
@@ -98,17 +100,19 @@ const Nav = ({setSearchApp, categories,user}) => {
                   onClose={handleCloser}
                 >
 
-               {!user.isAdmin && <MenuItem onClick={handleCloser} ><Link onClick = {() => dispatch(getOrdersUser(user))} className='itemList' to='/user/activity'>Activity</Link></MenuItem>}
-               {user.isAdmin && <MenuItem onClick={handleCloser} ><Link to='/admin' >Admin</Link></MenuItem>}
+               {!user.isAdmin && <MenuItem onClick={handleCloser} ><Link onClick = {() => dispatch(getOrdersUser(user))} className='itemList' to='/user'>Panel</Link></MenuItem>}
+               {user.isAdmin && <MenuItem onClick={handleCloser} ><Link className='itemList' to='/admin' >Admin</Link></MenuItem>}
                <MenuItem onClick={handleCloser} ><Link to='/login' onClick={()=> dispatch(logoutUser())} className='itemList'>Log Out</Link></MenuItem>
 
                </Menu>
                 {/* {user.id && <Link onClick = {() => dispatch(getOrdersUser(user))} to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>} */}
             </div>
             <Link onClick={()=> handleCarrito()} to='/carrito'> 
-                <div className='cart'>
-                    <ShoppingCartIcon/>
-                </div>
+                <Badge badgeContent={cart.length} color='error'>
+                    <div className='cart'>
+                        <ShoppingCartIcon/>
+                    </div>
+                </Badge>
             </Link> 
             </div>
         </div>

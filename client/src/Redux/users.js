@@ -7,6 +7,7 @@ const LOGOUT_USER = 'LOGOUT_USER'
 const SET_USER = 'SET_USER'
 const ERROR_LOGIN= 'ERROR_LOGIN'
 const SIGN_UP = 'SIGN_UP'
+const RESET_USER = "RESET_USER"
 
 // --- STATE ---
 
@@ -61,6 +62,12 @@ export default function userReducer(state = initialState, action) {
             email: "",
             password: "",
           }
+        }
+      
+      case RESET_USER: 
+        return {
+          ...state,
+          userSelected: {},
         }
 
       default :
@@ -159,4 +166,27 @@ export const validation = () => async (dispatch) => {
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("token");
   dispatch({type: LOGOUT_USER})
+}
+
+export const resetUser = () => (dispatch) => {
+  try {
+    dispatch({type: RESET_USER})
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+
+export const loginGoogle = () => async(dispatch) => {
+  try {
+    let user = JSON.parse(localStorage.getItem('userGoogle'));
+    localStorage.removeItem('userGoogle')
+    console.log(user);
+    dispatch({
+      type: SET_USER,
+      payload: user.user
+    })
+  } catch (error) {
+    console.log(error);
+  }
 }

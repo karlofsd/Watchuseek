@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_CARRITO = "GET_CARRITO"
 const SET_NUMORDEN = 'SET_NUMORDEN'
 const UPDATE_CARRITO = "UPDATE_CARRITO"
+const CHECKOUT = 'CHECKOUT'
 
 // --- STATE ---
 
@@ -40,6 +41,11 @@ export default function ordenReducer(state = initialState, action) {
             return {
                 ...state,
             };
+        
+        case CHECKOUT: 
+            return {
+                ...state
+            }
         default:
             return {
                 ...state
@@ -64,10 +70,31 @@ export const getCarrito = (userId) => async (dispatch, getState) => {
     };
 };
 
-export const newOrden = (userId, carrito) => async (dispatch, getState) => {
+let numOrden = 0;
+let newdata = {}
+export const newOrden = (userId, carrito,body) => async (dispatch, getState) => {
     try {
+        console.log('--- userId dispatch ---')
+        console.log(userId)
+        console.log('---body---')
+        console.log(body)
         await axios.post("http://localhost:3001/orders/counter");
         const { data } = await axios.get("http://localhost:3001/orders/counter/count")
+        numOrden = data[0].id
+        let info = {
+            provincia: body.provincia,
+            departamento: body.departamento,
+            localidad: body.localidad,
+            direccion: body.direccion,
+            email: body.email,
+            telefono: body.telefono,
+            userId: userId,
+            ordenfinalId: data[0].id
+        }
+        console.log('---info redux----')
+        console.log(info)
+        await axios.post(`http://localhost:3001/user/carrito/checkout`,info)
+        
         carrito.map(async (e) => {
             const data2 = await axios.get(`http://localhost:3001/products/${e.productId}`)
             let stock = data2.data.stock - e.quantity;
@@ -77,6 +104,21 @@ export const newOrden = (userId, carrito) => async (dispatch, getState) => {
             await axios.put(`http://localhost:3001/user/${userId}/creada/${data[0].id}`)
 
         })
+
+        // const { data : otradata } = await axios.get(`http://localhost:3001/user/${userId}/carrito`)
+        
+        // console.log(otradata);
+
+        setTimeout(async() => {
+            const {data: infoCart} = await axios.get(`http://localhost:3001/user/${data[0].id}/admin/creada`)
+            newdata = infoCart
+        },2000)
+        // console.log(infoCart)
+
+        // const {data: message} = await axios.post('http://localhost:3001/orders/mail' , {infoCart.carrito});
+
+        // console.log(message);
+
         dispatch({ type: SET_NUMORDEN });
         dispatch({
             type: GET_CARRITO,
@@ -99,3 +141,24 @@ export const updateCarrito = (quantity, index) => async (dispatch, getState) => 
         console.log(error);
     };
 };
+
+export const getCheckout = () => async (dispatch) => {
+    try{
+        
+        const config = {
+            headers : {
+                Authorization : 'Bearer ' + localStorage.getItem('token')
+            }
+        }
+        /* const {data} = await axios.get(`http://localhost:3001/user/${numOrden}/admin/creada`) */
+        setTimeout(async() => {
+            console.log(newdata)
+            await axios.post('http://localhost:3001/orders/mail' , newdata, config)
+        },4000);
+        dispatch({
+            type: CHECKOUT
+        })
+    } catch(error){
+        console.log(error)
+    }
+}

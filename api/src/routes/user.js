@@ -1,7 +1,6 @@
 const server = require('express').Router();
 const bcrypt = require('bcrypt');
-const { Users } = require('../db.js');
-const { Carrito } = require('../db.js');
+const { Users, Carrito, Checkout} = require('../db.js');
 const {verifyToken} = require('../middlewares/authentication.js')
 const { Sequelize: { Op, fn, col }, Sequelize } = require('sequelize');
 
@@ -41,12 +40,12 @@ server.get('/get/:id',(req,res) => {
     .catch(err => res.status(400).json('No se encontro usuario'))
 })
 
-
+// UPDATE PROFILE
 server.put("/:id", (req, res) => {
   let id = req.params.id
-  const {email, password} = req.body
-  Users.update({email, password}, {where:{id}})
-    .then(users => {return res.status(201).send(users)})
+  const {name, email, image} = req.body
+  Users.update({name, email, image}, {where:{id}})
+    .then(user => {return res.status(201).send(user)})
     .catch(err => {return res.status(404).send(err)})
 })
 
@@ -105,6 +104,24 @@ server.delete('/:UserId/carrito/:id', (req, res) => {
     })
 })
 
+// SAVE CHECKOUT INFO
+server.post('/carrito/checkout',(req,res) => {
+  let info = req.body
+  console.log('--info rutas---')   
+  console.log(info)                               
+  Checkout.findOrCreate({where: info})
+  .then(response => res.status(201).send(response))
+  .catch(err => res.status(404).send(err))
+})
+
+// GET CHECKOUT
+server.get('/carrito/checkout/:ordenfinalId',(req,res) => {
+  let {ordenfinalId} = req.params
+  Checkout.findOne({where:{ordenfinalId}})
+  .then(check => res.status(200).json(check))
+  .catch(err => res.status(404).send(err))
+})
+
 // ------------------ ORDENES ----------------
 // CREATE ORDER
 server.put('/:UserId/creada/:order', (req, res) => {
@@ -161,6 +178,7 @@ server.get('/:id/orders', async (request, response) => {
 server.get("/:orderId/admin/:stat", (req, res) => {
   var id = req.params.orderId;
   var { stat } = req.params
+  console.log(stat)
   Carrito.findAll(stat ? {
     where: {order: id, status: stat}
   } : {

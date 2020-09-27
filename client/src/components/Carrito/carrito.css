@@ -1,3 +1,13 @@
+.cart-content{
+    position: relative;
+    height: 88vh;
+}
+
+.lista-carrito{
+    position: relative;
+    width: 100vw;
+}
+
 .botonescomprar1{
     margin-right: 5%;
     margin-left: 5%
@@ -5,8 +15,10 @@
 
 .divcarritovacio{
     display:flex;
+    padding-top: 60px;
+    align-items: center;
     flex-direction: column;
-    margin-top: -50px;
+    margin: 50px 0 0 100px;
 }
 
 .imgCarrito{
@@ -22,6 +34,23 @@
 
 .titnocarrito{
     display: flex;
-    margin-top: 10%;
-    margin-left: 40%
+    margin-left: 30%
 }
+
+.pop-up{
+    top:0;
+    padding: 10% 0 0 30%;
+    background: rgba(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+
+.btn-x{
+    border-radius:10px;
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+
+

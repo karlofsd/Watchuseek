@@ -1,6 +1,6 @@
 .contentProfile{
     background-color: black;
-    width: 320px;
+    width: 380px;
     height: 260px;
     margin-top: auto;
     margin-left: 300px;
@@ -10,29 +10,23 @@
 .logoProfile{
     width: 120px;
     height: 80px;
-    margin-left: 101px;
+    margin-left: 130px;
+    margin-top: 8px;
     background-position: 50% 50%;
 }
 
 .adminAdmin {
     color: darkgoldenrod; 
     font-family: Tahoma, Geneva, sans-serif;
-    margin-left: 112px;
+    margin-left: 60px;
     padding-top: 15px;
-}
+    }
 
 .nombreAdmin {
     color: white; 
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 15px;
-    padding-top: 15px;
-    padding-left: 15px;
-}
-
-.numeroAdmin {
-    color: white; 
-    font-family: Tahoma, Geneva, sans-serif;
-    font-size: 15px;
+    padding-top: 5px;
     padding-left: 15px;
 }
 

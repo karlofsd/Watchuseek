@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bcryp = require('bcrypt')
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -33,10 +34,10 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Product } = sequelize.models;
 const {Categories} = sequelize.models;
 const { Users} = sequelize.models;
-const { Carrito } = sequelize.models;
+const { Carrito} = sequelize.models;
 const {Ordenfinal} = sequelize.models;
 const {Reviews} = sequelize.models
-
+const { Checkout} = sequelize.models
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 Categories.hasMany(Product, {as: "product" });
@@ -50,9 +51,14 @@ Product.hasMany(Reviews)
 /* Reviews.belongsTo(Product) */
 Users.hasMany(Reviews) 
 Reviews.belongsTo(Users)
+
+Users.hasMany(Checkout, {as: "user"})
+Checkout.belongsTo(Users)
+Ordenfinal.hasMany(Checkout, {as: 'order'})
   
 //https://sequelize.org/master/manual/advanced-many-to-many.html
-
+Users.findOrCreate({where:{username:'admin',email:'admin@mail.com',password:bcryp.hashSync('admin',10),isAdmin:true}})
+.then(admin => console.log('SU: ',admin))
 
 module.exports = {  
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

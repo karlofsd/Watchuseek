@@ -2,8 +2,9 @@ import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './product.css';
-import { connect} from "react-redux";
+import { connect } from "react-redux";
 import {getProducts, getProduct} from '../../Redux/products.js';
+const imageToBase64 = require ('image-to-base64');
 
 const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     
@@ -13,9 +14,10 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         description: "",
         price: "",
         stock: "",
-        image: "",
         category: ""
     });
+    const [image, setImage] = useState("") 
+
     console.log(input)
         useEffect(() => {
             setProducts();
@@ -40,7 +42,6 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             description: "",
             price: "",
             stock: "",
-            image: "",
             category: ""
         })
     };
@@ -75,7 +76,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     };
 
     const handlePost = async () => {
-        if(!input.name||!input.description||!input.price||!input.stock||!input.image){
+        if(!input.name||!input.description||!input.price||!input.stock||!image){
             return alert("Debe completar todos los campos para agregar un producto");
         };
         const urlApi = `http://localhost:3001/products/`;
@@ -84,8 +85,9 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
             description: input.description.toLowerCase(),
             price: input.price,
             stock: input.stock,
-            image: input.image,
+            image: image,
         };
+        console.log(dataPost)
         const token = localStorage.getItem('token')
         
         const config = {
@@ -122,10 +124,35 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
         
     };
 
+    const uploadImage = async (e) => {
+        
+        const file = e.target.files[0]
+        const base64 = await convertBase64(file)
+        console.log(base64)
+        console.log(input)
+        setImage(base64);
+        e.preventDefault();
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise ((resolve, reject) =>{
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+            
+            fileReader.onerror = (error) => {
+                reject(error);
+            }
+         })
+    };
+
     return (
         <div className = "crud_content">
             <div className = "products">
-                    <h1 className='h11'>Productos</h1>
+                    <h1 className='h11'>Products</h1>
                     {allProducts && allProducts.map(function (p) {
                         return <Link onClick={() => handleSearch(p)} value={p.id} >-{p.name}</Link>
                     })}<br />
@@ -134,16 +161,16 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                 <form onSubmit={(e) => handleSubmit(e)} >
                     <div >
                         <div>
-                            <label>Titulo:</label>
+                            <label>Title:</label>
                             <br />
                             <input className = "input" type="text" name="name" onChange={(e) => handleInputChange(e)} value={input["name"]} />
                         </div>
                         <div className='descripcion'>
-                            <label>Descripción:</label><br />
+                            <label>Description:</label><br />
                             <input className = "input" type="text" name="description" onChange={(e) => handleInputChange(e)} value={input["description"]} />
                         </div>
                         <div className='Precio' >
-                            <label>Precio:</label><br />
+                            <label>Price</label><br />
                             <input className = "input" type="number" name="price" onChange={(e) => handleInputChange(e)} value={input["price"]} />
                         </div>
                         <div className='stock' >
@@ -151,12 +178,12 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                             <input className = "input" type="number" name="stock" onChange={(e) => handleInputChange(e)} value={input["stock"]} />
                         </div>
                         <div className='img' >
-                            <label>Url-Imagen:</label><br />
-                            <input className = "input" type="text" name="image" onChange={(e) => handleInputChange(e)} value={input["image"]} />
+                            <label>Add photo:</label><br />
+                            <input className = "input" type="file" name="image" onChange={uploadImage}/>                      
                         </div>
                         <div>
                             <select name='category' id='cate' value={input.category} onChange={(e) => handleInputChange(e)}>
-                                <option value="" selected disabled>Seleccione la categoria</option>
+                                <option value="" selected disabled>Choose category</option>
                                 {allCategories && allCategories.map(p => <option value={p.id}>{p.name}</option>)}
                             </select>
                         </div>
@@ -168,7 +195,24 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                     </div>
                 </form>
             </div>
-        </div>
+           { input.id && <div className="card text-center shadow col-10 p-0 mx-auto m-3" >
+                <div className="card-header p-0">
+                    <h2 className='title'>{input.name = input.name.substring(0,1).toUpperCase() + input.name.substring(1)}</h2>
+                    <a href="javascript:history.back(1)" className='btn1' >
+                    <div >
+                    <button type="button" className="btn btn-danger">X</button>
+                </div></a>
+                </div>
+                <div className="card-body row">
+                    <div className='target-prod col-6'>
+                    <img className='card-img rounded-lg shadow w-50' src={input.image}/>
+                    <hr />
+                    <h5 className="card-title">Price: $USD {input.price}</h5>
+                    <p className="card-text">Description: {input.description = input.description.substring(0,1).toUpperCase() + input.description.substring(1)}</p>
+                </div>
+            </div>
+        </div>}
+    </div>
     );
 };
 

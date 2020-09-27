@@ -23,12 +23,12 @@ const {isAdmin} = useSelector(store => store.users.user);
 	 <Router>
 		<div className='mayor_content'>
         	<div className='panel'>
-				<h3>Panel de Administrador</h3>
-				<Link to='/admin'>Perfil</Link>
-				<Link to='/admin/orders'>Ordenes</Link>
-				<Link to='/admin/products'>Productos</Link>
-				<Link to='/admin/categories'>Categorias</Link>
-				<Link to= '/admin/users'>Usuarios</Link>
+				<h3>Admin Panel</h3>
+				<Link to='/admin'>Profile</Link>
+				<Link to='/admin/orders'>Orders</Link>
+				<Link to='/admin/products'>Products</Link>
+				<Link to='/admin/categories'>Categories</Link>
+				<Link to= '/admin/users'>Users</Link>
 			</div>
 			<div className='content_admin'>
 				<Route
