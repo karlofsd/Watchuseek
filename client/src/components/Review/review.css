@@ -28,3 +28,20 @@
     width: 500px;
     height: 30px;
 }
+.del-rev{
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    text-align: center;
+}
+.nameReview{
+    display: flex;
+    justify-content: center;
+}
+
+.starReview{
+    margin-right: 3%;
+    
+}

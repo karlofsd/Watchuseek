@@ -46,7 +46,7 @@ const UsersAdmin = (usuarios) => {
         <div className='users-content'>
             <div className = "recuadro">
                 <div className = "tablaUsuarios">
-                    <h1 className = "tituloTabla"> Usuarios </h1>
+                    <h1 className = "tituloTabla"> Users </h1>
                     <h6 className = "subtituloTabla">usernames </h6>
                     <div className='user-list'>
                     {usuarios.usuarios && usuarios.usuarios.map( (p) =>
@@ -69,7 +69,7 @@ const UsersAdmin = (usuarios) => {
               <div className="card-bodyOrden">
                     <h3 className='userEmail'>Email: {usuario.email}</h3>
                 <hr/>
-                    <h5 className="card-title">Rol: {usuario.isAdmin ? 'Administrador' : 'Usuario'}</h5><br/>
+                    <h5 className="card-title">Role: {usuario.isAdmin ? 'Administrador' : 'Usuario'}</h5><br/>
                     <p className="card-text"><span className='fecha'>{/* {date('updatedAt')} */}</span></p><br/>
                     <button onClick = {() => handleUpgrade()} className="btn btn-primary rounded-pill">{
                       usuario.isAdmin ? 'QUITAR PERMISOS' : 'DAR PERMISOS'

@@ -6,12 +6,51 @@ const { verifyToken, verifyAdmin } = require ('../middlewares/authentication');
 // GET ALL PRODUCTS
 server.get('/', (req, res) => {
 	Product.findAll()
-		.then(products => {
+	.then(products => {	
+		res.status(200).json(products);
+	})
+	.catch(error => {
+		res.status(404).json(error);
+	});
+});
+
+// GET PAGINATION
+server.get('/:page', (req, res) => {
+	let {page} = req.params
+	let {categoryId,name} = req.query
+
+	if(categoryId || name ){
+		
+		Product.findAndCountAll({limit:6,offset:(page-1)*6,
+			where:{
+				[Op.or]:[
+					{name: {
+						[Op.like]: `%${name}%`,
+					}},
+					{description: {
+						[Op.substring]: `${name}`,
+					}},
+					{categoryId:Number(categoryId)||0}]
+				}
+			}
+		)
+		.then(products => {	
+			console.log(products)
 			res.status(200).json(products);
 		})
 		.catch(error => {
 			res.status(404).json(error);
-		});	
+		});
+	}else{
+		Product.findAndCountAll({limit:6,offset:(Number(page)-1)*6})
+		.then(products => {	
+			console.log(products)
+			res.status(200).json(products);
+		})
+		.catch(error => {
+			res.status(404).json(error);
+		});
+	}
 });
 
 // GET PRODUCT BY ID

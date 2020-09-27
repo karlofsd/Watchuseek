@@ -66,7 +66,7 @@ const Product = ({ user, data,review,getReview}) => {
             <hr />
             <h5 className="card-title">Price: $USD {data[0].price}</h5>
             <p className="card-text">Description: {data[0].description = data[0].description.substring(0,1).toUpperCase() + data[0].description.substring(1)}</p>
-            <button onClick={()=>handleClick()} className="btn btn-primary rounded-pill">Agregar al carrito</button>
+            <button onClick={()=>handleClick()} className="btn btn-primary rounded-pill">Add to cart</button>
             </div>
             <div className = "col-6">
             <Review user={user} product={data[0].id} review={review} />

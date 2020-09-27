@@ -49,7 +49,7 @@ const User =({history})=>{
     return(
       <div className='divmayor'>
         <div className = "contentUser">
-            <h1 className='titulo'>Crear usuario</h1>
+            <h1 className='titulo'>Create user</h1>
             <form className = "formUser" onSubmit={(e)=>handleSubmit(e)}>
               <div className = "divLogin" >
               <label className='labelemail' >Username</label><br/>
@@ -63,7 +63,7 @@ const User =({history})=>{
                 <label className='labelemail' >User Password</label> <br/>    
          <input placeholder='   your_password' className='inputemail' type = "password" autoComplete = "off" name = "password" onChange={(e) =>handleInputChange(e)} value = {input["password"]} />
                 </div>
-             <button className = "btnUser" onClick={(e)=>handleCreate(e)}>Aceptar</button>
+             <button className = "btnUser" onClick={(e)=>handleCreate(e)}>Accept</button>
             </form>
         </div>
         </div>

@@ -1,5 +1,10 @@
+.cart-content{
+    position: relative;
+    height: 88vh;
+}
+
 .lista-carrito{
-    position: absolute;
+    position: relative;
     width: 100vw;
 }
 
@@ -9,8 +14,9 @@
 }
 
 .divcarritovacio{
-    position: relative;
     display:flex;
+    padding-top: 60px;
+    align-items: center;
     flex-direction: column;
     margin: 50px 0 0 100px;
 }
@@ -28,16 +34,16 @@
 
 .titnocarrito{
     display: flex;
-    margin-top: 10%;
-    margin-left: 40%
+    margin-left: 30%
 }
 
 .pop-up{
+    top:0;
     padding: 10% 0 0 30%;
     background: rgba(0,0,0,0.5);
     width: 100vw;
     height: 100vh;
-    position: relative;
+    position: absolute;
 }
 
 .btn-x{

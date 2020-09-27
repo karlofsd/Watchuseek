@@ -96,7 +96,7 @@ const Category =({allCategories,currentCategory,setCategories})=>{
         <div className = "contentCategory">
 
         <div className = "divcategories">
-          <h1>Categorias</h1>
+          <h1>Categories</h1>
           {allCategories && allCategories.map(function(c){
             return <Link onClick={() => handleSearch(c)} value={c.id} >{c.name}</Link> 
           })}<br/>
@@ -107,11 +107,11 @@ const Category =({allCategories,currentCategory,setCategories})=>{
             <div >
 
             <div>
-                <label>Categoria:</label><br/>
+                <label>Category:</label><br/>
                 <input type = "text" autoComplete = "off" name = "name" onChange={(e) =>handleInputChange(e)} value = {input["name"]} />
             </div>
             <div>
-                <label>Descripción:</label><br/>
+                <label>Description:</label><br/>
                 <input type = "text" autoComplete = "off" name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]} />
             </div>
             <div className = "divcategoriesbuttons">

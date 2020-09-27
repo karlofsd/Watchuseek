@@ -60,3 +60,11 @@
 .btnUser:hover{
     background-color: #FFA62B;
 }
+
+.divNoGris {
+    background-color: black;
+}
+
+.divExGris {
+    background-color: black;
+}

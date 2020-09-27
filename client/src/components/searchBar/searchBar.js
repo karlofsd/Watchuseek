@@ -34,7 +34,7 @@ const Search = ({setSearchApp}) => {
         <form onSubmit = {(e) => handleSubmit(e)}>
         <div>
           <div className = "searchBar">
-              <input className = "search" type = "text" name = "search" onChange = {(e) => handleChange(e)} placeholder='Buscar productos...' />
+              <input className = "search" type = "text" name = "search" onChange = {(e) => handleChange(e)} placeholder='search product...' />
               <Link to = {`/products/search?name=${search}`}> <button className = "btn2" type = "submit" onClick={(e)=> handleSubmit(e)} ><SearchIcon/></button></Link>
           </div>
         </div>

@@ -87,7 +87,7 @@ const Activity =({user})=>{
             <Link to='/user/activity'>Activity</Link>
             <Link to='/user/account'>Account</Link>
           </div>
-			<div className='content_admin'>
+        <div className='content_admin'>
 				<Route
 					exact path='/user'
 					render={()=>

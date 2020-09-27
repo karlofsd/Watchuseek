@@ -152,7 +152,7 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
     return (
         <div className = "crud_content">
             <div className = "products">
-                    <h1 className='h11'>Productos</h1>
+                    <h1 className='h11'>Products</h1>
                     {allProducts && allProducts.map(function (p) {
                         return <Link onClick={() => handleSearch(p)} value={p.id} >-{p.name}</Link>
                     })}<br />
@@ -161,16 +161,16 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                 <form onSubmit={(e) => handleSubmit(e)} >
                     <div >
                         <div>
-                            <label>Titulo:</label>
+                            <label>Title:</label>
                             <br />
                             <input className = "input" type="text" name="name" onChange={(e) => handleInputChange(e)} value={input["name"]} />
                         </div>
                         <div className='descripcion'>
-                            <label>Descripción:</label><br />
+                            <label>Description:</label><br />
                             <input className = "input" type="text" name="description" onChange={(e) => handleInputChange(e)} value={input["description"]} />
                         </div>
                         <div className='Precio' >
-                            <label>Precio:</label><br />
+                            <label>Price</label><br />
                             <input className = "input" type="number" name="price" onChange={(e) => handleInputChange(e)} value={input["price"]} />
                         </div>
                         <div className='stock' >
@@ -178,12 +178,12 @@ const Product = ({allProducts, allCategories, setProducts, currentProduct}) => {
                             <input className = "input" type="number" name="stock" onChange={(e) => handleInputChange(e)} value={input["stock"]} />
                         </div>
                         <div className='img' >
-                            <label>Agregar foto-producto:</label><br />
+                            <label>Add photo:</label><br />
                             <input className = "input" type="file" name="image" onChange={uploadImage}/>                      
                         </div>
                         <div>
                             <select name='category' id='cate' value={input.category} onChange={(e) => handleInputChange(e)}>
-                                <option value="" selected disabled>Seleccione la categoria</option>
+                                <option value="" selected disabled>Choose category</option>
                                 {allCategories && allCategories.map(p => <option value={p.id}>{p.name}</option>)}
                             </select>
                         </div>

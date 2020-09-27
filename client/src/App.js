@@ -10,11 +10,14 @@ import User from './components/User/user.js';
 import Activity from './components/Activity/activity.js';
 import Login from './components/LogIn/Login.js';
 import Index from './components/Index/index.js';
+import Footer from './components/Footer/footer';
 import {validation, loginGoogle} from './Redux/users';
 import {getCategories} from './Redux/categories.js';
 import {getProducts} from './Redux/products.js';
 import {getOrders} from "./Redux/orders.js";
 import {useDispatch, useSelector} from 'react-redux';
+/* import Search from './components/searchBar/searchBar'; */
+
 
 
 function App() {
@@ -48,7 +51,7 @@ function App() {
        />
         <Route
         exact path="/products/search"
-        render={()=> <Catalogo products = {search.array}/>}
+        render={()=> <Catalogo products = {search.array} search={search.word}/>}
         />
         
         <Route
@@ -58,12 +61,12 @@ function App() {
 
         <Route 
          exact path='/catalogo'
-         render={()=> <Catalogo products={products} />}
+         render={()=> <Catalogo /* products={products} */ />}
         />
 
         <Route 
          exact path= "/catalogo/:id"
-         render={({match})=> <Catalogo products={products.filter(p => p.categoryId === Number(match.params.id))} />}
+         render={({match})=> <Catalogo products={products.filter(p => p.categoryId === Number(match.params.id))} category={Number(match.params.id)} />}
         />
 
         <Route
@@ -92,6 +95,7 @@ function App() {
        exact path="/carrito"
        render = {() => <Carrito user = {user} products= {products}/>}
        />
+      <Footer/>
     </Router>
   );
 }
