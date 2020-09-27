@@ -1,25 +1,22 @@
 .contentActivity{
     display: flex;
     padding-top: 15px;
+    margin: auto;
     flex-direction: row;
     background-color:#999999;
+    height: 350px; 
 }
 
 .crud_userpanel{
     background-color:#999999;
+    padding-right: 15px;
 }
 
 .divInfo{
-    border-radius: 5px;
-    padding-left: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 5%;
-    background-color: #FFA62B;
-    width: 370px;
-    height: 630px;    
-
+    width: 370px;   
 }
 
 .btoncancelar{
@@ -32,6 +29,7 @@
 
 .imgActivity{
     margin-left: 40px;
+    align-self: center;
     margin-bottom: 20px;
     width: 225px;
     height: 225px;

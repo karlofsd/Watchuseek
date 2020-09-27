@@ -56,16 +56,16 @@ const OrdersAdmin = () => {
                 })} */}
                 <table class="table table-striped table-dark">
                     <thead >
-                        <tr>
-                            <th scope="col" >Order</th>
-                            <th scope="col" >Status</th>
+                        <tr className='tr-order'>
+                            <th  >Order</th>
+                            <th >Status</th>
                         </tr>
                     </thead>
                     <tbody>
                     {orders.map((p, index) => {
                         return (
-                        <a onClick={() => handleSearch(p)}>
-                            <tr>
+                        <a className='td-order' href='#' onClick={() => handleSearch(p)}>
+                            <tr className='tr-order'>
                                 <td>N° {p.order}</td>
                                 <td>{p.status}</td>
                             </tr>

@@ -21,3 +21,9 @@
     padding: 0;
     width: 500px;
 }
+.td-order{
+    display: flex;
+}
+.tr-order{
+    width: 300px;
+}
