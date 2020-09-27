@@ -1,23 +1,42 @@
+.contentIndex{
+    display: flex;
+    flex-direction: column;
+    height: 162vh;
+    margin-top: 20px;
+  
+}
+
+.videoandImg{
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+}
+
+.carouselIndex{
+    width: 190vh;
+    align-self: center;
+}
+
 .divindex12{
     display: flex;
     justify-content:center;
-    position: relative;
     object-fit: cover;
     width: 100%;
     
 }
 
 .videoindex{
-    position: absolute;
     width: 100%;
+    margin-right: 15px;
 }
-.block-bg{
+/* .block-bg{
     position:absolute;
     width:70vw;
     height: 80vh;
     border-right: 500px solid transparent;
     border-bottom: 637px solid rgba(0,0,0, 0.8);
-}
+} */
 .welcome{
     /* background-color:rgba(0,0,0, 0.8); */
     padding-top: 100px;
@@ -29,5 +48,25 @@
     
 
 }
+
+.imgCard{
+    height: 200px;
+    width: 270px;
+
+}
+
+.contentCardIndex{
+    display:  flex;
+    margin-top: 20px;
+    justify-content: space-evenly;
+}
+
+.imghotsale1{
+    position:relative;
+    width: 130px;
+    height: 70px;
+    margin-left: 220px
+}
+
 
 

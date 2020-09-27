@@ -34,11 +34,10 @@ function App() {
     if(localStorage.token){
       dispatch(loginGoogle());
     }
-    
+    dispatch(getProducts());
     dispatch(getOrders());
     dispatch(validation());
     dispatch(getCategories());
-    dispatch(getProducts());
   },[])
 
 
@@ -95,7 +94,7 @@ function App() {
        exact path="/carrito"
        render = {() => <Carrito user = {user} products= {products}/>}
        />
-      <Footer/>
+      <Footer />
     </Router>
   );
 }
