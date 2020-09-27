@@ -15,7 +15,7 @@ server.get('/', (req, res) => {
 });
 
 // GET PAGINATION
-server.get('/:page', (req, res) => {
+server.get('/page/:page', (req, res) => {
 	let {page} = req.params
 	let {categoryId,name} = req.query
 
