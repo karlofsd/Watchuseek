@@ -31,14 +31,14 @@ const Index = () => {
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img style={{ height: "550px" }} src="https://static3.abc.es/media/summum/2020/02/24/relojes-moda-universitarios-elite-knOC--1200x630@abc.jpg" class="d-block w-100" alt="..." />
+                            <img style={{ height: "550px" }} src="http://wallpapers.net/web/wallpapers/daniel-klein-watch-hd-wallpaper/5120x2160.jpg" class="d-block w-100" alt="..." />
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Second slide label</h5>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img style={{ height: "550px" }} src="https://www.timesquare.com.ar/img/bannerHomeOrient-3.jpg" class="d-block w-100" alt="..." />
+                            <img style={{ height: "550px" }} src="https://wallpapers.net/watch-levitation-hd-wallpaper/download/5120x2160.jpg" class="d-block w-100" alt="..." />
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Third slide label</h5>
                                 <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>

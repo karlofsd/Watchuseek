@@ -60,7 +60,7 @@ const UsersAdmin = (usuarios) => {
             {usuario.email && <div className="card text-center shadow col-7 p-0 mx-auto" >
               <div className="orden-header">
                 <div className='w-50px '>
-                  {usuario.image ? <img src={usuario.image}/> : <Avatar className='img w-100px shadow mb-2'/>}
+                  {usuario.image ? <img className='imguserAdmin' src={usuario.image}/> : <Avatar className='img w-100px shadow mb-2'/>}
                 </div>
                 <h2 className='title-orden'>{usuario.username}</h2>
                 <div>

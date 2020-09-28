@@ -5,11 +5,12 @@
 .crud_product{
     display: flex;
     justify-content: center;
-    border-radius: 5%;
+    border-radius: 2%;
     background-color: black;
     color: #FFA62B;
-    margin-left: 40px;
     width: 400px;
+    padding-top: 10px;
+    padding-left: 10px
 }
 
 .input{
@@ -65,14 +66,16 @@
     background-color: red;
  }
 
-.products {
+.productsAdmin {
     display: flex;
     flex-direction: column;
-    border-radius: 5%;
+    border-radius: 10px;
     color: #FFA62B;
     background-color: black;
-    margin: 60px;
     width: 250px;
+    height: 420px;
+    margin: 0px 20px;
+    padding: 10px 0 0 10px 
 }
 
 .divLinks{
@@ -82,6 +85,8 @@
     margin-left:10%
 }
 
-.h11{
-    margin-left: 10%
+.cardAdminProduct{
+    width: 400px
 }
+
+
