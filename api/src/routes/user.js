@@ -215,6 +215,21 @@ server.get("/:filter/ordersAdmin", (req, res) => {
     .catch(err=>{res.status(400).send(err)});
 })
 
+// DELETE ORDER BY ID
+server.delete('/orders/:id', async (request, response) => {
+  const { id } = request.params;
+
+  const orders = await Carrito.destroy({
+    where: {order: id}
+  });
+
+  if (!orders) {
+    return response.status(400).json({message: 'Orders not found.'});
+  }
+
+  return response.status(200).json({orders});
+});
+
 // Location.findAll({
 //   attributes: { 
 //       include: [[Sequelize.fn("COUNT", Sequelize.col("sensors.id")), "sensorCount"]] 

@@ -16,7 +16,7 @@ const Catalogo = ({category,search,products}) => {
         
         const fetchData = async()=>{
 
-            const {data} = await Axios.get(`http://localhost:3001/products/${category? page+'?categoryId='+category : search ? page+'?name='+search : page}`)
+            const {data} = await Axios.get(`http://localhost:3001/products/page/${category? page+'?categoryId='+category : search ? page+'?name='+search : page}`)
             let counter = Math.ceil(data.count/6)
             setCount(counter)
             console.log(data)

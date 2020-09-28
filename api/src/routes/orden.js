@@ -4,6 +4,7 @@ const { Carrito, Ordenfinal } = require('../db.js');
 const { verifyToken } = require('../middlewares/authentication');
 const { APIKEY_MAILGUN, DOMAIN_MAILGUN } = process.env;
 const mailgun = require('mailgun-js')({ apiKey: APIKEY_MAILGUN, domain: DOMAIN_MAILGUN });
+const { Sequelize: { Op, fn, col }, Sequelize } = require('sequelize');
 
 // GET ALL ORDERS
 server.get('/', (req, res) => {
@@ -23,6 +24,20 @@ server.get('/', (req, res) => {
     }))
 
 });
+
+server.get('/user/:userId',(req,res) => {
+  let {userId} = req.params
+  Carrito.findAll({
+    attributes: ['order', 'status',
+      [Sequelize.fn('count', Sequelize.col('id')), 'idCount']],
+    group: ['order', 'status'],
+    order: [['order', 'DESC']],
+    where:{userId},
+    raw: true
+  })
+    .then(order=>{res.status(200).send(order)})
+    .catch(err=>{res.status(400).send(err)});
+})
 
 // GET ONE ORDER
 server.get('/:id', (req, res) => {
