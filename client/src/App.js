@@ -16,6 +16,8 @@ import {getCategories} from './Redux/categories.js';
 import {getProducts} from './Redux/products.js';
 import {getOrders} from "./Redux/orders.js";
 import {useDispatch, useSelector} from 'react-redux';
+import ForgotPassword from "./components/forgotPassword/forgotPassword.js";
+import ResetPassword from "./components/ResetPassword/resetPassword.js";
 /* import Search from './components/searchBar/searchBar'; */
 
 
@@ -85,6 +87,15 @@ function App() {
           component ={Login}
         />
 
+        <Route
+          exact path = '/forgotPassword'
+          component = {ForgotPassword}
+        />
+        
+        <Route
+          path = '/resetpassword/:token'
+          render = {({match}) => <ResetPassword resetLink = {match.params.token}/>}
+        />
         <Route
         exact path ='/user' 
         render = {() => <Activity user = {user}/>}

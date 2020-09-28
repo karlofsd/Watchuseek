@@ -64,7 +64,6 @@ server.post('/login', (request, response) => {
 server.put('/forgot-password', (req, res) => {
 
   const { email } = req.body;
-
   // Buscar usuario en la BD
   Users.findOne({
     where: {
@@ -72,7 +71,6 @@ server.put('/forgot-password', (req, res) => {
     }
   })
     .then(user => {
-
       // Validar que el usuario existe en la BD
       if (!user) {
         return res.status(400).json({
@@ -90,10 +88,9 @@ server.put('/forgot-password', (req, res) => {
         from: 'Excited User <me@samples.mailgun.org>',
         to: `${email}`,
         subject: 'Recuperar contraseña',
-        template: 'forgot-password',
-        'h:X-Mailgun-Variables': JSON.stringify({
-          'url_forgot_password': `${CLIENT_URL}/resetpassword/${token}`
-        })
+        text: `Click to reset your password ${CLIENT_URL}/resetpassword/${token} `
+        
+        
       }
 
       // Actualizar usuario y agregar token dentro del campo 'resetLink'
@@ -115,7 +112,6 @@ server.put('/forgot-password', (req, res) => {
 
             // Token guardado (User actualizado) , enviar correo al email
             mailgun.messages().send(data, (error, body) => {
-
               if (error) {
                 return res.status(500).json({
                   error: error.message

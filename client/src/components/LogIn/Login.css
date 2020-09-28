@@ -31,11 +31,15 @@
 .contentLogin{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
+    margin-top: 30px;
+    padding-bottom: 70px;
+    background-color: #212529;
+    border: #FFA62B 2px solid;
     margin-left: 30%;
     color: #FFA62B;
     width: 500px;
-    height: 630px;
+    height: 420px;
 }
 
 .formLogin{
@@ -52,5 +56,27 @@
 }
 
 .btnLogin:hover{
+    background-color: #FFA62B;
+}
+
+.googleBtn{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.btnForgot{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    background-color: white;
+    padding-left: 10px;
+    width: 150px;
+    height: 40px;
+    color: #757575;
+}
+
+.btnForgot:hover{
     background-color: #FFA62B;
 }

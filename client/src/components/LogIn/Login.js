@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginGoogle, loginUser, validation } from "../../Redux/users.js";
 import "./Login.css";
 import {axios} from "axios";
+import {Link} from "react-router-dom"; 
 
 const Login = ({ history }) => {
   const user = useSelector(store => store.users.user)
@@ -48,19 +49,17 @@ const Login = ({ history }) => {
           <div className="divLogin" >
             <label className='emaillogin' >Username</label>
             <input placeholder='Ej. nombre123' className='inputlogin' type="text" autoComplete="off" name="username" onChange={(e) => handleInputChange(e)} value={input["username"]} />
-          </div>
-          <div>
             <label className='emaillogin' >User Password</label><br />{error && <span>{error}</span>}
             <input placeholder='  your_password' className='inputlogin' type="password" autoComplete="off" name="password" onChange={(e) => handleInputChange(e)} value={input["password"]} />
           </div>
           <button className="btnLogin" onClick={(e) => dispatch(loginUser(input))}>Log In</button>
-          
         </form>
-        <div>
-          <button type="button" className="g-signin2 btn btn-gplus" data-onsuccess="onSignIn" ><i className="fab fa-google-plus-g pr-1"></i> Sign in</button>
+        <div className = "googleBtn">
+          <button type="button" className="g-signin2 btn btn-gplus" data-onsuccess="onSignIn" onClick = {() => <Link to= "/"/>} ><i className="fab fa-google-plus-g pr-1"></i> Sign in</button>
           {/* <button className={"g-signin2 btn-secondary btn"} data-onsuccess="onSignIn">Sign in</button> */}
           
-          <a href="javascript:signOut()">Sign out</a>
+         <a className = "btnForgot" style = {{width:"100px", paddingLeft: "17px"}} href="javascript:signOut()">Sign out</a>
+          <Link className = "btnForgot" to='/forgotPassword'>Forgot password</Link>
         </div>
       </div>
     </div>

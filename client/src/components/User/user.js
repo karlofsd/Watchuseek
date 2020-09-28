@@ -48,7 +48,7 @@ const User =({history})=>{
 
     return(
       <div className='divmayor'>
-        <div className = "contentUser">
+        <div className = "contentUserSingup">
             <h1 className='titulo'>Create user</h1>
             <form className = "formUser" onSubmit={(e)=>handleSubmit(e)}>
               <div className = "divLogin" >
