@@ -18,7 +18,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import ForgotPassword from './components/Forgot-password/forgotPassword';
 import ResetPassword from './components/Reset-password/resetPassword';
 import Footer from './components/Footer/footer';
+import { positions, Provider as ProviderAlert } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
+const options = {
+  timeout: 5000,
+  position: positions.MIDDLE
+};
 
 function App() {
   const dispatch = useDispatch()
@@ -39,6 +45,7 @@ function App() {
 
 
   return (
+    <ProviderAlert template={AlertTemplate} {...options}>
     <Router>
       <Nav user={user} categories={categories} setSearchApp={setSearchApp} />
       <Route
@@ -106,6 +113,7 @@ function App() {
       <Footer />
 
     </Router>
+    </ProviderAlert>
   );
 }
 

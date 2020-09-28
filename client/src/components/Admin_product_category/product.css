@@ -13,7 +13,7 @@
     width: 400px;
     padding-top: 10px;
     padding-left: 10px;
-    height: 85%;
+    height: 90%;
 }
 
 .input{
@@ -81,12 +81,12 @@
     color: #FFA62B;
     background-color: black;
     width: 250px;
-    height: 85%;
+    height: 90%;
     margin: 0px 20px;
 }
 
 .card{
-    height: 85%;
+    height: 90%;
 }
 .divLinks{
     border: solid black 1px;
@@ -99,4 +99,6 @@
     width: 400px
 }
 
-
+.form-control{
+ height:30px !important
+}

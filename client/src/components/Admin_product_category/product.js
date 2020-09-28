@@ -179,21 +179,20 @@ const Product = ({ allProducts, allCategories, setProducts, currentProduct }) =>
                 <form onSubmit={(e) => handleSubmit(e)} >
                     <div >
                         <div>
-                            <label>Title:</label>
-                            <br />
-                            <input className="input" type="text" name="name" onChange={(e) => handleInputChange(e)} value={input["name"]} />
+                            <label for='name'>Title:</label>
+                            <input id='name' className="prod form-control" type="text" name="name" onChange={(e) => handleInputChange(e)} value={input["name"]} />
                         </div>
                         <div className='descripcion'>
-                            <label>Description:</label><br />
-                            <input className="input" type="text" name="description" onChange={(e) => handleInputChange(e)} value={input["description"]} />
+                            <label for='description'>Description:</label><br />
+                            <input id='description' className="prod form-control" type="text" name="description" onChange={(e) => handleInputChange(e)} value={input["description"]} />
                         </div>
                         <div className='Precio' >
-                            <label>Price</label><br />
-                            <input className="input" type="number" name="price" onChange={(e) => handleInputChange(e)} value={input["price"]} />
+                            <label for='price'>Price</label><br />
+                            <input id='price' className="prod form-control" type="number" name="price" onChange={(e) => handleInputChange(e)} value={input["price"]} />
                         </div>
                         <div className='stock' >
-                            <label>Stock:</label><br />
-                            <input className="input" type="number" name="stock" onChange={(e) => handleInputChange(e)} value={input["stock"]} />
+                            <label for='stock'>Stock:</label><br />
+                            <input id='stock' className="prod form-control" type="number" name="stock" onChange={(e) => handleInputChange(e)} value={input["stock"]} />
                         </div>
                         <div className='img' >
                             <label>Add photo:</label><br />

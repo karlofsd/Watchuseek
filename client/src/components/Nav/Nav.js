@@ -101,19 +101,9 @@ const Nav = ({setSearchApp, categories,user}) => {
                   onClose={handleCloser}
                 >
 
-                    {/* {user.id && <Link to='/login' onClick={()=> dispatch(logoutUser())}>Cerrar sesión</Link>} */}
-                    {user.id && <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e) => handleClock(e)} >
-                        <Avatar alt="Remy Sharp" src={user.image ? user.image : "https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg"} />
-                    </Button>
-                    }
-                    <Menu
-                        className='menu2'
-                        id="simple-menu2"
-                        anchorEl={anchor}
-                        keepMounted
-                        open={Boolean(anchor)}
-                        onClose={handleCloser}
-                    >
+               {!user.isAdmin && <MenuItem onClick={handleCloser} ><Link onClick = {() => dispatch(getOrdersUser(user))} className='itemList' to='/user'>Panel</Link></MenuItem>}
+               {user.isAdmin && <MenuItem onClick={handleCloser} ><Link className='itemList' to='/admin' >Admin</Link></MenuItem>}
+               <MenuItem onClick={handleCloser} ><Link to='/login' onClick={()=> dispatch(logoutUser())} className='itemList'>Log Out</Link></MenuItem>
 
                </Menu>
                 {/* {user.id && <Link onClick = {() => dispatch(getOrdersUser(user))} to='/user/activity'><Avatar alt="Remy Sharp" src="https://img2.freepng.es/20180623/iqh/kisspng-computer-icons-avatar-social-media-blog-font-aweso-avatar-icon-5b2e99c40ce333.6524068515297806760528.jpg" /></Link>} */}

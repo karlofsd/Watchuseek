@@ -1,8 +1,8 @@
 .contentIndex{
     display: flex;
     flex-direction: column;
-    height: 162vh;
-    background-color: #212529;
+    height: 170vh;
+   
 }
 
 .videoandImg{
@@ -20,11 +20,11 @@
 }
 
 .carousel-control-prev{
-    background: rgba(0,0,0,0.5);
+   
     width: 5%;
 }
 .carousel-control-next{
-    background: rgba(0,0,0,0.5);
+    
     width: 5%;
 }
 .carousel-caption{
@@ -72,6 +72,7 @@
     display:  flex;
     margin-top: 20px;
     justify-content: space-evenly;
+
 }
 
 .imghotsale1{
