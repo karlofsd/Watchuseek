@@ -39,6 +39,7 @@ module.exports = (sequelize) => {
       },
       google: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
         defaultValue: false
       }
     });

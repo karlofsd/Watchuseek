@@ -9,9 +9,20 @@
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Web site created using create-react-app" />
 
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id"
-    content="1033383039118-g83u02eedeib2he6dhcbgua72vohhq9k.apps.googleusercontent.com">
+  <!-- <script type="text/javascript">
+    function triggerGoogleLoaded() {
+      window.dispatchEvent(new Event("google-loaded"));
+    }
+  </script>
+  <script
+    src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded"
+    async
+    defer
+  ></script>
+  <meta
+    name="google-signin-client_id"
+    content="1033383039118-g83u02eedeib2he6dhcbgua72vohhq9k.apps.googleusercontent.com"
+  /> -->
 
 
   <link rel="apple-touch-icon"
@@ -78,21 +89,21 @@
 
     }
 
-    async function onSignIn(googleUser) {
+    // async function onSignIn(googleUser) {
 
-      const token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-      // console.log(token)
+    //   const token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+    //   // console.log(token)
 
-      // Mandar token al backend 
-      axios.post('http://localhost:3001/auth/google', {token})
-      .then( response => {
-        localStorage.setItem('token',response.data.token);
-        localStorage.setItem('userGoogle', JSON.stringify(response.data))
-        console.log(response.data)
-      })
-      .catch(error => {
-        console.log(error.message)
-      })
+    //   // Mandar token al backend 
+    //   axios.post('http://localhost:3001/auth/google', { token })
+    //     .then(response => {
+    //       localStorage.setItem('token', response.data.token);
+    //       localStorage.setItem('userGoogle', JSON.stringify(response.data))
+    //       console.log(response.data)
+    //     })
+    //     .catch(error => {
+    //       console.log(error.message)
+    //     })
       /* const {data} = await axios.get("http://localhost:3001/user")
       console.log('user: ',data) */
     }
