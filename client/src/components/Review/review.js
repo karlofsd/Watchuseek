@@ -34,6 +34,11 @@ const Review = ({user, product,review,getReview})=>{
       })
    
   }
+  const deleteReview = async() => {
+    await axios.delete(`http://localhost:3001/reviews/${user.id}`)
+    getReview(product)
+  }
+
     return(
         <div className='reviews'>
          
@@ -47,19 +52,22 @@ const Review = ({user, product,review,getReview})=>{
                     </div>
                 </div>
                 <div className='comment'>
-                    <input className='coment' placeholder='Comente algo...' type="text" name='comentarios' value={value["comentarios"]} onChange={(e)=> Onchange(e)}/>
-                    <button type="button" class="btn btn-secondary" onClick={()=>enviar()} >Enviar</button>
+                    <input className='coment' placeholder='Leave a comment...' type="text" name='comentarios' value={value["comentarios"]} onChange={(e)=> Onchange(e)}/>
+                    <button type="button" class="btn btn-secondary" onClick={()=>enviar()} >Send</button>
                 </div>
             </div>
             <div className='comentarios'>
-                <label>Comentarios</label>
+                <label>Comments</label>
                 {review && review.map(r =>{
                     let date =  r.createdAt.split('T')[0]
                     let time =  r.createdAt.split('T')[1].slice(0,5)
                     return <div className='rev'>
-                        <label>{r.user.username}</label><br/>
-                        <span>Date: {date} </span> <span>Hour: {time}</span>
+                        {user.isAdmin && <button className='del-rev btn btn-danger' onClick={()=>deleteReview()}>x</button>}
+                        <div className='nameReview' >
+                        <Rating name="stars" value={r.stars} size="medium" disabled className='starReview' /><label><b>{r.user.username}</b></label>
+                        </div>
                         <p><i>"{r.comentarios}"</i></p>
+                        <span style={{fontSize:'0.8em'}}>Date: {date} </span> <span style={{fontSize:'0.8em'}}>Hour: {time}</span>
                     </div>
                 })}
             </div>

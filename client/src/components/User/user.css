@@ -61,6 +61,7 @@
     background-color: #FFA62B;
 }
 
+
 /* My classes */
 
 .bg-watchuseek {
@@ -151,4 +152,12 @@
 }	
 .signup-form form a:hover{
     text-decoration: underline;
+
+.divNoGris {
+    background-color: black;
+}
+
+.divExGris {
+    background-color: black;
+
 }

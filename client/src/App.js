@@ -17,6 +17,7 @@ import { getOrders } from "./Redux/orders.js";
 import { useDispatch, useSelector } from 'react-redux';
 import ForgotPassword from './components/Forgot-password/forgotPassword';
 import ResetPassword from './components/Reset-password/resetPassword';
+import Footer from './components/Footer/footer';
 
 
 function App() {
@@ -30,10 +31,6 @@ function App() {
   });
 
   useEffect(() => {
-    // if(localStorage.token){
-    //   dispatch(loginGoogle());
-    // }
-
     dispatch(getOrders());
     dispatch(validation());
     dispatch(getCategories());
@@ -50,28 +47,29 @@ function App() {
       />
       <Route
         exact path="/products/search"
-        render={() => <Catalogo products={search.array} />}
-      />
 
-      <Route
+        render={()=> <Catalogo products = {search.array} search={search.word}/>}
+        />
+        
+        <Route
         path='/admin'
-        render={() => <Admin user={user} products={products} categories={categories} />}
-      />
+        render={() => <Admin user={user} products={products} categories={categories}/>}
+        />
 
-      <Route
-        exact path='/catalogo'
-        render={() => <Catalogo products={products} />}
-      />
+        <Route 
+         exact path='/catalogo'
+         render={()=> <Catalogo /* products={products} */ />}
+        />
 
-      <Route
-        exact path="/catalogo/:id"
-        render={({ match }) => <Catalogo products={products.filter(p => p.categoryId === Number(match.params.id))} />}
-      />
+        <Route 
+         exact path= "/catalogo/:id"
+         render={({match})=> <Catalogo products={products.filter(p => p.categoryId === Number(match.params.id))} category={Number(match.params.id)} />}
+        />
 
-      <Route
-        path='/catalogo/product/:id'
-        render={({ match }) =>
-
+        <Route
+           path='/catalogo/product/:id'
+          render={({match}) =>
+          
           <div className='product'>
             <Product user={user} data={products.filter(p => p.id === Number(match.params.id))} />
           </div>}
@@ -104,6 +102,8 @@ function App() {
         exact path='/resetpassword/:token'
         render={({match}) => <ResetPassword  token={match.params.token}/>}
       />
+  
+      <Footer />
 
     </Router>
   );

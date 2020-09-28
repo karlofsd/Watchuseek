@@ -58,9 +58,10 @@ export const getOrders = () => async (dispatch,getState) => {
 
 export const getOrder = (e) => async (dispatch,getState) => {
     try {
-        console.log(e);
+        
         const stat = e.status
         const {data} = await axios.get(`http://localhost:3001/user/${e.order}/admin/${stat}`)
+        console.log('dispatch',data)
         dispatch({
             type: GET_ORDER,
             payload: data,

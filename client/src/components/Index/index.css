@@ -1,23 +1,55 @@
+.contentIndex{
+    display: flex;
+    flex-direction: column;
+    height: 162vh;
+    background-color: #212529;
+}
+
+.videoandImg{
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+}
+
+.carouselIndex{
+    margin-top: 20px;
+    width: 190vh;
+    align-self: center;
+    border-radius: 10px;
+}
+
+.carousel-control-prev{
+    background: rgba(0,0,0,0.5);
+    width: 5%;
+}
+.carousel-control-next{
+    background: rgba(0,0,0,0.5);
+    width: 5%;
+}
+.carousel-caption{
+    background: rgba(0,0,0,0.5);
+}
+
 .divindex12{
     display: flex;
     justify-content:center;
-    position: relative;
     object-fit: cover;
     width: 100%;
     
 }
 
 .videoindex{
-    position: absolute;
     width: 100%;
+    margin-right: 15px;
 }
-.block-bg{
+/* .block-bg{
     position:absolute;
     width:70vw;
     height: 80vh;
     border-right: 500px solid transparent;
     border-bottom: 637px solid rgba(0,0,0, 0.8);
-}
+} */
 .welcome{
     /* background-color:rgba(0,0,0, 0.8); */
     padding-top: 100px;
@@ -29,5 +61,25 @@
     
 
 }
+
+.imgCard{
+    height: 200px;
+    width: 270px;
+
+}
+
+.contentCardIndex{
+    display:  flex;
+    margin-top: 20px;
+    justify-content: space-evenly;
+}
+
+.imghotsale1{
+    position:relative;
+    width: 130px;
+    height: 70px;
+    margin-left: 220px
+}
+
 
 

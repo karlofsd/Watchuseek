@@ -98,10 +98,12 @@ export const newOrden = (userId, carrito,body) => async (dispatch, getState) => 
         carrito.map(async (e) => {
             const data2 = await axios.get(`http://localhost:3001/products/${e.productId}`)
             let stock = data2.data.stock - e.quantity;
-
+            console.log("esto es stock")
+            console.log(stock);
             await axios.put(`http://localhost:3001/user/${userId}/cantidad/${e.id}`, e)
-            await axios.put(`http://localhost:3001/products/mod/${e.productId}`, { stock });
             await axios.put(`http://localhost:3001/user/${userId}/creada/${data[0].id}`)
+            await axios.put(`http://localhost:3001/products/mod/${e.productId}`, { stock });
+          
 
         })
 
@@ -152,7 +154,6 @@ export const getCheckout = () => async (dispatch) => {
         }
         /* const {data} = await axios.get(`http://localhost:3001/user/${numOrden}/admin/creada`) */
         setTimeout(async() => {
-            console.log(newdata)
             await axios.post('http://localhost:3001/orders/mail' , newdata, config)
         },4000);
         dispatch({
