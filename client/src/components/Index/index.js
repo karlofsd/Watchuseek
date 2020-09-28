@@ -16,8 +16,8 @@ const Index = () => {
     return (
         <div className="contentIndex">
             <div className="carouselIndex">
-                <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
+                <div id="carouselExampleCaptions" className="carousel slide" data-ride="carousel">
+                    <ol className="carousel-indicators">
                         <li data-slide-to="0" class="active"></li>
                         <li data-slide-to="1"></li>
                         <li data-slide-to="2"></li>

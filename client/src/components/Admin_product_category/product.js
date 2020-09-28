@@ -4,10 +4,24 @@ import { Link } from 'react-router-dom';
 import './product.css';
 import { connect } from "react-redux";
 import { getProducts, getProduct } from '../../Redux/products.js';
-const imageToBase64 = require('image-to-base64');
+/* const imageToBase64 = require('image-to-base64'); */
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+const useStyles = makeStyles({
+  root: {
+    borderRadius:'0 0 10px 10px',
+    color: 'white',
+    backgroundColor: 'rgb(108 117 125)',
+    overflow:'scroll'
+  }
+});
 
 const Product = ({ allProducts, allCategories, setProducts, currentProduct }) => {
 
+    const classes = useStyles();
     const [input, setInput] = useState({
         id: "",
         name: "",
@@ -152,10 +166,14 @@ const Product = ({ allProducts, allCategories, setProducts, currentProduct }) =>
     return (
         <div className="crud_content">
             <div className="productsAdmin">
-                <h3 className='h11'>Products</h3>
-                {allProducts && allProducts.map(function (p) {
-                    return <Link onClick={() => handleSearch(p)} value={p.id} >-{p.name}</Link>
-                })}<br />
+                <h3 className='h111'>Products</h3>
+                <div className={classes.root}>
+                  <List component="nav" aria-label="secondary mailbox folders">
+                    {allProducts && allProducts.map(p => <ListItem button onClick={()=>handleSearch(p)} value={p.id}>
+                      <ListItemText primary={p.name} secondary={p.price}/>
+                    </ListItem>)}
+                  </List>
+                </div>
             </div>
             <div className="crud_product" >
                 <form onSubmit={(e) => handleSubmit(e)} >
@@ -195,7 +213,7 @@ const Product = ({ allProducts, allCategories, setProducts, currentProduct }) =>
                     </div>
                 </form>
             </div>
-            { input.id && <div class="card" style={{ width: "18rem", color: "black", alignItems: "center", marginLeft: "20px" }}>
+            { input.id && <div className="card" style={{ width: "18rem", color: "black", alignItems: "center", marginLeft: "20px" }}>
                 <img className='card-img rounded-lg shadow w-50' style={{ marginTop: "35px" }} src={input.image} />
                 <div class="card-body">
                     <h2 className='title-admin'>{input.name = input.name.substring(0, 1).toUpperCase() + input.name.substring(1)}</h2>

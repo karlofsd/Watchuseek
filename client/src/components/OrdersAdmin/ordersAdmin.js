@@ -5,8 +5,25 @@ import './ordersAdmin.css'
 import {useSelector, useDispatch} from 'react-redux'
 import {getOrder} from '../../Redux/orders'
 import Axios from 'axios';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    
+    root: {
+      borderRadius:'0 0 10px 10px',
+      color: 'white',
+      backgroundColor: 'rgb(108 117 125)',
+        overflow:'scroll'
+    }
+  });
 
 const OrdersAdmin = () => {
+
+    const classes = useStyles();
+
     const [orders, setOrders] = useState([]);
     const dispatch = useDispatch()
     const ordenes = useSelector(store => store.orders.orders);
@@ -48,33 +65,15 @@ const OrdersAdmin = () => {
                     <button className='buttonDelete' onClick={(e) => handleStatus(e)} >Status</button><br />
                 </div> */}
                 <h1 className='h11'>Orders</h1>
-
-                {/* {orders.map(function (p) {
-                let date = ()=> p.createdAt.split('T')[0]
-                console.log(date)
-                    return <Link onClick={() => handleSearch(p)} >  {" >"}  Order N°{p.order}______({p.status})</Link>
-                })} */}
-                <table class="table table-striped table-dark">
-                    <thead >
-                        <tr className='tr-order'>
-                            <th  >Order</th>
-                            <th >Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {orders.map((p, index) => {
-                        return (
-                        <a className='td-order' href='#' onClick={() => handleSearch(p)}>
-                            <tr className='tr-order'>
-                                <td>N° {p.order}</td>
-                                <td>{p.status}</td>
-                            </tr>
-                        </a>)
-                    })}
-                    </tbody>
-                </table>
+                <div className={classes.root}>
+                  <List component="nav" aria-label="secondary mailbox folders">
+                    {orders.map(p => <ListItem button onClick={()=>handleSearch(p)}>
+                      <ListItemText primary={`N° ${p.order}`} secondary={p.status}/>
+                    </ListItem>)}
+                  </List>
+                </div>
             </div>
-            {orden[0] && <div className='ordenes'><Orden order={orden}/></div>}
+            {orden[0] && <Orden order={orden}/>}
         </div>  
     );
 };

@@ -1,38 +1,38 @@
 .contentProfile{
-    background-color: black;
-    width: 380px;
-    height: 260px;
-    margin-top: auto;
-    margin-left: 300px;
-    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    margin: auto;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 45px;
+
 }
 
 .logoProfile{
-    width: 120px;
-    height: 80px;
-    margin-left: 130px;
+    
+    height: 120px;
     margin-top: 8px;
     background-position: 50% 50%;
 }
 
 .adminAdmin {
-    color: darkgoldenrod; 
+    color: #FFA62B; 
     font-family: Tahoma, Geneva, sans-serif;
-    margin-left: 60px;
+    font-size: 2.5em;
     padding-top: 15px;
-    }
+}
 
 .nombreAdmin {
     color: white; 
     font-family: Tahoma, Geneva, sans-serif;
-    font-size: 15px;
+    font-size: 1.2em;
     padding-top: 5px;
-    padding-left: 15px;
 }
 
 .mailAdmin {
     color: white; 
     font-family: Tahoma, Geneva, sans-serif;
-    font-size: 15px;
-    padding-left: 15px;
+    font-size: 1em;
+
 }
