@@ -21,7 +21,7 @@ server.get('/page/:page', (req, res) => {
 
 	if(categoryId || name ){
 		
-		Product.findAndCountAll({limit:6,offset:(page-1)*6,
+		Product.findAndCountAll({limit:8,offset:(page-1)*8,
 			where:{
 				[Op.or]:[
 					{name: {
@@ -42,7 +42,7 @@ server.get('/page/:page', (req, res) => {
 			res.status(404).json(error);
 		});
 	}else{
-		Product.findAndCountAll({limit:6,offset:(Number(page)-1)*6})
+		Product.findAndCountAll({limit:8,offset:(Number(page)-1)*8})
 		.then(products => {	
 			console.log(products)
 			res.status(200).json(products);

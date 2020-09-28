@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom';
 import { signUp, authGoogle, cleanMessage } from '../../Redux/users';
 import { loadAuth2 } from 'gapi-script';
+import { useAlert } from "react-alert";
 
 const User = ({ history }) => {
+  const alert = useAlert();
   const user = useSelector(store => store.users.user);
   const [displayPassword, setValue] = useState(false);
 
@@ -53,8 +55,8 @@ const User = ({ history }) => {
 
     if (input.username && input.email && input.password) {
       dispatch(signUp(dataPost))
-      alert('Agregado correctamente');
-      history.push('/login');
+      alert.success('A new user was added!');
+      // history.push('/login');
     }
   }
 

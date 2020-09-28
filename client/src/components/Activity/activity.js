@@ -20,7 +20,21 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { useAlert } from "react-alert";
 
+//---------------------------------------------
+export function validate(password) {
+  let errors = {};
+  if(!password.newpassword){
+    errors.password = 'Password is required';
+  }else if(password.newpassword !== password.repeatpassword){
+    errors.password = 'Passwords do not match';
+  }
+
+  return errors;
+};
+
+//-----------------------------------
 const useStyles = makeStyles({
   table: {
     /* minWidth: 650, */
@@ -29,18 +43,27 @@ const useStyles = makeStyles({
   root: {
     borderRadius:'5px',
     color: 'white',
-    backgroundColor: 'rgb(108 117 125)'
+    backgroundColor: 'rgb(108 117 125)',
+    overflow:'auto'
   }
 });
 
 //--------------------------------
 const Activity =({user})=>{
 
+  const alert = useAlert();
+
   const classes = useStyles();
 
   const [ordenes, setOrdenes] = useState([]);
   const [usuario,setUsuario] = useState({})
   const [update, setUpdate] = useState(false)
+  const [password, setPassword] = useState({
+    actualpassword: "",
+    newpassword: "",
+    repeatpassword: "",
+  });
+  const [errors, setErrors] = useState();
   
   const [current,setCurrent] = useState()
 
@@ -51,6 +74,7 @@ const Activity =({user})=>{
   
   const deleteOrder = async(e) =>{
     await axios.delete(`http://localhost:3001/user/orders/${e.order}`)
+    dispatch(getOrder(e))
   }
 
   const Cancelar = async (e)=>{
@@ -60,14 +84,14 @@ const Activity =({user})=>{
 
   const fetchData = async() =>{
     const {data} = await axios.get(`http://localhost:3001/orders/user/${user.id}`)
-    setOrdenes(data)
+    setOrdenes(data.filter(e => e.status !== 'carrito'))
   }
-
+  console.log(ordenes)
   useEffect(()=>{
     fetchData()
     setUsuario(user)
     setUpdate(false)
-  },[ordenes,user,order]);
+  },[user,order]);
   
   const handleSubmit = (e) => e.preventDefault()
 
@@ -77,6 +101,35 @@ const Activity =({user})=>{
       [e.target.name] : e.target.value
     })
   }
+
+  const handlePassword = (e) => {
+    setPassword({
+      ...password,
+      [e.target.name]: e.target.value,
+    });
+
+    setErrors(validate({
+      ...password,
+      [e.target.name]: e.target.value
+    }));
+  }
+
+  const handleAccount = async() => {
+    const data = {
+      actualPassword: password.actualpassword,
+      newPassword: password.newpassword,
+    }
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    }
+    const {data1} = await axios.put('http://localhost:3001/user/update/password', data, config);
+
+    console.log(data1)
+    alert.success('Changed password!')
+  }
+
   const updateProfile = async() => {
     if(update){
       await axios.put(`http://localhost:3001/user/${user.id}`,usuario)
@@ -182,13 +235,14 @@ const Activity =({user})=>{
                       <button className='buttonDelete' onClick={(e) => handleStatus(e)} >Status</button><br />
                   </div> */}
                   <h1 className='title1-act'>Orders</h1>
-                  <div className={classes.root}>
+                  <div className={classes.root} style={{height: "350px"}} >
                   <List component="nav" aria-label="secondary mailbox folders">
                     {ordenes.map(p => <ListItem button onClick={()=>handleSearch(p)}>
                       <ListItemText primary={`N° ${p.order}`} secondary={p.status}/>
+                      <ListItemText secondary={p.status}/>
                       <ListItemSecondaryAction>
                         <IconButton edge="end" aria-label="delete">
-                          <DeleteIcon />
+                          <DeleteIcon onClick={()=>deleteOrder(p)}/>
                         </IconButton>
                       </ListItemSecondaryAction>
                     </ListItem>)}
@@ -197,26 +251,6 @@ const Activity =({user})=>{
               </div>
               <div className = "contentActivity">
                 <h1 className = "titleHistory">Items</h1>
-                {/* <div className = 'card-bodyact'>
-                  <table>
-                    <tr className='columns-act col-10'>
-                      <th className='th1-act col-5' >Name</th>
-                      <th className='th1-act col-2' >Price</th>
-                      <th className='th1-act col-2' >Quantity</th>
-                      <th className='th1-act col-2' >Status</th>
-                    </tr>
-                    {order[0] && order.map(o => 
-                      <tr className='columns-act col-10'>
-                        <td className='td1-act col-5'>{o.name}</td>
-                        <td className='td1-act col-2' >${o.price}</td>
-                        <td className='td1-act col-2' >{o.quantity}</td>
-                        <td className='td1-act col-2' >{o.status}</td>
-                        { o.status === "creada"  || o.status === "procesando" ?        
-                        <button className='btoncancelar' onClick={()=> Cancelar(o)} >Cancel</button> : null}       
-                      </tr>
-                    )}
-                  </table>
-                </div> */}
                 <TableContainer component={Paper}>
                   <Table className={classes.table} size="small" aria-label="a dense table">
                     <TableHead>
@@ -252,9 +286,35 @@ const Activity =({user})=>{
 				/>
 				<Route
 					exact path='/user/account'
-					render={()=>
-						
-								<div className='panel-h1'><h3 className='title-h3'>Account</h3></div>
+          render={()=>
+            <Fragment>
+            <div className='panel-h1'><h3 className='title-h3'>Account</h3></div>
+						<div className = "contentAccount">
+              <div className = "divAccount" >
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <div >
+                        <div className='form-group'>
+                          <h3 className = "otitle-h3">Reset password</h3>
+                            <label >Actual password</label><br/>
+                            <input  className = "form-control" type="password" name="actualpassword"  placeholder='' onChange={(e)=> handlePassword(e)} value={password.actualpassword}  />
+                        </div>
+                        <div className='form-group'>
+                            <label>New password</label><br/>
+                            <input className = "form-control" type="password" name="newpassword" value={password.newpassword} onChange={(e)=> handlePassword(e)} />
+                        </div>
+                        <div className='form-group' > 
+                            <label>Repeat password</label><br />
+                            <input className = "form-control" type="password" name="repeatpassword" onChange={(e)=> handlePassword(e)} value={password.repeatpassword}  />
+                                {errors && <p style = {{color: "red"}}>{errors.password}</p>}
+                        </div>
+                        <div className = "profile-button">
+                        <button type='button' className='btn btn-light' onClick={()=>handleAccount()} disabled = {errors && errors.password ? "disable" : ""} >Accept</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+            </Fragment>
 						}
 				/>
 			</div>

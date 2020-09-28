@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authGoogle, loginUser, validation, cleanError } from "../../Redux/users.js";
 import { Link } from 'react-router-dom';
 import "./Login.css";
-import { loadAuth2 } from 'gapi-script';
+import { loadAuth2 } from "gapi-script";
 
 const Login = ({ history }) => {
   const user = useSelector(store => store.users.user)

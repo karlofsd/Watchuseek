@@ -48,6 +48,50 @@ server.put("/:id", (req, res) => {
     .then(user => {return res.status(201).send(user)})
     .catch(err => {return res.status(404).send(err)})
 })
+ 
+// CHANGE PASSWORD
+server.put('/update/password', verifyToken ,(req,res) =>{
+  const {actualPassword , newPassword} = req.body;
+  const {id_user} = req.user;
+
+  Users.findOne({
+    where: {
+      id: id_user
+    }
+  })
+    .then(user => {
+
+      if (!bcrypt.compareSync(actualPassword, user.password)) {
+        return res.status(400).json({
+          error: 'Password dont match.'
+        });
+      }
+
+      // Contraseña coincide, actualizar user
+      Users.update({
+        password: bcrypt.hashSync(newPassword, 10)
+      }, {
+        where: { id: user.id}
+      })
+        .then(userUpdated => {
+          return res.status(200).json({
+            message: 'Your password was changed.'
+          })
+        })
+        .catch(error => {
+          return res.status(500).json({
+            error: error.message
+          })
+        })
+
+    })
+    .catch(error => {
+      return res.status(500).json({
+        error: error.message
+      })
+    })
+
+})
 
 // DELETE USER
 server.delete('/:id', async (request, response) => {

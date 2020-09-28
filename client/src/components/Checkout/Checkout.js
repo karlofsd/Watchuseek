@@ -4,10 +4,10 @@ import { useSelector, useDispatch} from 'react-redux'
 import {  newOrden , getCarrito} from '../../Redux/carrito.js';
 import { getProducts } from '../../Redux/products.js';
 import './Checkout.css'
-
+import { useAlert } from "react-alert";
 
 const Checkout =({ user})=>{
-
+    const alert = useAlert();
     const carrito = useSelector(store => store.carrito.carrito);
     const dispatch = useDispatch();
 
@@ -81,7 +81,7 @@ const Checkout =({ user})=>{
             email:"",
             telefono:""
         })
-        alert('comprado');
+        alert.success('An email was sent with the purchase details!');
     }
 
     const handleSubmit=(e)=>{
