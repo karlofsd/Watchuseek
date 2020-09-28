@@ -124,7 +124,7 @@ server.put('/forgot-password', (req, res) => {
 
               // Correo enviado al email del user
               return res.status(200).json({
-                message: `Se envió un correo al email del usuario: ${user.username}`
+                message: `An email was sent to the address of user: ${user.username}`
               });
 
             });
@@ -197,7 +197,7 @@ server.put('/reset-password', (req, res) => {
 
               // Se actualizo la password del usuario  
               return res.status(200).json({
-                message: `El usuario: ${user.username} , ha cambiado la password correctamente.`
+                message: `The user: ${user.username} , has changed the password correctly. You can now log in!`
               });
 
             })
@@ -236,7 +236,7 @@ async function verify(token) {
 
   // Nuevo user
   return {
-    username: payload.name,
+    username: payload.email.split('@')[0],
     email: payload.email,
     image: payload.picture,
     google: true
@@ -277,7 +277,13 @@ server.post('/google', async (req, res) => {
         } else {
           // Generar el token
           const token = jwt.sign({
-            user: user
+            user: {
+              id_user: user.id,
+              mail: user.email,
+              username: user.username,
+              admin: user.isAdmin,
+              google: user.google
+            }
           }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 })
 
           // usuario logueado con google, retornar token
@@ -302,7 +308,13 @@ server.post('/google', async (req, res) => {
 
             // Generar token del userGoogle
             const token = jwt.sign({
-              user: userCreated
+              user: {
+                id_user: userCreated.id,
+                mail: userCreated.email,
+                username: userCreated.username,
+                admin: userCreated.isAdmin,
+                google: userCreated.google
+              }
             }, SIGNATURE, { expiresIn: 60 * 60 * 24 * 30 });
 
             // Usuario registrado 
@@ -346,7 +358,7 @@ server.get('/me', verifyToken, (request, response) => {
     })
     .catch(error => {
       return response.status(400).json({
-        error
+        error: error.message
       });
     })
 
