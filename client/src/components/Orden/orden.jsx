@@ -90,27 +90,22 @@ return (
         <button onClick = {() => checkout()} className="btn btn-primary rounded-pill">CHECKOUT</button>
       </div>
     </div>
-
-    {/* CARD CHECKOUT */}
-
-    {check && <div className="card  shadow col-5 p-0 mx-auto">
-      <div className="orden-header">
-        <h2 className='title-orden'>{date('updatedAt')}</h2>
-        <div>
-          <h3 className='userEmail'>User: {userData.email.split('@')[0]}</h3>
-        </div>
-      </div>
-      <div className="card-bodyOrden">
-        <ul>
-          <li>Provincia: {checkin.provincia}</li>
-          <li>Departamento: {checkin.departamento}</li>
-          <li>Localidad: {checkin.localidad}</li>
-          <li>Dirección: {checkin.direccion}</li>
-        </ul><br/>
-        <br/>
+    {check && <div className='cardinfoadmin' >  
+    <div class="card" >
+      <div class="card-body">
+       <h5 class="card-title">{date('updatedAt')}</h5>
+       <h6 class="card-subtitle mb-2 text-muted">User: {userData.email.split('@')[0]}</h6>
+       <p class="card-text"> 
+         Provincia: {checkin.provincia}<br/>
+         Departamento: {checkin.departamento}<br/>
+         Localidad: {checkin.localidad}<br/>
+         Dirección: {checkin.direccion}<br/>
+        </p><br/>
+ 
         <h5 className="card-title">Email: {checkin.email}</h5><br/>
         <p className="card-text">Telefono: {checkin.telefono}</p><br/>
-      </div>
+   </div>
+   </div>
     </div>}
   </div>
     )

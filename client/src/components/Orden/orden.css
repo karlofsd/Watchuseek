@@ -16,16 +16,15 @@
     justify-content: center;
     flex-direction: column;
     flex: 1 1 auto;
-    min-height: 1px;
+    min-height: 1px;    
     padding: 1.25rem;
+    margin-top: 90px;
 }
 
 .columns{
     display: flex;
-    /* margin : 0 20px 0 5px; */
-    /* padding: 10px; */
-    /* width: 40px; */
 }
+
 .th1{
     display: flex;
     margin : 0 15px 0 0;
@@ -41,3 +40,15 @@
 .fecha{
     padding-left: 10px;
 }
+
+.cardinfoadmin{
+    margin-left:380px;
+    margin-top: -565px;
+}
+
+
+
+.card-subtitle{
+    width: 330px
+} 
+
