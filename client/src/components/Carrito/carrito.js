@@ -106,7 +106,7 @@ const Carrito = ({ user, products }) => {
                                 <td>{products.find(product => product.name.toLowerCase() === p.name.toLowerCase()).stock - p.quantity}</td>
                                 <td><input className="inputItem" defaultValue='1' placeholder='1' type="number" value={p.quantity} min='1' max={products.find(product => product.name.toLowerCase() === p.name.toLowerCase()).stock} name={p.quantity} onChange={(e) => handleInputChange(e, index, p)} /></td>
                                 <td>{total[p.name] ? total[p.name] : p.price * p.quantity}</td>
-                    <td><button type="button" class="btn btn-danger" onClick={() => eliminar(p, index)}>{<DeleteIcon/>}</button></td>
+                                <td><DeleteIcon onClick={() => eliminar(p, index)} style={{cursor:'pointer'}}/></td>
                             </tr>
                         </tbody>
                     )
