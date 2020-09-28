@@ -85,26 +85,6 @@ const User = ({ history }) => {
   }, [])
 
   return (
-    // <div className='divmayor'>
-    //   <div className = "contentUser">
-    //       <h1 className='titulo'>Crear usuario</h1>
-    //       <form className = "formUser" onSubmit={(e)=>handleSubmit(e)}>
-    //         <div className = "divLogin" >
-    //         <label className='labelemail' >Username</label><br/>
-    //         <input placeholder='Ej. nombre123' className='inputemail' type="text" autoComplete = "off" name = "username" onChange={(e) =>handleInputChange(e)} value = {input["username"]}  />
-    //       </div>
-    //           <div className = "divLogin">
-    //          <label className='labelemail'>User Email</label> <br/>   
-    //    <input placeholder='   email@mail.com' className='inputemail' type="email" autoComplete = "off" name = "email" onChange={(e) =>handleInputChange(e)} value = {input["email"]} />
-    //           </div>
-    //           <div>
-    //           <label className='labelemail' >User Password</label> <br/>    
-    //    <input placeholder='   your_password' className='inputemail' type = "password" autoComplete = "off" name = "password" onChange={(e) =>handleInputChange(e)} value = {input["password"]} />
-    //           </div>
-    //        <button className = "btnUser" onClick={(e)=>handleCreate(e)}>Aceptar</button>
-    //       </form>
-    //   </div>
-    //   </div>
     <div className='container mt-2'>
       <div class="signup-form">
         <form className='shadow' onSubmit={(e) => handleSubmit(e)}>
