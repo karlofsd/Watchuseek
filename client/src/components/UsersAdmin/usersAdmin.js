@@ -6,13 +6,27 @@ import {getUser,getUsers,resetUser} from '../../Redux/users.js';
 import {Avatar} from '@material-ui/core'
 import Axios from 'axios';
 
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+const useStyles = makeStyles({
+  root: {
+    borderRadius:'0 0 10px 10px',
+    color: 'white',
+    backgroundColor: 'rgb(108 117 125)',
+    overflow:'scroll'
+  }
+});
+
 const UsersAdmin = (usuarios) => {
 
+    const classes = useStyles();
     const dispatch = useDispatch();
     
-   /*  const usuarios = useSelector(store => store.users.users); */
     const usuario = useSelector(store => store.users.userSelected);
-    console.log(usuario)
+   
      useEffect( () => {
         dispatch(getUsers())
         if(usuario.email) return getUser(usuario.email)
@@ -45,19 +59,19 @@ const UsersAdmin = (usuarios) => {
     return (
         <div className='users-content'>
             <div className = "recuadro">
-                <div className = "tablaUsuarios">
+                
                     <h1 className = "tituloTabla"> Users </h1>
-                    <h6 className = "subtituloTabla">usernames </h6>
-                    <div className='user-list'>
-                    {usuarios.usuarios && usuarios.usuarios.map( (p) =>
-                        <Link onClick={() => handleSearch (p)}>
-                            <li>{p.username}______<span>{p.isAdmin ? 'Admin' : 'User'}</span></li>
-                        </Link>
-                    )}
-                    </div>
+                    {/* <h6 className = "subtituloTabla">usernames </h6> */}
+                    <div className={classes.root}>
+                    <List component="nav" aria-label="secondary mailbox folders">
+                      {usuarios.usuarios && usuarios.usuarios.map(p => <ListItem button onClick={()=>handleSearch(p)}>
+                        <ListItemText primary={p.username}/>
+                        <ListItemText secondary={p.isAdmin ? 'Admin' : 'User'}/>
+                      </ListItem>)}
+                    </List>
                 </div>
             </div>
-            {usuario.email && <div className="card text-center shadow col-7 p-0 mx-auto" >
+            {usuario.email && <div className="card3 card text-center shadow " >
               <div className="orden-header">
                 <div className='w-50px '>
                   {usuario.image ? <img className='imguserAdmin' src={usuario.image}/> : <Avatar className='img w-100px shadow mb-2'/>}
@@ -69,8 +83,8 @@ const UsersAdmin = (usuarios) => {
               <div className="card-bodyOrden">
                     <h3 className='userEmail'>Email: {usuario.email}</h3>
                 <hr/>
-                    <h5 className="card-title">Role: {usuario.isAdmin ? 'Administrador' : 'Usuario'}</h5><br/>
-                    <p className="card-text"><span className='fecha'>{/* {date('updatedAt')} */}</span></p><br/>
+                    <h5 className="card-title">Role: {usuario.isAdmin ? 'Administrador' : 'Usuario'}</h5>
+                    <p className="card-text"><span className='fecha'>{usuario.updatedAt.split('T')[0]}</span></p>
                     <button onClick = {() => handleUpgrade()} className="btn btn-primary rounded-pill">{
                       usuario.isAdmin ? 'QUITAR PERMISOS' : 'DAR PERMISOS'
                     }</button>
@@ -78,7 +92,6 @@ const UsersAdmin = (usuarios) => {
               </div>
 
             </div>}
-            {/* {usuarios.usuarios[0] && <div className='ordenesUA'><User user={usuario}/></div>} */}
         </div>
             
     )

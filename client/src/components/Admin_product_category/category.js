@@ -4,9 +4,30 @@ import {Link} from 'react-router-dom'
 import "./category.css";
 import {getCategories, getCategory} from '../../Redux/categories.js';
 import {connect} from 'react-redux'
+import { makeStyles } from '@material-ui/core/styles';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+const useStyles = makeStyles({
+  table: {
+    /* minWidth: 650, */
+    backgroundColor: 'whitesmoke',
+  },
+  root: {
+    borderRadius:'0 0 10px 10px',
+    color: 'white',
+    backgroundColor: 'rgb(108 117 125)',
+    height:'100%',
+    overflow:'auto'
+  }
+});
 
 const Category =({allCategories,currentCategory,setCategories})=>{
   
+  const classes = useStyles();
+
   const [input, setInput] = useState({
         id: null,
         name: "",
@@ -15,7 +36,7 @@ const Category =({allCategories,currentCategory,setCategories})=>{
 
   useEffect(() => {
     setCategories();
-},[])
+  },[])
 
   const handleSearch = (data) => {
     setInput(data);
@@ -91,37 +112,39 @@ const Category =({allCategories,currentCategory,setCategories})=>{
         setInput(currentCategory);
       }
       
-
      return(
         <div className = "contentCategory">
 
-        <div className = "divcategories">
-          <h1>Categories</h1>
-          {allCategories && allCategories.map(function(c){
-            return <Link onClick={() => handleSearch(c)} value={c.id} >{c.name}</Link> 
-          })}<br/>
-        </div>
-
-
-        <form onSubmit = {(e) => handleSubmit(e)} className='Form' >
-            <div >
-
-            <div>
-                <label>Category:</label><br/>
-                <input type = "text" autoComplete = "off" name = "name" onChange={(e) =>handleInputChange(e)} value = {input["name"]} />
+          <div className = "divcategories">
+            <h1>Categories</h1>
+            {/* {allCategories && allCategories.map(function(c){
+              return <Link onClick={() => handleSearch(c)} value={c.id} >{c.name}</Link> 
+            })} */}
+            <div className={classes.root}>
+              <List component="nav" aria-label="secondary mailbox folders">
+                {allCategories && allCategories.map(c => <ListItem button onClick={() => handleSearch(c)} value={c.id} >
+                  <ListItemText primary={c.name}/>
+                </ListItem>)}
+              </List>
             </div>
-            <div>
-                <label>Description:</label><br/>
-                <input type = "text" autoComplete = "off" name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]} />
-            </div>
-            <div className = "divcategoriesbuttons">
-            <button type = "submit" className='buttonAddCat' onClick={()=>handleCreate()} >Add</button>
-            <button type = "submit" className='buttonEditCat' onClick={()=> handleUpdate()} >Edit</button>
-            <button type = "submit" className='buttonDeleteCat' onClick={(e)=> handleDelete(e)} >Delete</button>
-            </div>
-            </div>
-    
-        </form>
+          </div>
+          <form onSubmit = {(e) => handleSubmit(e)} className='Form' >
+              <div >
+                <div>
+                    <label>Category:</label><br/>
+                    <input type = "text" autoComplete = "off" name = "name" onChange={(e) =>handleInputChange(e)} value = {input["name"]} />
+                </div>
+                <div>
+                    <label>Description:</label><br/>
+                    <textarea className='textArea' type = "text" autoComplete = "off" name = "description" onChange={(e) =>handleInputChange(e)} value = {input["description"]} />
+                </div>
+                <div className = "divcategoriesbuttons">
+                  <button type = "submit" className='buton1 btn btn-light' onClick={()=>handleCreate()} >Add</button>
+                  <button type = "submit" className='buton1 btn btn-light' onClick={()=> handleUpdate()} >Edit</button>
+                  <button type = "submit" className='buton1 btn btn-light' onClick={(e)=> handleDelete(e)} >Delete</button>
+                </div>
+              </div>
+          </form>
         </div>
     )
 }

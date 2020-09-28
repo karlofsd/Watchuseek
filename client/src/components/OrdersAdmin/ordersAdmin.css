@@ -4,26 +4,22 @@
     flex-direction: column;
     background-color: black;
     border-radius: 5px;
-    overflow: scroll;
-    height: 72vh;
+    height: 85%;
     width: 300px;
     margin: 0 50px 0 50px;
-    
 }
 
 .h11{
-    color:#FFA62B
+    color:#FFA62B;
+    text-align: center;
+    padding-top: 5px;
 }
-.ordenes{
-    display: flex;
-    justify-content: center;
-    border-radius: 5%;
-    padding: 0;
-    width: 500px;
-}
+
 .td-order{
     display: flex;
 }
 .tr-order{
     width: 300px;
+    display: flex;
+    justify-content: space-around;
 }

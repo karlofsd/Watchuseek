@@ -1,28 +1,30 @@
 .contentCategory{
     display: flex;
-
+    margin:auto;
+    width: 70%;
+    height: 80%;
+    justify-content: space-evenly;
+    align-items: flex-start;
 }
 
 .divcategories{
     display: flex;
     flex-direction: column;
-    border-radius: 5%;
-    background-color: black;
     color: #FFA62B;
     width: 220px;
-    margin-left: 15px;
     padding-top: 5px;
-    padding-left: 5px;
-    padding-right: 10px;
+    height: 90%;
+    background-color: black;
+    border-radius: 5px;
 }
 
 .divcategoriesbuttons{
     display: flex;
-    margin-right: 5px;
+    justify-content: space-between;
 }
 
 .Form{
-    background-color:black;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,16 +32,24 @@
     padding-top: 5px;
     padding-bottom: 12px;
     padding-left: 20px;
-    margin-right: auto;
-    margin-left: 10px;
-    border-radius: 5%;
+    border-radius: 10px;
+    border: 2px solid #FFA62B;
     color: #FFA62B;
-    height: auto;
+    height: 45%;
+    margin-top:62px
 }
 
 input{
     border: 0px;
     margin-bottom: 10px;
+}
+
+.textArea{
+    resize: none;
+}
+
+.buton1{
+    padding: 0 5px 0 5px;
 }
 
 .buttonAddCat{
@@ -57,6 +67,8 @@ input{
  .buttonAddCat:hover {
     background-color:  rgb(4, 161, 4);
   }
+
+
 
   .buttonEditCat{
     margin-top:20px;

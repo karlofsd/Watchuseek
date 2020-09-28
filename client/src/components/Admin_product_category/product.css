@@ -1,6 +1,8 @@
 .crud_content{
     display: flex;
-    /* align-items: baseline; */
+    align-items: center;
+    height: 90%;
+
 }
 .crud_product{
     display: flex;
@@ -10,7 +12,8 @@
     color: #FFA62B;
     width: 400px;
     padding-top: 10px;
-    padding-left: 10px
+    padding-left: 10px;
+    height: 85%;
 }
 
 .input{
@@ -66,6 +69,11 @@
     background-color: red;
  }
 
+.h111{
+    padding-top:10px;
+    color:#FFA62B;
+    text-align: center;
+}
 .productsAdmin {
     display: flex;
     flex-direction: column;
@@ -73,11 +81,13 @@
     color: #FFA62B;
     background-color: black;
     width: 250px;
-    height: 420px;
+    height: 85%;
     margin: 0px 20px;
-    padding: 10px 0 0 10px 
 }
 
+.card{
+    height: 85%;
+}
 .divLinks{
     border: solid black 1px;
     display: flex;
