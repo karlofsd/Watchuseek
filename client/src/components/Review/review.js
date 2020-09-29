@@ -14,7 +14,7 @@ const Review = ({user, product,review,getReview})=>{
     useEffect(() => {
        getReview(product)
     },[])
-
+    console.log(review)
     const enviar = async()=>{
         const dataValue = {
             comentarios: value.comentarios,
@@ -34,8 +34,8 @@ const Review = ({user, product,review,getReview})=>{
       })
    
   }
-  const deleteReview = async() => {
-    await axios.delete(`http://localhost:3001/reviews/${user.id}`)
+  const deleteReview = async(e) => {
+    await axios.delete(`http://localhost:3001/reviews/${e}`)
     getReview(product)
   }
 
@@ -62,7 +62,7 @@ const Review = ({user, product,review,getReview})=>{
                     let date =  r.createdAt.split('T')[0]
                     let time =  r.createdAt.split('T')[1].slice(0,5)
                     return <div className='rev'>
-                        {user.isAdmin && <button className='del-rev btn btn-danger' onClick={()=>deleteReview()}>x</button>}
+                        {user.isAdmin && <button className='del-rev btn btn-danger' onClick={()=>deleteReview(r.id)}>x</button>}
                         <div className='nameReview' >
                         <Rating name="stars" value={r.stars} size="medium" disabled className='starReview' /><label><b>{r.user.username}</b></label>
                         </div>
