@@ -27,7 +27,7 @@ server.get('/:productId', (req, res) => {
 
 	Reviews.findAll({
 		where: {productId},
-		attributes:['comentarios','stars','createdAt'],
+		attributes:['id','comentarios','stars','createdAt'],
 		include:[{
 			model: Users,
 			attributes:['username']
