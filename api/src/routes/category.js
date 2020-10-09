@@ -67,11 +67,8 @@ server.get("/:id", (req,res) => {
 server.put('/:id', (req, res) => {
   let id = req.params.id;
   Categories.update ({
-    name: req.body.name, description: req.body.description
-    },{ 
-      where: {id:id}
-      }
-      ).then(category => {
+    name: req.body.name, description: req.body.description},{ where: {id:id}})
+    .then(category => {
         res.send(category)
       })
       .catch((err)=>{
